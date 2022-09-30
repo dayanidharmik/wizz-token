@@ -3,7 +3,7 @@ import axios from "axios";
 // Encrypt & Decrypt
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL:process.env.REACT_APP_BASE_URL,
   withCredentials: true,
 });
 // eslint-disable-next-line consistent-return

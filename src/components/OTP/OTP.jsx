@@ -89,7 +89,26 @@ function OTP({ email, route }) {
   };
 
   /*=======resend otp API ====== */
+  const resendotp = async () => {
+    try {
+      const encrypt = encryptData(
+        JSON.stringify({
+          email: email,
+        })
+      );
+      const result = await instance.post("/resendOtp", {
+        data: encrypt,
+      });
 
+      const results = decryptData(result.data.data);
+
+      if (results.status) {
+        toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
   /*===== RESEND OTP TIMER======== */
   const startTimerWrapper = useCallback((func) => {
     let timeInterval: NodeJS.Timer;
@@ -172,7 +191,7 @@ function OTP({ email, route }) {
                         to="#"
                         disabled={!timerCount === 0}
                         className="font-medium"
-                        onClick={otpverification}
+                        onClick={resendotp}
                       >
                         Resend OTP
                       </Link>
