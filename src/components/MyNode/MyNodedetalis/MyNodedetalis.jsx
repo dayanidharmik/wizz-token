@@ -15,24 +15,26 @@ function MyNodedetalis() {
     },
     {
       id: 1,
-      card: "0",
+      card: 0,
       img: thounder,
     },
     {
       id: 2,
-      card: "0",
+      card: 0,
       img: king,
     },
   ];
   return (
     <>
-      <div className="container  mx-auto px-10">
+      <div className="container  mx-auto p-10">
         <div className="mt-7 flex-col md:flex-row ">
           <MainTitle title={"My Node"} />
         </div>
         <div className="flex lg:flex-row flex-col justify-between items-center py-6 mt-3 bg-[#DFE5FF] rounded-xl px-10  ">
           <div className="">
-            <p className="text-[40px] text-[#7351FC] font-extrabold">My Nodes</p>
+            <p className="text-[40px] text-[#7351FC] font-extrabold">
+              My Nodes
+            </p>
             <p className="text-[91px] text-color text-center lg:text-start">
               0
             </p>
@@ -45,10 +47,10 @@ function MyNodedetalis() {
               {claim.map((index, key) => (
                 <>
                   <div
-                    className=" border-2 border-[#14206A] rounded-lg p-8 gap-5 flex justify-center items-center flex-col"
+                    className=" border-2 border-[#14206A] rounded-lg md:p-8 p-2 gap-5 flex justify-center items-center flex-col"
                     key={index.id}
                   >
-                    <img src={index.img} alt="" className="w-14 h-14" />
+                    <img src={index.img} alt="" className="md:w-14 md:h-14 w-10 h-10" />
                     <p>{index.card}</p>
                   </div>
                 </>
@@ -56,7 +58,7 @@ function MyNodedetalis() {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </>
   );
 }

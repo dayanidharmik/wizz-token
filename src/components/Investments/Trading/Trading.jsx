@@ -45,8 +45,8 @@ function Trading() {
   ];
   return (
     <>
-      <div class="container mx-auto mt-7 px-10 ">
-        <table class="rwd-table w-full mx-auto text-center  text-[#19287D]">
+      <div class="container mx-auto my-7 px-10 ">
+        <table class="rwd-table lg:w-full w-max mx-auto text-center  text-[#19287D] ">
           <tbody>
             <tr>
               <th>Name</th>

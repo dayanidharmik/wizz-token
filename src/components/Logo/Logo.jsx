@@ -86,7 +86,7 @@ function Logo() {
               <Button btn={"Log In/Sign Up"} />
             </Link>
           ) : (
-            <p className="text-2xl text-center text-white">{` ${
+            <p className="text-2xl text-center md:mt-0 mt-5 text-white">{` ${
               getDetelis?.username === undefined
                 ? ""
                 : " Hello, " + getDetelis?.username
@@ -96,7 +96,7 @@ function Logo() {
             <Button
               btn={`${
                 address === ""
-                  ? "Connect Wallet"
+                  ?  "Connect Wallet"
                   : address.slice(0, 3) + "...." + address.slice(-3)
               }`}
             />

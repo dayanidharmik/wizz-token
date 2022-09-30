@@ -3,9 +3,9 @@ import React from "react";
 function UserData() {
   return (
     <>
-      <div class="container mx-auto mt-7 px-10">
-        <table class="rwd-table w-full mx-auto text-[#19287D]">
-          <tbody >
+      <div class="container mx-auto mt-7 flex justify-center items-center px-10">
+        <table class="rwd-table  md:w-full w-max mx-auto text-center  text-[#19287D] ">
+          <tbody className="">
             <tr>
               <th>Name</th>
               <th>Warrior</th>
@@ -16,7 +16,7 @@ function UserData() {
               <th>RPC</th>
             </tr>
             <tr>
-              <td data-th="Supplier Code">UPS5005</td>
+              <td data-th="Supplier Code ">UPS5005</td>
               <td data-th="Supplier Name">UPS</td>
               <td data-th="Invoice Number">ASDF19218</td>
               <td data-th="Invoice Date">06/25/2016</td>

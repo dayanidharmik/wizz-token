@@ -23,8 +23,8 @@ function Search() {
 
   return (
     <>
-      <div className="container  mx-auto  flex flex-col md:flex-row justify-between items-center px-10">
-        <div className="flex lg:flex-row flex-col lg:justify-center justify-start items-start lg:items-center gap-7">
+      <div className="container  mx-auto  flex flex-col md:flex-row justify-between items-center px-10 gap-5 md:mt-0 mt-10">
+        <div className="flex md:flex-row flex-col lg:justify-center justify-start items-center md:gap-7 gap-5">
           {" "}
           <div className="flex border rounded border-dashed ">
             <button className="flex items-center justify-center px-4 ">
