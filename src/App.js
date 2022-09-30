@@ -19,7 +19,7 @@ function App() {
   const checkToken = () => {
     const getDetelis = JSON.parse(localStorage.getItem("token"));
     if (!getDetelis) {
-      navigate("/login");
+      navigate("/");
     }
   };
 

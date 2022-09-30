@@ -39,7 +39,7 @@ function PortfolioBalance() {
         <div className="mt-7 flex-col md:flex-row ">
           <MainTitle title={"investments"} />
         </div>
-        <div className="flex flex-col lg:flex-row   py-6 mt-3 bg-[#DFE5FF] rounded-xl md:px-10 px-8 ">
+        <div className="flex flex-col lg:flex-row  justify-between py-6 mt-3 bg-[#DFE5FF] rounded-xl md:px-10 px-8 ">
           <div className="lg:order-none  order-1">
             <p className="md:text-[40px] text-[30px] text-[#7351FC] font-extrabold">
               Investments
