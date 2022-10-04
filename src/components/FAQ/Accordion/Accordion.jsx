@@ -53,12 +53,12 @@ export default function Example() {
               animate={customAnimation}
               className="py-2"
             >
-              <div className="bg-[#DFE5FF] border-b-none   rounded-md  Accordiondata py-1">
+              <div className="nodetype-bg    rounded-md  Accordiondata py-1">
                 <AccordionHeader
                   onClick={() => handleOpen(items.id)}
-                  className="Accordiondata"
+                  className="Accordiondata text-white border-none"
                 >
-                  <div className="text-[#19287D] font-medium  flex items-center ">
+                  <div className="rewardstextcolor font-medium  flex items-center ">
                     <p>{items.title}</p>
                   </div>
                 </AccordionHeader>

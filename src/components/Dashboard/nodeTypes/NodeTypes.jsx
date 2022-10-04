@@ -51,8 +51,16 @@ function NodeTypes() {
               <>
                 <div key={index.id}>
                   <div className="relative">
-                    <img src={index.img} alt="" className=" shadow-xl block hover:hidden" />
-                    <img src={index.imggold} alt="" className=" shadow-xl  hover:block absolute top-0 hidden"  />
+                    <img
+                      src={index.img}
+                      alt=""
+                      className=" shadow-xl block hover:hidden"
+                    />
+                    <img
+                      src={index.imggold}
+                      alt=""
+                      className=" shadow-xl  hover:block absolute top-0 hidden"
+                    />
                   </div>
                   <p className="mt-2 text-[#7351FC] text-xl ">
                     {index.nodename}

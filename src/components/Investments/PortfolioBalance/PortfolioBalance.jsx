@@ -37,12 +37,12 @@ function PortfolioBalance() {
     <>
       <div className="container  mx-auto px-10 md:block flex items-center flex-col">
         <div className="mt-7 flex-col md:flex-row ">
-          <MainTitle title={"investments"} />
+          <MainTitle title={"Rewards"} />
         </div>
-        <div className="flex flex-col lg:flex-row  justify-between py-6 mt-3 bg-[#DFE5FF] rounded-xl md:px-10 px-8 ">
+        <div className="flex flex-col lg:flex-row  justify-between py-6 mt-3  rounded-xl md:px-10 px-8 nodetype-bg">
           <div className="lg:order-none  order-1">
             <p className="md:text-[40px] text-[30px] text-[#7351FC] font-extrabold">
-              Investments
+              Rewards
             </p>
             <p className="text-lg font-medium text-[#22D198]  lg:text-start">
               Portfolio balance
@@ -55,7 +55,7 @@ function PortfolioBalance() {
             <div className="flex justify-center items-center  md:gap-5 gap-2 mt-2 ">
               {claim.map((index) => (
                 <>
-                  <div key={index.id} onClick={()=>setactive(index?.id)}>
+                  <div key={index.id} onClick={() => setactive(index?.id)}>
                     <p
                       className={`md:text-lg text-base text-[#808080] cursor-pointer  ${
                         active === index.id ? "text-color" : "text-[#808080]"

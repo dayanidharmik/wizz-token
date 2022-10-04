@@ -52,13 +52,23 @@ input[type="number"] {
 
 .rwd-table tr:first-child {
   border-top: none;
-  background: #dfe5ff;
+  background: radial-gradient(
+    65.49% 65.49% at 50% 50%,
+    #030239 0%,
+    #03014e 100%
+  );
+  /* box-shadow: 2px 2px 12px #22338c; */
 }
 
 .rwd-table tr {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  background-color: #dfe5ff;
+  background: radial-gradient(
+    65.49% 65.49% at 50% 50%,
+    #030239 0%,
+    #03014e 100%
+  );
+  /* box-shadow: 2px 2px 12px #22338c; */
 }
 
 .rwd-table tr:nth-child(odd):not(:first-child) {
@@ -113,8 +123,8 @@ input[type="number"] {
 }
 @media screen and (min-width: 767px) {
   .rwd-table tr:hover:not(:first-child) {
-    background-color: #19287d;
-    color: #dfe5ff;
+    background: #dfe5ff;
+    color: #19287d;
   }
   .rwd-table td:before {
     display: none;

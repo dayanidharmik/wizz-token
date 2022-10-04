@@ -25,8 +25,6 @@ function Navbar() {
         <div className="min-h-screen b bg-[#030239] fixed z-[50]">
           <div className="sidebar min-h-screen w-[3.35rem] overflow-hidden p-1 hover:w-52  hover:shadow-lg">
             <div className="flex h-screen flex-col justify-start mt-40">
-          
-
               <div>
                 <ul className="flex flex-col gap-7 space-y-2 tracking-wide mt-5">
                   {pathname === "/" ? (
@@ -106,7 +104,7 @@ function Navbar() {
                             />
                           </div>
                           <span className="text-lg mr-2 text-[#22D198]">
-                            Investmentse
+                            Rewards
                           </span>
                         </div>
                       </Link>
@@ -121,7 +119,7 @@ function Navbar() {
                           <img src={invest} alt="" />
                         </span>
                         <span className="text-lg tracking-wide truncate">
-                          Investments
+                          Rewards
                         </span>
                       </Link>
                     </li>
@@ -138,7 +136,7 @@ function Navbar() {
                             />
                           </div>
                           <span className="text-lg mr-2 text-[#22D198]">
-                          Referral
+                            Referral
                           </span>
                         </div>
                       </Link>
@@ -189,6 +187,7 @@ function Navbar() {
             </div>
           </div>
         </div>
+
         {/* )} */}
       </>
     </>
