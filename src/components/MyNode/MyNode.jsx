@@ -6,8 +6,8 @@ import UserData from "./Userd/UserData";
 function MyNode() {
   return (
     <div>
-      <Search />
-      <UserData />
+      {/* <Search /> */}
+      {/* <UserData /> */}
       <MyNodedetalis />
     </div>
   );

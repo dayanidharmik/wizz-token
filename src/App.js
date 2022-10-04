@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
@@ -13,18 +14,55 @@ import OTP from "./components/OTP/OTP";
 import { Toaster } from "react-hot-toast";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword.jsx";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRef } from "react";
+import useEncryption from "./components/EncryptData/EncryptData";
+import instance from "./components/BaseUrl/BaseUrl";
+import toast from "react-hot-toast";
 function App() {
   const navigate = useNavigate();
+  const effectCalled = useRef(false);
+  const { encryptData, decryptData } = useEncryption();
+  const getdata = JSON.parse(localStorage.getItem("detelis"));
+  const [totlenode, settotlenode] = useState();
   const checkToken = () => {
     const getDetelis = JSON.parse(localStorage.getItem("token"));
     if (!getDetelis) {
       navigate("/");
+    } else {
+      totalNodes();
     }
   };
 
+  // ==============totalNodes API=========
+  const totalNodes = async () => {
+    try {
+      const encrypt = encryptData(
+        JSON.stringify({
+          email: getdata?.email,
+        })
+      );
+      const result = await instance.post("/totalNodes", {
+        data: encrypt,
+      });
+
+      const results = decryptData(result.data.data);
+      // console.log(results.data.total);
+
+      if (results.status) {
+        // toast.success(results.message);
+        settotlenode(results.data.total);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
+
   useEffect(() => {
-    checkToken();
+    if (!effectCalled.current) {
+      checkToken();
+      effectCalled.current = true;
+    }
   }, []);
   return (
     <>
@@ -41,8 +79,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/myNode" element={<MyNode />} />
+            <Route path="/" element={<Dashboard totalNodes={totlenode} />} />
+            <Route path="/myNode" element={<MyNode totalNodes={totlenode} />} />
             <Route path="/investments" element={<Investments />} />
             <Route path="/referral" element={<Referral />} />
             <Route path="/faq" element={<FAQ />} />

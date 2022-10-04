@@ -6,31 +6,30 @@ import king from "../..//img/king.png";
 import thounder from "../..//img/thounder.png";
 import Button from "../../Button/Button";
 import MainTitle from "../../MainTitle/MainTitle";
-import wizzlogo from "../../img/wizz-logo.png";
 import busd from "../../img/busd.png";
-import info from "../../img/info.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import smartnode from "../../img/smartnode.gif";
+import smartnode from "../../img/Smartnode.png";
 import useEncryption from "../../EncryptData/EncryptData";
 import instance from "../../BaseUrl/BaseUrl";
 import toast, { Toaster } from "react-hot-toast";
 import $ from "jquery";
 import Web3 from "web3";
-import Power from "../../img/Power.gif";
-import Master from "../../img/Smart.gif";
+import { Link, useNavigate } from "react-router-dom";
 
-function Dashboard({ Remaining }) {
+function Dashboard({ totalNodes }) {
   const [open, setopen] = useState(false);
   const [drop, setdrop] = useState(false);
-  const [totlenode, settotlenode] = useState();
+  // const [totlenode, settotlenode] = useState();
   const [totalsupply, settotalsupply] = useState([]);
   const [busdprice, setbusdprice] = useState([]);
   const [value, setValue] = useState(1);
   const [mark, setmark] = useState(0);
   const { encryptData, decryptData } = useEncryption();
   const effectCalled = useRef(false);
+  const [totalremaining, settotalremaining] = useState([]);
+  const navigate = useNavigate();
   const getDetelis = JSON.parse(localStorage.getItem("quantity"));
   const getdata = JSON.parse(localStorage.getItem("detelis"));
   //===== openpopp=====
@@ -60,7 +59,7 @@ function Dashboard({ Remaining }) {
   const mynode = [
     {
       id: 0,
-      card: totlenode === undefined ? 0 : totlenode,
+      card: totalNodes === undefined ? 0 : totalNodes,
       img: home,
     },
     {
@@ -79,22 +78,22 @@ function Dashboard({ Remaining }) {
   const Buy = [
     {
       id: 0,
-      node: "Smaer Node",
-      CurrentPrice: "$4400 USD",
-      TotalNodes: totalsupply?.master,
+      node: busdprice,
+      CurrentPrice: 1000,
+      TotalNodes: totalremaining?.smart,
     },
-    {
-      id: 1,
-      node: "Power Node",
-      CurrentPrice: "$4400 USD",
-      TotalNodes: totalsupply?.power,
-    },
-    {
-      id: 2,
-      node: "Master Node",
-      CurrentPrice: "$4400 USD",
-      TotalNodes: totalsupply?.master,
-    },
+    // {
+    //   id: 1,
+    //   node: "Power Node",
+    //   CurrentPrice: "$4400 USD",
+    //   TotalNodes: totalsupply?.power,
+    // },
+    // {
+    //   id: 2,
+    //   node: "Master Node",
+    //   CurrentPrice: "$4400 USD",
+    //   TotalNodes: totalsupply?.master,
+    // },
   ];
 
   // ========slider data======
@@ -110,12 +109,12 @@ function Dashboard({ Remaining }) {
   };
   //=========wallet data========
   const wallet = [
-    {
-      id: 0,
-      img: wizzlogo,
-      walletname: "WIZZ",
-      balance: 0,
-    },
+    // {
+    //   id: 0,
+    //   img: wizzlogo,
+    //   walletname: "WIZZ",
+    //   balance: 0,
+    // },
     {
       id: 1,
       img: busd,
@@ -474,59 +473,65 @@ function Dashboard({ Remaining }) {
   // ==============placeOrder API=========
 
   const placeOrder = async () => {
-    try {
-      const encrypt = encryptData(
-        JSON.stringify({
-          name: "smart node",
-          currency: mark.walletname,
-          quantity: value,
-        })
-      );
-      const result = await instance.post("/buyNode", {
-        data: encrypt,
-      });
-
-      const results = decryptData(result.data.data);
-      console.log(results);
-
-      if (results.status) {
-        toast.success(results.message);
-
-        localStorage.setItem(
-          "quantity",
+    const getDetelis = JSON.parse(localStorage.getItem("token"));
+    if (!getDetelis) {
+      navigate("/login");
+    } else {
+      try {
+        const encrypt = encryptData(
           JSON.stringify({
-            quantity: results.data.quantity.totalQuantity,
+            name: "smart node",
+            currency: mark.walletname,
+            quantity: value,
           })
         );
-      } else {
-        toast.error(results.message);
-      }
-    } catch (err) {}
+        const result = await instance.post("/buyNode", {
+          data: encrypt,
+        });
+
+        const results = decryptData(result.data.data);
+        console.log(results);
+
+        if (results.status) {
+          payBUSD();
+          toast.success(results.message);
+
+          localStorage.setItem(
+            "quantity",
+            JSON.stringify({
+              quantity: results.data.quantity.totalQuantity,
+            })
+          );
+        } else {
+          toast.error(results.message);
+        }
+      } catch (err) {}
+    }
   };
 
-  // ==============totalNodes API=========
-  const totalNodes = async () => {
-    try {
-      const encrypt = encryptData(
-        JSON.stringify({
-          email: getdata?.email,
-        })
-      );
-      const result = await instance.post("/totalNodes", {
-        data: encrypt,
-      });
+  // // ==============totalNodes API=========
+  // const totalNodes = async () => {
+  //   try {
+  //     const encrypt = encryptData(
+  //       JSON.stringify({
+  //         email: getdata?.email,
+  //       })
+  //     );
+  //     const result = await instance.post("/totalNodes", {
+  //       data: encrypt,
+  //     });
 
-      const results = decryptData(result.data.data);
-      // console.log(results.data.total);
+  //     const results = decryptData(result.data.data);
+  //     console.log(results.data.total);
 
-      if (results.status) {
-        // toast.success(results.message);
-        settotlenode(results.data.total);
-      } else {
-        toast.error(results.message);
-      }
-    } catch (err) {}
-  };
+  //     if (results.status) {
+  //       // toast.success(results.message);
+  //       settotlenode(results.data.total);
+  //     } else {
+  //       toast.error(results.message);
+  //     }
+  //   } catch (err) {}
+  // };
   // ==============nodeSupplies API=========
   const nodeSupplies = async () => {
     try {
@@ -551,7 +556,7 @@ function Dashboard({ Remaining }) {
       const result = await instance.get("/getPrice");
 
       const results = decryptData(result.data.data);
-      console.log(results.data.price);
+      // console.log(results.data.price);
 
       if (results.status) {
         // toast.success(results.message);
@@ -561,11 +566,26 @@ function Dashboard({ Remaining }) {
       }
     } catch (err) {}
   };
+  // ==============totalNodes API=========
+  const remainingNodes = async () => {
+    try {
+      const result = await instance.get("/remainingNodes");
+
+      const results = decryptData(result.data.data);
+      // console.log(results.data);
+
+      if (results.status) {
+        settotalremaining(results.data);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
   useEffect(() => {
     if (!effectCalled.current) {
-      totalNodes();
       nodeSupplies();
       getPrice();
+      remainingNodes();
       effectCalled.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -580,78 +600,85 @@ function Dashboard({ Remaining }) {
         </div>
 
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
-          <div className="bg-[#DFE5FF]  rounded-2xl p-5">
+          <div className="nodetype-bg  rounded-2xl p-5">
             <div className="flex justify-between items-center">
               <div>
                 <p className="text-[#7351FC] text-2xl font-bold">Rewards</p>
               </div>
-              <Button btn={"Claim All"} />
+              <Link to="/investments">
+                <Button btn={"Claim All"} />
+              </Link>
             </div>
             <div className="text-[55px] text-color font-bold mt-2">0.000</div>
             <div className="flex justify-start items-center gap-5 mt-2">
               {claim.map((index, key) => (
                 <>
-                  <div
-                    className=" border-2 border-[#14206A] rounded-lg p-4 gap-5 flex justify-center items-center flex-col"
-                    key={index.id}
-                  >
-                    <img src={index.img} alt="" className="w-8 h-8" />
-                    <p>{index.card}</p>
+                  <div className="Rewards rounded-lg ">
+                    <div
+                      className="   p-4 gap-5 flex justify-center items-center flex-col"
+                      key={index.id}
+                    >
+                      <img src={index.img} alt="" className="w-8 h-8" />
+                      <p className="rewardstextcolor">{index.card}</p>
+                    </div>
                   </div>
                 </>
               ))}
             </div>
           </div>
-          <div className="bg-[#DFE5FF]  rounded-2xl p-5">
-            <div className="overflow-x-auto relative flex justify-center items-center">
-              <table className="w-full  text-center">
-                <thead className="text-[#7351FC] text-sm font-bold">
-                  <tr>
-                    <th scope="col" className="py-3 px-6 "></th>
-                    <th scope="col">Current Price</th>
-                    <th scope="col">Total Nodes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Buy.map((items, key) => (
-                    <tr key={items.id}>
-                      <td className="py-3 text-[#7351FC] ">
-                        <div className="border-2 rounded-full border-[#7351FC] border-opacity-30 text-[12px] p-1 font-medium leading-3 flex justify-center items-center">
-                          {items.node}
-                        </div>
-                      </td>
-                      <td className="py-3 px-3 text-color text-sm font-bold">
-                        {items.CurrentPrice}
-                      </td>
-                      <td className="py-3 px-3 text-color text-sm font-bold ">
-                        {items.TotalNodes}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="nodetype-bg flex flex-col gap-5 justify-between p-5 items-center rounded-2xl ">
+            <div>
+              <p className="text-[#7351FC] text-2xl font-bold">Smart Node</p>
             </div>
-            <div className="flex justify-center mt-10 " onClick={openpopp}>
+            <table className="w-full  text-center">
+              <thead className="text-[#7351FC] text-lg font-bold">
+                <tr>
+                  <th scope="col">Current Price</th>
+                  <th scope="col">Total Nodes</th>
+                  <th scope="col">Remaining Nodes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Buy.map((items, key) => (
+                  <tr key={items.id}>
+                    <td className="py-3 px-3 text-color text-base font-bold ">
+                      {items.node} BUSD
+                    </td>
+                    <td className="py-3 px-3 text-color text-base font-bold">
+                      {items.CurrentPrice}
+                    </td>
+                    <td className="py-3 px-3 text-color text-base font-bold ">
+                      {items.TotalNodes}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="flex justify-center  " onClick={openpopp}>
               <Button btn={"Buy Nodes"} />
             </div>
           </div>
-          <div className="bg-[#DFE5FF]  rounded-2xl p-5">
+          <div className="nodetype-bg  rounded-2xl p-5">
             <div className="flex justify-between items-center">
               <div>
                 <p className="text-[#7351FC] text-2xl font-bold">My Nodes</p>
               </div>
-              <Button btn={"View Nodes"} />
+              <Link to="/myNode">
+                <Button btn={"View Nodes"} />
+              </Link>
             </div>
-            <div className="text-[55px] text-color font-bold mt-2">....</div>
+            <div className="text-[55px]  font-bold mt-2 golden">....</div>
             <div className="flex justify-start items-center gap-5 mt-2">
               {mynode.map((index) => (
                 <>
-                  <div
-                    className=" border-2 border-[#14206A] rounded-lg p-4 gap-5 flex justify-center items-center flex-col"
-                    key={index.id}
-                  >
-                    <img src={index.img} alt="" className="w-8 h-8" />
-                    <p>{index.card}</p>
+                  <div className="Rewards rounded-lg ">
+                    <div
+                      className="  p-4 gap-5 flex justify-center items-center flex-col"
+                      key={index.id}
+                    >
+                      <img src={index.img} alt="" className="w-8 h-8" />
+                      <p className="rewardstextcolor">{index.card}</p>
+                    </div>
                   </div>
                 </>
               ))}
@@ -659,14 +686,16 @@ function Dashboard({ Remaining }) {
           </div>
         </div>
 
-        <div className=" xl:hidden  bg-[#dce3fb] rounded-2xl  flex justify-center px-5">
+        <div className=" xl:hidden  nodetype-bg rounded-2xl  flex justify-center px-5">
           <Slider {...settings}>
             <div className="py-14">
               <div className="flex md:flex-row flex-col gap-2 justify-between items-center">
                 <div>
                   <p className="text-[#7351FC] text-2xl font-bold">My Nodes</p>
                 </div>
-                <Button btn={"Claim All"} />
+                <Link to="/investments">
+                  <Button btn={"Claim All"} />
+                </Link>
               </div>
               <div className="md:text-[55px] text-[40px] text-center md:text-start text-color font-bold  ">
                 <p>0.000</p>
@@ -674,48 +703,54 @@ function Dashboard({ Remaining }) {
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
                 {claim.map((index, key) => (
                   <>
-                    <div
-                      className=" border-2 border-[#14206A] rounded-lg md:p-5  p-2 gap-5 flex justify-center items-center flex-col"
-                      key={index.id}
-                    >
-                      <img src={index.img} alt="" className="w-8 h-8" />
-                      <p>{index.card}</p>
+                    <div className="Rewards rounded-lg ">
+                      <div
+                        className="  md:p-5  p-2 gap-5 flex justify-center items-center flex-col"
+                        key={index.id}
+                      >
+                        <img src={index.img} alt="" className="w-8 h-8" />
+                        <p className="rewardstextcolor">{index.card}</p>
+                      </div>
                     </div>
                   </>
                 ))}
               </div>
             </div>
-            <div className="py-14">
-              <div className=" relative flex justify-center items-center">
-                <table className="  text-center">
-                  <thead className="text-[#7351FC] text-sm font-bold">
+            <div className="py-14 flex  ">
+              <div className="flex flex-col justify-between items-center gap-10">
+                {" "}
+                <div clas>
+                  <p className="text-[#7351FC] text-2xl font-bold">
+                    Smart Node
+                  </p>
+                </div>
+                <table className="w-full  text-center">
+                  <thead className="text-[#7351FC] text-lg font-bold">
                     <tr>
-                      <th scope="col" className="py-3 px-10 "></th>
                       <th scope="col">Current Price</th>
                       <th scope="col">Total Nodes</th>
+                      <th scope="col">Remaining Nodes</th>
                     </tr>
                   </thead>
                   <tbody>
                     {Buy.map((items, key) => (
                       <tr key={items.id}>
-                        <td className="py-3 text-[#7351FC] ">
-                          <div className="md:border-2 rounded-full border-[#7351FC] border-opacity-30 text-[12px] p-1 font-medium leading-3 flex justify-center items-center">
-                            {items.node}
-                          </div>
+                        <td className="py-3 px-3 text-color text-base font-bold ">
+                          {items.node} BUSD
                         </td>
-                        <td className="py-3 px-3 text-color text-sm font-bold">
+                        <td className="py-3 px-3 text-color text-base font-bold">
                           {items.CurrentPrice}
                         </td>
-                        <td className="py-3 px-3 text-color text-sm font-bold ">
+                        <td className="py-3 px-3 text-color text-base font-bold ">
                           {items.TotalNodes}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
-              <div className="flex justify-center mt-10" onClick={openpopp}>
-                <Button btn={"Buy Nodes"} />
+                <div className="flex justify-center  " onClick={openpopp}>
+                  <Button btn={"Buy Nodes"} />
+                </div>
               </div>
             </div>
             <div className="py-14">
@@ -723,20 +758,24 @@ function Dashboard({ Remaining }) {
                 <div>
                   <p className="text-[#7351FC] text-2xl font-bold">My Nodes</p>
                 </div>
-                <Button btn={"View Nodes"} />
+                <Link to="/myNode">
+                  <Button btn={"View Nodes"} />
+                </Link>
               </div>
-              <div className="md:text-[55px] text-[40px] text-center md:text-start text-color font-bold  ">
+              <div className="golden md:text-[55px] text-[40px] text-center md:text-start text-color font-bold  ">
                 <p>.......</p>
               </div>
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
                 {mynode.map((index, key) => (
                   <>
-                    <div
-                      className=" border-2 border-[#14206A] rounded-lg md:p-5  p-2 gap-5 flex justify-center items-center flex-col"
-                      key={index.id}
-                    >
-                      <img src={index.img} alt="" className="w-8 h-8" />
-                      <p>{index.card}</p>
+                    <div className="Rewards rounded-lg ">
+                      <div
+                        className="  rounded-lg md:p-5  p-2 gap-5 flex justify-center items-center flex-col"
+                        key={index.id}
+                      >
+                        <img src={index.img} alt="" className="w-8 h-8" />
+                        <p className="rewardstextcolor">{index.card}</p>
+                      </div>
                     </div>
                   </>
                 ))}
@@ -843,7 +882,7 @@ function Dashboard({ Remaining }) {
                 </div>
                 <div className="mt-10 text-center rounded-md bg-[#97A5FC] p-3">
                   <p className="text-[black] text-xl font-bold leading-tight tracking-normal">
-                    {Remaining} / {totalsupply?.master} Remain
+                    {totalremaining?.smart} / {totalsupply?.master} Remain
                   </p>
                 </div>
 
@@ -880,7 +919,7 @@ function Dashboard({ Remaining }) {
                 </div>
                 <div
                   className="flex justify-center items-center"
-                  onClick={payBUSD}
+                  onClick={placeOrder}
                 >
                   <Button btn={"Place Order"} />
                 </div>

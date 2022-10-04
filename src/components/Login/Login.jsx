@@ -58,8 +58,8 @@ function Login() {
       });
       // console.log(result);
       const results = decryptData(result.data.data);
-      // console.log(results);
-      if (results.success) {
+      console.log(results);
+      if (results.status) {
         toast.success(results.message);
 
         // dispatch(

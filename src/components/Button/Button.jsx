@@ -1,10 +1,15 @@
 import React from "react";
 import "../Login/SignUp.css";
-function Button({btn}) {
+function Button({ btn }) {
   return (
-    <>
-      <button className="btn-bg  text-white  md:text-lg font-semibold px-5 py-2 rounded-full text-center" type="submit">{btn}</button>
-    </>
+    <div className="bot-left1 font-semibold rounded-full text-center">
+      <button
+        className="golden md:text-lg  px-5 py-2 "
+        type="submit"
+      >
+        {btn}
+      </button>
+    </div>
   );
 }
 

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import wizzlogo from "../img/wizz-logo.png";
 import { Link, useLocation } from "react-router-dom";
+import useEncryption from "../EncryptData/EncryptData";
+import instance from "../BaseUrl/BaseUrl";
+import toast, { Toaster } from "react-hot-toast";
 
 const networks = {
   bsc: {
@@ -33,6 +36,7 @@ const networks = {
 const changeNetwork = async ({ networkName, setError }) => {
   try {
     if (!window.ethereum) throw new Error("No crypto wallet found");
+
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
       params: [
@@ -50,79 +54,109 @@ function Logo() {
   const location = useLocation();
   const { pathname } = location;
   const getDetelis = JSON.parse(localStorage.getItem("detelis"));
-
-  const openmetamask = async () => {
-    const wallet = await window?.ethereum?.enable();
-    setaddress(wallet.toString());
-  };
+  const { encryptData, decryptData } = useEncryption();
 
   const [error, setError] = useState();
 
   const handleNetworkSwitch = async (networkName) => {
+    
     setError();
 
     await changeNetwork({ networkName, setError });
-    openmetamask();
   };
 
   const networkChanged = (chainId) => {
     console.log({ chainId });
   };
 
-  useEffect(() => {
-    window.ethereum.on("chainChanged", networkChanged);
+  // ==============totalNodes API=========
+  const addWallet = async (wallet) => {
+    try {
+      const encrypt = encryptData(
+        JSON.stringify({
+          walletAddress:wallet,
+        })
+      );
 
+      console.log("address1", wallet);
+      const result = await instance.post("/addWallet", {
+        data: encrypt,
+      });
+
+      const results = decryptData(result.data.data);
+      console.log(results);
+
+      if (results.status) {
+        // toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
+
+  const openmetamask = async () => {
+    const wallet = await window?.ethereum?.enable();
+    setaddress(wallet?.toString());
+    addWallet(wallet?.toString());
+    handleNetworkSwitch("bsc")
+  };
+
+  useEffect(() => {
+    window?.ethereum?.on("chainChanged", networkChanged);
     return () => {
-      window.ethereum.removeListener("chainChanged", networkChanged);
+      window?.ethereum?.removeListener("chainChanged", networkChanged);
     };
   }, []);
   return (
-    <div className=" container  mx-auto md:py-10  px-10 ">
-      <div className="flex justify-between gap-5 items-center">
-        <img src={wizzlogo} alt="" className="w-16 h-10 md:w-max md:h-max " />
-        <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 ">
-          {getDetelis?.username === undefined && pathname === "/" ? (
-            <Link to="/login">
-              <Button btn={"Log In/Sign Up"} />
-            </Link>
-          ) : (
-            <p className="text-2xl text-center md:mt-0 mt-5 text-white">{` ${
-              getDetelis?.username === undefined
-                ? ""
-                : " Hello, " + getDetelis?.username
-            }`}</p>
-          )}
-          <div onClick={() => handleNetworkSwitch("bsc")}>
-            <Button
-              btn={`${
-                address === ""
-                  ?  "Connect Wallet"
-                  : address.slice(0, 3) + "...." + address.slice(-3)
-              }`}
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <div className=" container  mx-auto md:py-10  px-10 ">
+        <div className="flex justify-between gap-5 items-center">
+          <Link to="/">
+            <img
+              src={wizzlogo}
+              alt=""
+              className="w-16 h-10 md:w-max md:h-max "
             />
+          </Link>
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 ">
+            {getDetelis?.username === undefined ? (
+              <>
+                {pathname === "/login" ||
+                pathname === "/signUp" ||
+                pathname === "/forgetpassword" ||
+                pathname === "/resetpassword" ||
+                pathname === "/otp" ? (
+                  ""
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <Button btn={"Log In/Sign Up"} />
+                    </Link>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <p className="text-white text-xl">
+                  Hello, {getDetelis?.username}
+                </p>
+                <div onClick={() => openmetamask()}>
+                  <Button
+                    btn={`${
+                      address === ""
+                        ? "Connect Wallet"
+                        : address?.slice(0, 3) + "...." + address?.slice(-3)
+                    }`}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default Logo;
-
-// <div className="credit-card w-full lg:w-1/2 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
-//   <main className="mt-4 p-4">
-//     <h1 className="text-xl font-semibold text-gray-700 text-center">
-//       Force MetaMask network
-//     </h1>
-//     <div className="mt-4">
-
-//       <button
-//         onClick={() => handleNetworkSwitch("bsc")}
-//         className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
-//       >
-//         Switch to BSC
-//       </button>
-//       {/* <ErrorMessage message={error} /> */}
-//     </div>
-//   </main>
-// </div>

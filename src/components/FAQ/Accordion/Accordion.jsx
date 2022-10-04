@@ -19,53 +19,28 @@ export default function Example() {
   const Accordiondata = [
     {
       id: 1,
-      title: "What if my wallet is compromised? What can I do?",
-      content: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-      commodi alias. Non quia esse quisquam minima delectus tenetur
-      asperiores perferendis! Non quia eligendi explicabo et beatae
-      dolorem, cum nobis libero vel autem qui totam consequuntur rem porro
-      excepturi consequatur sapiente ad commodi ullam! Quis voluptatem
-      eligendi quos, maxime unde minus?`,
+      title: "What is WIZZ token?",
+      content: `WIZZ token is the utility token in the whole WIZZ Eco System`,
     },
     {
       id: 2,
-      title: "What if my wallet is compromised? What can I do?",
-      content: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-      commodi alias. Non quia esse quisquam minima delectus tenetur
-      asperiores perferendis! Non quia eligendi explicabo et beatae
-      dolorem, cum nobis libero vel autem qui totam consequuntur rem porro
-      excepturi consequatur sapiente ad commodi ullam! Quis voluptatem
-      eligendi quos, maxime unde minus?`,
+      title: "What is WIZZ NFT Node?",
+      content: `WIZZ NFT node is the first step to getting WIZZ token. WIZZ node holders will be rewarded WIZZ tokens every day for up to 10 years depending on the types of nodes you hold.`,
     },
     {
       id: 3,
-      title: "What if my wallet is compromised? What can I do?",
-      content: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-      commodi alias. Non quia esse quisquam minima delectus tenetur
-      asperiores perferendis! Non quia eligendi explicabo et beatae
-      dolorem, cum nobis libero vel autem qui totam consequuntur rem porro
-      excepturi consequatur sapiente ad commodi ullam! Quis voluptatem
-      eligendi quos, maxime unde minus?`,
+      title: "What are the requirements to run a WIZZ node? ",
+      content: `No specification or no setup to run WIZZ nodes. all nodes run as NFT. Buy and run. `,
     },
     {
       id: 4,
-      title: "What if my wallet is compromised? What can I do?",
-      content: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-      commodi alias. Non quia esse quisquam minima delectus tenetur
-      asperiores perferendis! Non quia eligendi explicabo et beatae
-      dolorem, cum nobis libero vel autem qui totam consequuntur rem porro
-      excepturi consequatur sapiente ad commodi ullam! Quis voluptatem
-      eligendi quos, maxime unde minus?`,
+      title: "How many nodes one account holder can buy? ",
+      content: `As of now, a limited number of nodes can be created per wallet, which is 100 Smart nodes and 10 Power nodes. `,
     },
     {
       id: 5,
-      title: "What if my wallet is compromised? What can I do?",
-      content: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-      commodi alias. Non quia esse quisquam minima delectus tenetur
-      asperiores perferendis! Non quia eligendi explicabo et beatae
-      dolorem, cum nobis libero vel autem qui totam consequuntur rem porro
-      excepturi consequatur sapiente ad commodi ullam! Quis voluptatem
-      eligendi quos, maxime unde minus?`,
+      title: "Which wallets is WIZZ DApp support? ",
+      content: `We strongly recommend using MetaMask as it causes the least issues; however, you can use Coinbase Wallet and WalletConnect. `,
     },
   ];
   return (
@@ -78,18 +53,18 @@ export default function Example() {
               animate={customAnimation}
               className="py-2"
             >
-              <div className="bg-[#DFE5FF] border-b-none border-[1px] border-[#19287D] rounded-md relative Accordiondata">
+              <div className="bg-[#DFE5FF] border-b-none   rounded-md  Accordiondata py-1">
                 <AccordionHeader
                   onClick={() => handleOpen(items.id)}
                   className="Accordiondata"
                 >
-                  <div className="text-[#19287D] font-medium  flex items-center gap-4">
+                  <div className="text-[#19287D] font-medium  flex items-center ">
                     <p>{items.title}</p>
                   </div>
                 </AccordionHeader>
                 {/* <i className="fa-solid fa-caret-up absolute top-4 right-6 text-3xl"></i> */}
               </div>
-              <AccordionBody className="text-white">
+              <AccordionBody className="text-white flex justify-start items-center text-base p-8">
                 {items.content}
               </AccordionBody>
             </Accordion>

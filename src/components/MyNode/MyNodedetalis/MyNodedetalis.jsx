@@ -4,13 +4,13 @@ import "../../Login/SignUp.css";
 import home from "../..//img/myhome.png";
 import thounder from "../..//img/mythunder.png";
 import king from "../..//img/myking.png";
-function MyNodedetalis() {
+function MyNodedetalis({ totalNodes }) {
   const getDetelis = JSON.parse(localStorage.getItem("quantity"));
   // =======claim data========
   const claim = [
     {
       id: 0,
-      card: getDetelis?.quantity === undefined ? 0 : getDetelis?.quantity,
+      card:totalNodes === undefined ? 0 : totalNodes,
       img: home,
     },
     {
@@ -36,7 +36,7 @@ function MyNodedetalis() {
               My Nodes
             </p>
             <p className="text-[91px] text-color text-center lg:text-start">
-              0
+              {totalNodes === undefined ? 0 : totalNodes}
             </p>
             <p className="text-color border-t-2 py-4 border-black">
               Total Average Tax 0%
@@ -50,7 +50,11 @@ function MyNodedetalis() {
                     className=" border-2 border-[#14206A] rounded-lg md:p-8 p-2 gap-5 flex justify-center items-center flex-col"
                     key={index.id}
                   >
-                    <img src={index.img} alt="" className="md:w-14 md:h-14 w-10 h-10" />
+                    <img
+                      src={index.img}
+                      alt=""
+                      className="md:w-14 md:h-14 w-10 h-10"
+                    />
                     <p>{index.card}</p>
                   </div>
                 </>

@@ -350,7 +350,7 @@ function SignUp() {
                           ...error,
                           referralCode:
                             e.target.value === ""
-                              ? `No referral code? Use metalink!`
+                              ? `No referral code? Use wizz!`
                               : null,
                         });
                       }}
@@ -360,7 +360,7 @@ function SignUp() {
                           ...error,
                           referralCode:
                             e.target.value === ""
-                              ? `No referral code? Use metalink!`
+                              ? `No referral code? Use wizz!`
                               : null,
                         });
                       }}

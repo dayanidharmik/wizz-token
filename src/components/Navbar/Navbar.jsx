@@ -138,7 +138,7 @@ function Navbar() {
                             />
                           </div>
                           <span className="text-lg mr-2 text-[#22D198]">
-                            referrale
+                          Referral
                           </span>
                         </div>
                       </Link>
@@ -153,7 +153,7 @@ function Navbar() {
                           <img src={referral} alt="" />
                         </span>
                         <span className="text-lg tracking-wide truncate">
-                          referral
+                          Referral
                         </span>
                       </Link>
                     </li>
