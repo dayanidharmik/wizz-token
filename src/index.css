@@ -244,6 +244,7 @@ input[type="number"] {
     #03014e 100%
   );
   box-shadow: 2px 2px 12px #22338c;
+  /* position: relative; */
 }
 
 .bot-left1 {

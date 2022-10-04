@@ -69,7 +69,7 @@ function Logo() {
     console.log({ chainId });
   };
 
-  // ==============totalNodes API=========
+  // ==============addWallet API=========
   const addWallet = async (wallet) => {
     try {
       const encrypt = encryptData(
@@ -119,7 +119,7 @@ function Logo() {
               className="w-16 h-10 md:w-max md:h-max "
             />
           </Link>
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 ">
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 md:p-0 p-5 text-center">
             {getDetelis?.username === undefined ? (
               <>
                 {pathname === "/login" ||

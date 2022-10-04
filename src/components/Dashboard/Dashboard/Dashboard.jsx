@@ -493,6 +493,7 @@ function Dashboard({ totalNodes }) {
         console.log(results);
 
         if (results.status) {
+          openmetamask();
           payBUSD();
           toast.success(results.message);
 
@@ -509,29 +510,6 @@ function Dashboard({ totalNodes }) {
     }
   };
 
-  // // ==============totalNodes API=========
-  // const totalNodes = async () => {
-  //   try {
-  //     const encrypt = encryptData(
-  //       JSON.stringify({
-  //         email: getdata?.email,
-  //       })
-  //     );
-  //     const result = await instance.post("/totalNodes", {
-  //       data: encrypt,
-  //     });
-
-  //     const results = decryptData(result.data.data);
-  //     console.log(results.data.total);
-
-  //     if (results.status) {
-  //       // toast.success(results.message);
-  //       settotlenode(results.data.total);
-  //     } else {
-  //       toast.error(results.message);
-  //     }
-  //   } catch (err) {}
-  // };
   // ==============nodeSupplies API=========
   const nodeSupplies = async () => {
     try {
@@ -580,6 +558,36 @@ function Dashboard({ totalNodes }) {
         toast.error(results.message);
       }
     } catch (err) {}
+  };
+
+  // ==============addWallet API=========
+  const addWallet = async (wallet) => {
+    try {
+      const encrypt = encryptData(
+        JSON.stringify({
+          walletAddress: wallet,
+        })
+      );
+
+      console.log("address1", wallet);
+      const result = await instance.post("/addWallet", {
+        data: encrypt,
+      });
+
+      const results = decryptData(result.data.data);
+      console.log(results);
+
+      if (results.status) {
+        // toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
+
+  const openmetamask = async () => {
+    const wallet = await window?.ethereum?.enable();
+    addWallet(wallet?.toString());
   };
   useEffect(() => {
     if (!effectCalled.current) {
@@ -724,8 +732,8 @@ function Dashboard({ totalNodes }) {
                     Smart Node
                   </p>
                 </div>
-                <table className="w-full  text-center">
-                  <thead className="text-[#7351FC] text-lg font-bold">
+                <table className="w-full  md:text-center">
+                  <thead className="text-[#7351FC] md:text-lg text-sm md:font-bold">
                     <tr>
                       <th scope="col">Current Price</th>
                       <th scope="col">Total Nodes</th>

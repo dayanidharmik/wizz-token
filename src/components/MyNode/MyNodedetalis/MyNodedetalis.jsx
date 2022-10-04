@@ -1,7 +1,7 @@
 import React from "react";
 import MainTitle from "../../MainTitle/MainTitle";
 import "../../Login/SignUp.css";
-import home from "../..//img/myhome.png";
+import home from "../..//img/home.png";
 import thounder from "../..//img/mythunder.png";
 import king from "../..//img/myking.png";
 function MyNodedetalis({ totalNodes }) {
@@ -38,7 +38,7 @@ function MyNodedetalis({ totalNodes }) {
             <p className="text-[91px] text-color text-center lg:text-start">
               {totalNodes === undefined ? 0 : totalNodes}
             </p>
-            <p className="text-color border-t-2 py-4 border-black">
+            <p className="text-color border-t-2 py-4 border-white">
               Total Average Tax 0%
             </p>
           </div>

@@ -5,7 +5,7 @@ import daright from "../img/Group 87.svg";
 function MainTitle({ title }) {
   return (
     <>
-      <div className="flex justify-center items-center gap-5 text-center text-white text-3xl font-extrabold ">
+      <div className="flex justify-center items-center gap-5 text-center text-white text-3xl font-extrabold px-5 ">
         <div className="max-w-lg">
           <img src={daleft} alt="" />
         </div>

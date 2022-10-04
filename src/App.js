@@ -19,6 +19,7 @@ import { useRef } from "react";
 import useEncryption from "./components/EncryptData/EncryptData";
 import instance from "./components/BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
+import Profile from "./components/Profile/Profile";
 function App() {
   const navigate = useNavigate();
   const effectCalled = useRef(false);
@@ -86,6 +87,7 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/otp" element={<OTP />} />
             <Route path="/logo" element={<Logo />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </div>

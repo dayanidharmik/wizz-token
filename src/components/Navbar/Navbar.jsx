@@ -6,6 +6,8 @@ import browser from "../img/browser.png";
 import invest from "../img/invest.png";
 import referral from "../img/referral.png";
 import FAQ from "../img/FAQ.png";
+import profile from '../img/profileactive.png'
+import profileactive from '../img/Profile.png'
 import dashboardactive from "../img/dashboardactive.png";
 import browseractive from "../img/browseractive.png";
 import profitsactive from "../img/profitsactive.png";
@@ -15,7 +17,50 @@ import faqactive from "../img/faqactive.png";
 function Navbar() {
   const location = useLocation();
   const { pathname } = location;
-
+  const headerdata = [
+    {
+      id: 0,
+      pathname: "/",
+      pagename: "Dashboard",
+      imgactive: dashboardactive,
+      img: dashboard,
+    },
+    {
+      id: 1,
+      pathname: "/myNode",
+      pagename: "My Node",
+      imgactive: browseractive,
+      img: browser,
+    },
+    {
+      id: 2,
+      pathname: "/investments",
+      pagename: "Rewards",
+      imgactive: profitsactive,
+      img: invest,
+    },
+    {
+      id: 3,
+      pathname: "/referral",
+      pagename: "Referral",
+      imgactive: referralactive,
+      img: referral,
+    },
+    {
+      id: 4,
+      pathname: "/faq",
+      pagename: "FAQ",
+      imgactive: faqactive,
+      img: FAQ,
+    },
+    {
+      id: 5,
+      pathname: "/profile",
+      pagename: "Profile",
+      imgactive: profileactive,
+      img: profile,
+    },
+  ];
   return (
     <>
       <>
@@ -27,161 +72,42 @@ function Navbar() {
             <div className="flex h-screen flex-col justify-start mt-40">
               <div>
                 <ul className="flex flex-col gap-7 space-y-2 tracking-wide mt-5">
-                  {pathname === "/" ? (
-                    <li className="min-w-max effect-h">
-                      <Link to="/">
-                        <div className="flex justify-start items-center  gap-5 rounded-3xl ">
-                          <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
-                            <img
-                              src={dashboardactive}
-                              alt=""
-                              className="w-5 h-5"
-                            />
-                          </div>
-                          <span className="text-lg text-[#22D198]">
-                            Dashboard
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  ) : (
-                    <li className="min-w-max">
-                      <Link
-                        to="/"
-                        className="flex gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
-                      >
-                        <span className="inline-flex justify-center items-center px-3">
-                          <img src={dashboard} alt="" className="w-5 h-5" />
-                        </span>
-                        <span className="text-lg tracking-wide truncate">
-                          Dashboard
-                        </span>
-                      </Link>
-                    </li>
-                  )}
-
-                  {pathname === "/myNode" ? (
-                    <li className="min-w-max ">
-                      <Link to="/myNode">
-                        <div className="flex justify-start items-center  gap-5 rounded-3xl   ">
-                          <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
-                            <img
-                              src={browseractive}
-                              alt=""
-                              className="w-5 h-5"
-                            />
-                          </div>
-                          <span className="text-lg text-[#22D198]">
-                            My Node
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  ) : (
-                    <li className="min-w-max">
-                      <Link
-                        to="/myNode"
-                        className="flex  gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
-                      >
-                        <span className="inline-flex justify-center items-center px-3">
-                          <img src={browser} alt="" />
-                        </span>
-                        <span className="text-lg tracking-wide truncate">
-                          My Node
-                        </span>
-                      </Link>
-                    </li>
-                  )}
-                  {pathname === "/investments" ? (
-                    <li className="min-w-max">
-                      <Link to="/investments">
-                        <div className="flex justify-start items-center  gap-5 rounded-3xl  ">
-                          <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
-                            <img
-                              src={profitsactive}
-                              alt=""
-                              className="w-5 h-5"
-                            />
-                          </div>
-                          <span className="text-lg mr-2 text-[#22D198]">
-                            Rewards
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  ) : (
-                    <li className="min-w-max">
-                      <Link
-                        to="/investments"
-                        className="flex gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
-                      >
-                        <span className="inline-flex justify-center items-center px-3">
-                          <img src={invest} alt="" />
-                        </span>
-                        <span className="text-lg tracking-wide truncate">
-                          Rewards
-                        </span>
-                      </Link>
-                    </li>
-                  )}
-                  {pathname === "/referral" ? (
-                    <li className="min-w-max">
-                      <Link to="/referral">
-                        <div className="flex justify-start items-center  gap-5 rounded-3xl  ">
-                          <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
-                            <img
-                              src={referralactive}
-                              alt=""
-                              className="w-5 h-5"
-                            />
-                          </div>
-                          <span className="text-lg mr-2 text-[#22D198]">
-                            Referral
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  ) : (
-                    <li className="min-w-max">
-                      <Link
-                        to="/referral"
-                        className="flex gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
-                      >
-                        <span className="inline-flex justify-center items-center px-3">
-                          <img src={referral} alt="" />
-                        </span>
-                        <span className="text-lg tracking-wide truncate">
-                          Referral
-                        </span>
-                      </Link>
-                    </li>
-                  )}
-                  {pathname === "/faq" ? (
-                    <li className="min-w-max">
-                      <Link to="/faq">
-                        <div className="flex justify-start items-center  gap-5 rounded-3xl  ">
-                          <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
-                            <img src={faqactive} alt="" className="w-5 h-5" />
-                          </div>
-                          <span className="text-lg  text-[#22D198]">FAQ</span>
-                        </div>
-                      </Link>
-                    </li>
-                  ) : (
-                    <li className="min-w-max">
-                      <Link
-                        to="/faq"
-                        className="flex gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
-                      >
-                        <span className="inline-flex justify-center items-center px-3">
-                          <img src={FAQ} alt="" />
-                        </span>
-                        <span className="text-lg tracking-wide truncate">
-                          FAQ
-                        </span>
-                      </Link>
-                    </li>
-                  )}
+                  {headerdata.map((data) => (
+                    <>
+                      {pathname === data.pathname ? (
+                        <li className="min-w-max effect-h">
+                          <Link to={data.pathname}>
+                            <div className="flex justify-start items-center  gap-5 rounded-3xl ">
+                              <div className="flex justify-center items-center rounded-full btn-bg p-3 ">
+                                <img
+                                  src={data.imgactive}
+                                  alt=""
+                                  className="w-5 h-5"
+                                />
+                              </div>
+                              <span className="text-lg text-[#22D198]">
+                                {data.pagename}
+                              </span>
+                            </div>
+                          </Link>
+                        </li>
+                      ) : (
+                        <li className="min-w-max">
+                          <Link
+                            to={data.pathname}
+                            className="flex gap-5 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
+                          >
+                            <span className="inline-flex justify-center items-center px-3">
+                              <img src={data.img} alt="" className="w-5 h-5" />
+                            </span>
+                            <span className="text-lg tracking-wide truncate">
+                              {data.pagename}
+                            </span>
+                          </Link>
+                        </li>
+                      )}
+                    </>
+                  ))}
                 </ul>
               </div>
             </div>
