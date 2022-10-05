@@ -18,20 +18,21 @@ import $ from "jquery";
 import Web3 from "web3";
 import { Link, useNavigate } from "react-router-dom";
 
-function Dashboard({ totalNodes }) {
+function Dashboard({ totlenode }) {
   const [open, setopen] = useState(false);
   const [drop, setdrop] = useState(false);
-  // const [totlenode, settotlenode] = useState();
+  const [transaction, settransaction] = useState();
   const [totalsupply, settotalsupply] = useState([]);
   const [busdprice, setbusdprice] = useState([]);
   const [value, setValue] = useState(1);
-  const [mark, setmark] = useState(0);
+  const [mark, setmark] = useState("BUSD");
   const { encryptData, decryptData } = useEncryption();
   const effectCalled = useRef(false);
   const [totalremaining, settotalremaining] = useState([]);
   const navigate = useNavigate();
   const getDetelis = JSON.parse(localStorage.getItem("quantity"));
   const getdata = JSON.parse(localStorage.getItem("detelis"));
+  // console.log(va);
   //===== openpopp=====
   const openpopp = () => {
     setopen(!open);
@@ -59,7 +60,7 @@ function Dashboard({ totalNodes }) {
   const mynode = [
     {
       id: 0,
-      card: totalNodes === undefined ? 0 : totalNodes,
+      card: totlenode === undefined ? 0 : totlenode,
       img: home,
     },
     {
@@ -123,7 +124,8 @@ function Dashboard({ totalNodes }) {
     },
   ];
 
-  const paymentAddress = "0x0dA7187464C33317D469458124C3f8315eC2dA5B"; //Your wallet address to rec payment
+  const paymentAddress = "0x30a5d60Db900Fa46336A0EDC9fd1Ae8851362f79"; //Your wallet address to rec payment
+  // 0x30a5d60Db900Fa46336A0EDC9fd1Ae8851362f79
   const BUSD_CONTRACT = "0xe9e7cea3dedca5984780bafc599bd69add087d56"; //BUSD CONTRACT Address
   const BUSD_ABI = [
     {
@@ -408,6 +410,8 @@ function Dashboard({ totalNodes }) {
     });
   }
 
+  // ==============placeOrder API=========
+
   async function payBUSD() {
     let amt = $("#amount").val();
     web3 = new Web3(Web3.givenProvider);
@@ -427,14 +431,32 @@ function Dashboard({ totalNodes }) {
             gas: 150000,
           })
           .on("transactionHash", function (hash) {
-            console.log("transactionHash", hash);
+            // console.log("transactionHash", hash);
           })
           .on("receipt", function (receipt) {
-            console.log(receipt.transactionHash);
+            // console.log(receipt.transactionHash);
           })
           .on("confirmation", function (confirmationNumber, receipt) {
+            settransaction(receipt?.events?.Transfer?.returnValues?.value);
             console.log(confirmationNumber);
-            console.log(receipt);
+            if (receipt?.status && confirmationNumber === 0) {
+              console.log(receipt);
+              txnData();
+              setopen(!open);
+              toast.success("Your Order has been Place");
+              window.location.reload();
+            } else {
+              // toast.error(essage);
+            }
+
+            // console.log(receipt?.status, "status");
+            // console.log(receipt?.transactionHash, "transactionHash");
+            // console.log(receipt?.events?.Transfer?.returnValues?.from, "from");
+            // console.log(receipt?.events?.Transfer?.returnValues?.to, "to");
+            // console.log(
+            //   receipt?.events?.Transfer?.returnValues?.value,
+            //   "value"
+            // );
           })
           .on("error", function (error, receipt) {
             console.log(error);
@@ -472,44 +494,105 @@ function Dashboard({ totalNodes }) {
 
   // ==============placeOrder API=========
 
-  const placeOrder = async () => {
-    const getDetelis = JSON.parse(localStorage.getItem("token"));
-    if (!getDetelis) {
-      navigate("/login");
-    } else {
-      try {
-        const encrypt = encryptData(
+  // const placeOrder = async () => {
+  //   const getDetelis = JSON.parse(localStorage.getItem("token"));
+  //   if (!getDetelis) {
+  //     navigate("/login");
+  //   } else {
+  //     try {
+  //       const encrypt = encryptData(
+  //         JSON.stringify({
+  //           email: getdata?.email,
+  //           value: transaction?.events?.Transfer?.returnValues?.value,
+  //           name: "smart node",
+  //           currency: mark.walletname,
+  //           quantity: value,
+  //           // txhash: transaction?.transactionHash,
+  //           // from: transaction?.events?.Transfer?.returnValues?.from,
+  //           // to: transaction?.events?.Transfer?.returnValues?.to,
+
+  //           // status: transaction?.status,
+  //           // txhash: "tryvalahash090090",
+  //           // from: "0xda7f070501c4a89f16dbc630ba653837968f3b5f",
+  //           // to: "0x0da7187464c33317d469458124c3f8315ec2da5b",
+  //           // value: "1000000000000000",
+  //           // status: true,
+  //         })
+  //       );
+  //       const result = await instance.post("/txnData", {
+  //         data: encrypt,
+  //       });
+
+  //       const results = decryptData(result.data.data);
+  //       console.log(results);
+
+  //       if (results.status) {
+  //         openmetamask();
+
+  //         toast.success(results.message);
+
+  //         localStorage.setItem(
+  //           "quantity",
+  //           JSON.stringify({
+  //             quantity: results.data.quantity.totalQuantity,
+  //           })
+  //         );
+  //       } else {
+  //         toast.error(results.message);
+  //       }
+  //     } catch (err) {}
+  //   }
+  // };
+  // console.log(mark);
+  const txnData = async () => {
+    try {
+      const encrypt = encryptData(
+        JSON.stringify({
+          email: getdata?.email,
+          // value: transaction,
+          name: "smart node",
+          currency:"BUSD",
+          quantity: value,
+          // txhash: transaction?.transactionHash,
+          // from: transaction?.events?.Transfer?.returnValues?.from,
+          // to: transaction?.events?.Transfer?.returnValues?.to,
+
+          // status: transaction?.status,
+          // txhash: "tryvalahash090090",
+          // from: "0xda7f070501c4a89f16dbc630ba653837968f3b5f",
+          // to: "0x0da7187464c33317d469458124c3f8315ec2da5b",
+          // value: "1000000000000000",
+          // status: true,
+        })
+      );
+      const result = await instance.post("/txnData", {
+        data: encrypt,
+      });
+      // console.log(
+      //   transaction?.events?.Transfer?.returnValues?.value,
+      //   getdata?.email,
+      //   mark.walletname,
+      //   value
+      // );
+      const results = decryptData(result.data.data);
+      console.log(results);
+
+      if (results.status) {
+        openmetamask();
+        // payBUSD();
+        toast.success(results.message);
+
+        localStorage.setItem(
+          "quantity",
           JSON.stringify({
-            name: "smart node",
-            currency: mark.walletname,
-            quantity: value,
+            quantity: results.data.quantity.totalQuantity,
           })
         );
-        const result = await instance.post("/buyNode", {
-          data: encrypt,
-        });
-
-        const results = decryptData(result.data.data);
-        console.log(results);
-
-        if (results.status) {
-          openmetamask();
-          payBUSD();
-          toast.success(results.message);
-
-          localStorage.setItem(
-            "quantity",
-            JSON.stringify({
-              quantity: results.data.quantity.totalQuantity,
-            })
-          );
-        } else {
-          toast.error(results.message);
-        }
-      } catch (err) {}
-    }
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
   };
-
   // ==============nodeSupplies API=========
   const nodeSupplies = async () => {
     try {
@@ -569,7 +652,7 @@ function Dashboard({ totalNodes }) {
         })
       );
 
-      console.log("address1", wallet);
+      // console.log("address1", wallet);
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
@@ -798,39 +881,41 @@ function Dashboard({ totalNodes }) {
             id="modal"
           >
             <div className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-              <div className="relative py-8 px-5 md:px-10 bg-[#dce3fb]  border-[#14206A] border-2 rounded-3xl shadow-2xl -3xl  ">
-                <h1 className="text-[black] font-lg font-bold tracking-normal leading-tight mb-4">
-                  Select Currency:
+              <div className="relative py-8 px-5 md:px-10 nodetype-bg   border-[#14206A] border-2 rounded-3xl shadow-2xl -3xl  ">
+                <h1 className="text-[white] font-lg font-bold tracking-normal leading-tight mb-4">
+                  Currency
                 </h1>
                 <>
                   <div
                     className="relative  text-left"
-                    onClick={() => setdrop(!drop)}
+                    // onClick={() => setdrop(!drop)}
                   >
                     <div>
-                      <div className="flex cursor-pointer  justify-between items-center  rounded-md border bg-[#14206A] text-[white] px-4 py-3 text-sm font-medium  shadow-sm  focus:outline-none ">
+                      <div className="flex cursor-pointer  justify-between items-center  rounded-md border bg-[#CFD6FE] text-[#515151] px-4 py-3 text-sm font-medium  shadow-sm  focus:outline-none ">
                         {/* */}
-                        {mark === 0 ? (
-                          <p className="text-base">Select Payment Method</p>
-                        ) : (
-                          <div className="flex gap-5 justify-center items-center">
-                            <img src={mark.img} alt="" className="w-10 h-8" />
-                            <p>{mark.walletname}</p>
-                          </div>
-                        )}
-                        <i className="fa-solid fa-caret-down"></i>
+                        {/* {mark === 0 ? (
+                          <p className="text-base text-black">
+                            Select Payment Method
+                          </p>
+                        ) : ( */}
+                        <div className="flex gap-5 justify-center items-center text-lg font-bold">
+                          <img src={busd} alt="" className="w-10 h-8" />
+                          <p>BUSD</p>
+                        </div>
+                        {/* )} */}
+                        {/* <i className="fa-solid fa-caret-down"></i> */}
                       </div>
                     </div>
-                    {drop && (
-                      <div className="absolute right-0 left-0 z-10 mt-2 cursor-pointer  rounded-md bg-[#14206A] text-[white] shadow-lg ">
+                    {/* {drop && (
+                      <div className="absolute right-0 left-0 z-10 mt-2 cursor-pointer  rounded-md bg-[#CFD6FE] text-[#515151] shadow-lg ">
                         <div role="none">
                           {wallet.map((i) => (
                             <div
-                              className="flex justify-between items-center px-4 py-3  border-b-2 "
+                              className="flex justify-between items-center px-4 py-3   "
                               key={i.id}
                               onClick={() => setmark(i)}
                             >
-                              {/* {console.log(i)} */}
+                              {console.log(i)}
                               <div className=" flex justify-start items-center gap-4">
                                 <div>
                                   <img
@@ -843,7 +928,7 @@ function Dashboard({ totalNodes }) {
                                   <p className=" font-semibold">
                                     {i.walletname}
                                   </p>
-                                  {/* <p>Balance : {i.balance}</p> */}
+                                  <p>Balance : {i.balance}</p>
                                 </div>
                               </div>
                               <div>
@@ -855,14 +940,14 @@ function Dashboard({ totalNodes }) {
                           ))}
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </>
                 <div className="flex justify-center py-5">
                   <img src={smartnode} alt="" />
                 </div>
 
-                <label className="text-[black] text-xl font-bold leading-tight tracking-normal">
+                <label className="text-[white] text-xl font-bold leading-tight tracking-normal">
                   Total Cost:
                 </label>
 
@@ -872,19 +957,23 @@ function Dashboard({ totalNodes }) {
                     placeholder="Enter Price"
                     value={busdprice * value}
                     id="amount"
+                    readOnly
                     // 0.1
                   />
 
-                  <p className="absolute right-0 top-2">{mark.walletname}</p>
+                  <p className="absolute right-0 top-2 text-white">
+                    {/* {mark.walletname} */}
+                    BUSD
+                  </p>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <label className="text-[black] text-2xl font-bold leading-tight tracking-normal">
+                    <label className="text-[white] text-2xl font-bold leading-tight tracking-normal">
                       Drop Schedule :
                     </label>
                     {/* <img src={info} alt="" /> */}
                   </div>
-                  <div className="rounded-md bg-[white] p-2">
+                  <div className="rounded-md bg-[#DCE0FF] p-2">
                     <p>TIER 1 of 3</p>
                   </div>
                 </div>
@@ -895,20 +984,21 @@ function Dashboard({ totalNodes }) {
                 </div>
 
                 <div className="flex items-center gap-2 mt-8">
-                  <label className="text-[black] text-xl font-bold leading-tight tracking-normal">
+                  <label className="text-[white] text-xl font-bold leading-tight tracking-normal">
                     Quantity: (Up to 100)
                   </label>
                 </div>
 
-                <div className=" mb-5 mt-2 flex">
+                <div className=" mb-5 mt-2 flex bot-left1 rounded-lg">
                   <div
-                    className=" btn-bg p-2 rounded-l-lg flex justify-center items-center cursor-pointer border-[#14206A] border-y border-l"
-                    onClick={increment}
+                    className=" btn-bg p-2  flex justify-center items-center cursor-pointer  border-y border-l"
+                    onClick={decrement}
                   >
-                    <i className="fa-solid fa-chevron-up"></i>
+                    {/* <i className="fa-solid fa-chevron-up"></i> */}
+                    <i className="fa-solid fa-minus text-center"></i>
                   </div>
                   <input
-                    className="  focus:outline-none  font-light w-full h-10 flex items-center   border-[#14206A] border-y text-center "
+                    className="  focus:outline-none  font-light w-full h-10 flex items-center bg-[#97A5FC]   border-y text-center "
                     placeholder="Enter Quantity"
                     type="number"
                     value={value}
@@ -919,21 +1009,21 @@ function Dashboard({ totalNodes }) {
                     pattern="[0-9]*"
                   />
                   <div
-                    className=" btn-bg p-2 rounded-r-lg flex justify-center items-center cursor-pointer border-[#14206A] border-y border-r"
-                    onClick={decrement}
+                    className=" btn-bg p-2 flex justify-center items-center cursor-pointer  border-y border-r"
+                    onClick={increment}
                   >
-                    <i className="fa-solid fa-angle-down text-center "></i>
+                    <i className="fa-solid fa-plus text-center"></i>
                   </div>
                 </div>
                 <div
                   className="flex justify-center items-center"
-                  onClick={placeOrder}
+                  onClick={payBUSD}
                 >
                   <Button btn={"Place Order"} />
                 </div>
 
                 <div
-                  className=" cursor-pointer outline-none border-none absolute top-0 right-0 mt-4 mr-5 text-[#14206A] transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                  className=" cursor-pointer outline-none border-none absolute top-0 right-0 mt-4 mr-5 text-[#CFD6FE] transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
                   onClick={openpopp}
                 >
                   <i className="fa-sharp fa-solid fa-xmark"></i>

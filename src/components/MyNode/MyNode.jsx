@@ -3,12 +3,12 @@ import MyNodedetalis from "./MyNodedetalis/MyNodedetalis";
 import Search from "./Search/Search";
 import UserData from "./Userd/UserData";
 
-function MyNode() {
+function MyNode({ totlenode }) {
   return (
     <div>
       {/* <Search /> */}
       {/* <UserData /> */}
-      <MyNodedetalis />
+      <MyNodedetalis totlenode={totlenode} />
     </div>
   );
 }

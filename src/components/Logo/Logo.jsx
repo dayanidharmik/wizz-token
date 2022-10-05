@@ -59,7 +59,6 @@ function Logo() {
   const [error, setError] = useState();
 
   const handleNetworkSwitch = async (networkName) => {
-    
     setError();
 
     await changeNetwork({ networkName, setError });
@@ -74,7 +73,7 @@ function Logo() {
     try {
       const encrypt = encryptData(
         JSON.stringify({
-          walletAddress:wallet,
+          walletAddress: wallet,
         })
       );
 
@@ -98,7 +97,7 @@ function Logo() {
     const wallet = await window?.ethereum?.enable();
     setaddress(wallet?.toString());
     addWallet(wallet?.toString());
-    handleNetworkSwitch("bsc")
+    handleNetworkSwitch("bsc");
   };
 
   useEffect(() => {

@@ -248,8 +248,9 @@ input[type="number"] {
 }
 
 .bot-left1 {
-  border: 10px solid transparent;
-  text-align: center;
+  border: 2px solid transparent;
+
+  /* text-align: center; */
   background-image: radial-gradient(
       66.47% 66.47% at 50% 50%,
       #030239 0%,
@@ -271,10 +272,15 @@ input[type="number"] {
   background-clip: content-box, border-box;
   animation: all 1s ease-in;
 }
-.bot-left1 {
+
+.bot-left1:hover {
   border: 2px solid transparent;
-  text-align: center;
-  background-image: radial-gradient(#0b1765),
+  /* text-align: center; */
+  background-image: radial-gradient(
+      66.47% 66.47% at 50% 50%,
+      #030239 0%,
+      #0B1765 100%
+    ),
     linear-gradient(
       90deg,
       #ffeb76 0%,

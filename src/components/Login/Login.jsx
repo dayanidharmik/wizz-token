@@ -106,90 +106,103 @@ function Login() {
     <>
       <Toaster position="top-right" reverseOrder={false} />
       <div className="flex items-center">
-        <div className="w-full bg-white rounded-3xl shadow-lg p-14 md:p-14 md:m-9 my-10 mx-5 md:max-w-xl md:mx-auto  container">
-          <span className="block w-full text-[35px] font-bold   mb-14 text-center login">
+        <div className="w-full nodetype-bg  rounded-3xl shadow-lg p-14 md:p-14 md:m-9 my-10 mx-5 md:max-w-xl md:mx-auto  container">
+          <span className="golden block w-full text-[35px] font-bold   mb-14 text-center login">
             Login
           </span>
           <form className="mb-3" autoComplete="off" onSubmit={onLoginSubmit}>
             <div className="flex  flex-col justify-center items-center">
-              <div className="mb-6 md:w-full text-[#030239] relative ">
-                <input
-                  className={`w-full border rounded-md py-2 px-7 outline-none focus:shadow-outline text-[#030239] ${
-                    error.email ? "border-2 border-[red]" : ""
-                  }`}
-                  type="email"
-                  name="email"
-                  placeholder="User Email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setError({
-                      ...error,
-                      email:
-                        e.target.value === ""
-                          ? "*Email address is required!"
-                          : !/\S+@\S+\.\S+/.test(e.target.value)
-                          ? "*Email address is invalid!"
-                          : "",
-                    });
-                  }}
-                  onBlur={(e) => {
-                    setEmail(e.target.value);
-                    setError({
-                      ...error,
-                      email:
-                        e.target.value === ""
-                          ? "*Email address is required!"
-                          : !/\S+@\S+\.\S+/.test(e.target.value)
-                          ? "*Email address is invalid!"
-                          : "",
-                    });
-                  }}
-                />
+              <div className=" mb-6 md:w-full  relative ">
+                <div
+                  className={`${
+                    error.email
+                      ? "border-2 border-[red] rounded-md"
+                      : "bot-left1 "
+                  } rounded-md`}
+                >
+                  <input
+                    className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9]`}
+                    type="email"
+                    name="email"
+                    placeholder="User Email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError({
+                        ...error,
+                        email:
+                          e.target.value === ""
+                            ? "*Email address is required!"
+                            : !/\S+@\S+\.\S+/.test(e.target.value)
+                            ? "*Email address is invalid!"
+                            : "",
+                      });
+                    }}
+                    onBlur={(e) => {
+                      setEmail(e.target.value);
+                      setError({
+                        ...error,
+                        email:
+                          e.target.value === ""
+                            ? "*Email address is required!"
+                            : !/\S+@\S+\.\S+/.test(e.target.value)
+                            ? "*Email address is invalid!"
+                            : "",
+                      });
+                    }}
+                  />
+                </div>
+
                 <img
                   src={emailuser}
                   alt=""
                   className="absolute top-[17px] left-2"
                 />
-                <p className="text-[red] mt-2">{error.email}</p>
+                <p className="text-[red] ">{error.email}</p>
               </div>
 
-              <div className="mb-6 md:w-full text-[#030239] relative ">
-                <input
-                  className={`w-full border rounded-md py-2 px-7 outline-none focus:shadow-outline text-[#030239] ${
-                    error.password ? "border-2 border-[red]" : ""
-                  }`}
-                  type={`${showPass ? "text" : "password"}`}
-                  name="password"
-                  id="password"
-                  placeholder="User Password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setError({
-                      ...error,
-                      password:
-                        e.target.value === ""
-                          ? "*Password is required!"
-                          : e.target.value.length < 8
-                          ? "*Password must be 8 or more characters!"
-                          : null,
-                    });
-                  }}
-                  onBlur={(e) => {
-                    setPassword(e.target.value);
-                    setError({
-                      ...error,
-                      password:
-                        e.target.value === ""
-                          ? "*Password is required!"
-                          : e.target.value.length < 8
-                          ? "*Password must be 8 or more characters!"
-                          : null,
-                    });
-                  }}
-                  onKeyPress={preventSpace}
-                />
+              <div className="mb-6 md:w-full relative ">
+                <div
+                  className={`${
+                    error.password
+                      ? "border-2 border-[red] rounded-md"
+                      : "bot-left1 "
+                  } rounded-md`}
+                >
+                  <input
+                    className={` w-full bg-transparent border rounded-md py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9] `}
+                    type={`${showPass ? "text" : "password"}`}
+                    name="password"
+                    id="password"
+                    placeholder="User Password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError({
+                        ...error,
+                        password:
+                          e.target.value === ""
+                            ? "*Password is required!"
+                            : e.target.value.length < 8
+                            ? "*Password must be 8 or more characters!"
+                            : null,
+                      });
+                    }}
+                    onBlur={(e) => {
+                      setPassword(e.target.value);
+                      setError({
+                        ...error,
+                        password:
+                          e.target.value === ""
+                            ? "*Password is required!"
+                            : e.target.value.length < 8
+                            ? "*Password must be 8 or more characters!"
+                            : null,
+                      });
+                    }}
+                    onKeyPress={preventSpace}
+                  />
+                </div>
                 <img
                   role="button"
                   alt="Eye-icon-img"

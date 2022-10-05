@@ -1,12 +1,13 @@
 import React from "react";
 import "../Login/SignUp.css";
 import Dashboard from "./Dashboard/Dashboard";
-
 import NodeTypes from "./nodeTypes/NodeTypes";
-function dashboard() {
+
+function dashboard({totlenode}) {
+  // console.log(totlenode,"totlenode");
   return (
     <>
-      <Dashboard />
+      <Dashboard totlenode={totlenode}/>
       <NodeTypes />
     </>
   );
