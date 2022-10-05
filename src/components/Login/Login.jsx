@@ -10,6 +10,7 @@ import instance from "../BaseUrl/BaseUrl";
 import toast, { Toaster } from "react-hot-toast";
 import { signin, signup } from "../Feature/User";
 import { useDispatch } from "react-redux";
+import Button from "../Button/Button";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -217,18 +218,16 @@ function Login() {
                 />
                 <p className="text-[red] mt-2">{error.password}</p>
               </div>
-              <button className="btn-bg  text-white  text-sm font-semibold px-8 py-2 rounded-full text-center">
-                Login
-              </button>
+                <Button btn={"Log In"}></Button>
             </div>
           </form>
           <div className="flex flex-col justify-center items-center gap-10">
-            <Link className="text-[#030239]  text-sm" to="/forgetpassword">
+            <Link className="text-white text-sm" to="/forgetpassword">
               Forgot password?
             </Link>
             <div className="flex gap-2">
               <p className="text-[#A9A9A9]  text-sm">Don't have an account?</p>
-              <Link className="text-[#030239]  text-sm" to="/signUp">
+              <Link className=" text-white text-sm" to="/signUp">
                 Sign Up
               </Link>
             </div>
