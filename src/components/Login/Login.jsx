@@ -28,17 +28,17 @@ function Login() {
     if (email === "") {
       setError({
         ...error,
-        email: "*Email address is required!",
+        email: "Email address is required!",
       });
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       setError({
         ...error,
-        email: "*Email address is invalid!",
+        email: "Email address is invalid!",
       });
     } else if (password === "") {
       setError({
         ...error,
-        password: "*Password is required!",
+        password: "Password is required!",
       });
     } else {
       SignIn();
@@ -116,9 +116,7 @@ function Login() {
               <div className=" mb-6 md:w-full  relative ">
                 <div
                   className={`${
-                    error.email
-                      ? "border-2 border-[red] rounded-md"
-                      : "bot-left1 "
+                    error.email ? "border-2 Rewards rounded-md" : "bot-left1 "
                   } rounded-md`}
                 >
                   <input
@@ -133,9 +131,9 @@ function Login() {
                         ...error,
                         email:
                           e.target.value === ""
-                            ? "*Email address is required!"
+                            ? "Email address is required!"
                             : !/\S+@\S+\.\S+/.test(e.target.value)
-                            ? "*Email address is invalid!"
+                            ? "Email address is invalid!"
                             : "",
                       });
                     }}
@@ -145,9 +143,9 @@ function Login() {
                         ...error,
                         email:
                           e.target.value === ""
-                            ? "*Email address is required!"
+                            ? "Email address is required!"
                             : !/\S+@\S+\.\S+/.test(e.target.value)
-                            ? "*Email address is invalid!"
+                            ? "Email address is invalid!"
                             : "",
                       });
                     }}
@@ -159,19 +157,19 @@ function Login() {
                   alt=""
                   className="absolute top-[17px] left-2"
                 />
-                <p className="text-[red] ">{error.email}</p>
+                <p className=" golden mt-2">{error.email}</p>
               </div>
 
               <div className="mb-6 md:w-full relative ">
                 <div
                   className={`${
                     error.password
-                      ? "border-2 border-[red] rounded-md"
+                      ? "border-2 Rewards rounded-md"
                       : "bot-left1 "
                   } rounded-md`}
                 >
                   <input
-                    className={` w-full bg-transparent border rounded-md py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9] `}
+                    className={` w-full bg-transparent  py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9] `}
                     type={`${showPass ? "text" : "password"}`}
                     name="password"
                     id="password"
@@ -183,9 +181,9 @@ function Login() {
                         ...error,
                         password:
                           e.target.value === ""
-                            ? "*Password is required!"
+                            ? "Password is required!"
                             : e.target.value.length < 8
-                            ? "*Password must be 8 or more characters!"
+                            ? "Password must be 8 or more characters!"
                             : null,
                       });
                     }}
@@ -195,9 +193,9 @@ function Login() {
                         ...error,
                         password:
                           e.target.value === ""
-                            ? "*Password is required!"
+                            ? "Password is required!"
                             : e.target.value.length < 8
-                            ? "*Password must be 8 or more characters!"
+                            ? "Password must be 8 or more characters!"
                             : null,
                       });
                     }}
@@ -216,18 +214,20 @@ function Login() {
                   alt=""
                   className="absolute top-[14px] left-2"
                 />
-                <p className="text-[red] mt-2">{error.password}</p>
+                <p className="golden mt-2">{error.password}</p>
               </div>
-                <Button btn={"Log In"}></Button>
+              <div className="rewardstextcolor">
+                <Button btn={"Log In"} />
+              </div>
             </div>
           </form>
           <div className="flex flex-col justify-center items-center gap-10">
-            <Link className="text-white text-sm" to="/forgetpassword">
+            <Link className="text-white text-sm rewardstextcolor" to="/forgetpassword">
               Forgot password?
             </Link>
             <div className="flex gap-2">
-              <p className="text-[#A9A9A9]  text-sm">Don't have an account?</p>
-              <Link className=" text-white text-sm" to="/signUp">
+              <p className="text-[#A9A9A9] rewardstextcolor  text-sm">Don't have an account?</p>
+              <Link className=" text-white text-sm golden" to="/signUp">
                 Sign Up
               </Link>
             </div>

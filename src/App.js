@@ -27,6 +27,8 @@ function App() {
   const getdata = JSON.parse(localStorage.getItem("detelis"));
   const [totlenode, settotlenode] = useState();
   const getDetelis = JSON.parse(localStorage.getItem("token"));
+
+
   var checkToken = () => {
     if (!getDetelis) {
       navigate("/");
@@ -77,20 +79,16 @@ function App() {
         <div className="ml-[54px] w-full h-screen  h min-h-screen  bg ">
           <Logo />
           <Routes>
-            <Route element={"<Protecte />"}>              
-            </Route>
-            {/* {getDetelis ? (
+            <Route element={"<Protecte />"}></Route>
+            {/* {!getDetelis ? (
               navigate("/")
             ) : ( */}
-            {/* {checkToken} */}
-            <>
-              <Route path="/signUp" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgetpassword" element={<ForgetPassword />} />
-              <Route path="/resetpassword" element={<ResetPassword />} />
-            </>
-            {/* // )} */}
+       
 
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgetpassword" element={<ForgetPassword />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
             <Route path="/" element={<Dashboard totlenode={totlenode} />} />
             <Route path="/myNode" element={<MyNode totlenode={totlenode} />} />
             <Route path="/investments" element={<Investments />} />

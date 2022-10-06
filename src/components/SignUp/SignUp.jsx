@@ -13,7 +13,6 @@ import toast, { Toaster } from "react-hot-toast";
 import OTP from "../OTP/OTP";
 import "../Login/SignUp.css";
 
-import { useCookies } from "react-cookie";
 function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,9 +23,6 @@ function SignUp() {
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const { encryptData, decryptData } = useEncryption();
   const [openotpbox, setopenotpbox] = useState(false);
-  // const userData = useSelector(selecUser);
-  // console.log(userData.username);
-  const navigate = useNavigate();
 
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
@@ -36,6 +32,7 @@ function SignUp() {
     cpwd: "",
     referralCode: "",
   });
+
   function onLoginSubmit(e) {
     e.preventDefault();
     if (username === "") {
@@ -140,10 +137,11 @@ function SignUp() {
       setopenotpbox(false);
     };
   }, []);
+
   return (
     <>
       {openotpbox ? (
-        <OTP email={email}  />
+        <OTP email={email} />
       ) : (
         <>
           <Toaster position="top-right" reverseOrder={false} />
