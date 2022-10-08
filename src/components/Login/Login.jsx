@@ -58,7 +58,7 @@ function Login() {
       });
       // console.log(result);
       const results = decryptData(result.data.data);
-      console.log(results);
+      // console.log(results);
       if (results.status) {
         toast.success(results.message);
 
@@ -129,9 +129,7 @@ function Login() {
                       setError({
                         ...error,
                         email:
-                          e.target.value === ""
-                            ? "Username is required!"
-                            : "",
+                          e.target.value === "" ? "Username is required!" : "",
                       });
                     }}
                     onBlur={(e) => {
@@ -139,9 +137,7 @@ function Login() {
                       setError({
                         ...error,
                         email:
-                          e.target.value === ""
-                            ? "Username is required!"
-                            : "",
+                          e.target.value === "" ? "Username is required!" : "",
                       });
                     }}
                   />

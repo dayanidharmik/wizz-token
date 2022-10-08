@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../investment.css'
 function Trading() {
   const Tradingdata = [
     {

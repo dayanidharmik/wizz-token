@@ -54,7 +54,7 @@ function NodeTypes() {
             {node.map((index) => (
               <>
                 <div key={index.id} className=" ">
-                  <div className="swap hover-switch transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
+                  <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
                     <img src={index.img} alt="" className="" />
                     <img src={index.imggold} alt="" className="" />
                   </div>
@@ -71,7 +71,7 @@ function NodeTypes() {
               {node.map((index) => (
                 <>
                   <div key={index.id}>
-                    <div className="swap hover-switch transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
+                    <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
                       <img src={index.img} alt="" className="mx-auto" />
                       <img src={index.imggold} alt="" className="" />
                     </div>

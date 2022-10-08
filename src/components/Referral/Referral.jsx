@@ -17,63 +17,6 @@ function Referral() {
   const openpopp = () => {
     setopen(!open);
   };
-  const Tradingdata = [
-    {
-      id: 0,
-      Username: "Refer & Winbig",
-      Name: "Sale",
-      Email: "referrer@gmail.com",
-      Date: "0123456789",
-      Number: "399",
-      Status: "06/25/2022",
-      Spons: "Success",
-      view: "1000",
-    },
-    {
-      id: 1,
-      Username: "Refer & Winbig",
-      Name: "Sale",
-      Email: "referrer@gmail.com",
-      Date: "0123456789",
-      Number: "399",
-      Status: "06/25/2022",
-      Spons: "Success",
-      view: "1000",
-    },
-    {
-      id: 2,
-      Username: "Refer & Winbig",
-      Name: "Sale",
-      Email: "referrer@gmail.com",
-      Date: "0123456789",
-      Number: "399",
-      Status: "06/25/2022",
-      Spons: "Success",
-      view: "1000",
-    },
-    {
-      id: 3,
-      Username: "Refer & Winbig",
-      Name: "Sale",
-      Email: "referrer@gmail.com",
-      Date: "0123456789",
-      Number: "399",
-      Status: "06/25/2022",
-      Spons: "Success",
-      view: "1000",
-    },
-    {
-      id: 4,
-      Username: "Refer & Winbig",
-      Name: "Sale",
-      Email: "referrer@gmail.com",
-      Date: "0123456789",
-      Number: "399",
-      Status: "06/25/2022",
-      Spons: "Success",
-      view: "1000",
-    },
-  ];
 
   /*================getAllchild API===============*/
 
@@ -82,9 +25,9 @@ function Referral() {
       const result = await instance.get("/getAllchild");
 
       const results = decryptData(result.data.data);
-      console.log(results.childData[0].level1);
+      // console.log(results.data);
       if (results.status) {
-        setreferaalleval1(results.childData[0].level1);
+        setreferaalleval1(results.data);
         // toast.success(results.message);
       } else {
         toast.error(results.message);
@@ -100,7 +43,7 @@ function Referral() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className=" container  mx-auto md:px-10 mt-5">
+    <div className=" container  mx-auto md:px-10 mt-5 px-5">
       <div className="mt-7 flex-col md:flex-row ">
         <MainTitle title={"Referral"} />
       </div>
@@ -128,7 +71,7 @@ function Referral() {
                 <>
                   <div className="flex gap-5" onClick={openpopp}>
                     <SocialIcon
-                      url={`https://twitter.com/compose/tweet?url=Join my team on metalink https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
+                      url={`https://twitter.com/compose/tweet?url= Hello, I would like to invite you to join Wizzcoin Project. Join through  https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
                       // bgColor="#ff5a01"
                       target="_blank"
                     />
@@ -137,11 +80,11 @@ function Referral() {
                       target="_blank"
                     />
                     <SocialIcon
-                      url={`https://api.whatsapp.com/send/?text=https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
+                      url={`https://api.whatsapp.com/send/?text= Hello, I would like to invite you to join Wizzcoin Project. Join through https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
                       target="_blank"
                     />
                     <SocialIcon
-                      url={`https://t.me/share/url?url=https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
+                      url={`https://t.me/share/url?url= Hello, I would like to invite you to join Wizzcoin Project. Join through https://app.wizzcoin.io/signUp/?ref=${getDetelis?.username}`}
                       target="_blank"
                     />
                   </div>
@@ -167,7 +110,7 @@ function Referral() {
             </div>
           )}
           <div>
-            <table class=" rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF] ">
+            <table class=" rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF]">
               <tbody>
                 <tr>
                   <th>Username</th>
@@ -182,56 +125,43 @@ function Referral() {
 
                 {referaalleval1.map((items) => (
                   <>
+                    {/* {console.log(items.child[0])} */}
                     <tr>
-                      {items.username ? (
-                        <td data-th="Username">{items.username}</td>
-                      ) : (
-                        <td data-th="Username">_</td>
-                      )}
-
-                      {items.Name ? (
-                        <td data-th="Name">{items.Name}</td>
+                      <td data-th="Username">{items.child[0].username}</td>
+                      {items.child[0].name ? (
+                        <td data-th="Name">{items.child[0].name}</td>
                       ) : (
                         <td data-th="Name">
                           <p>_</p>
                         </td>
                       )}
-                      {items.email ? (
-                        <td data-th="Email">{items.email}</td>
-                      ) : (
-                        <td data-th="Email">_</td>
-                      )}
-                      {items.createdAt ? (
-                        <td data-th="Date joined">{items.createdAt}</td>
-                      ) : (
-                        <td data-th="Date joined">_</td>
-                      )}
-
-                      {items.Number ? (
-                        <td data-th="Name">{items.Name}</td>
+                      <td data-th="Email">{items.child[0].email}</td>
+                      <td data-th="Date joined">{items.child[0].createdAt}</td>
+                      {items.child[0].Number ? (
+                        <td data-th="Name">{items.child[0].Number}</td>
                       ) : (
                         <td data-th="Name">
                           <p>_</p>
                         </td>
                       )}
-                      {items.status ? (
+                      {items.child[0].status ? (
                         <td data-th="Name">
-                          <i className="fa-sharp fa-solid fa-circle-check"></i>
+                          <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>
                         </td>
                       ) : (
                         <td data-th="Name">
-                          <i className="fa-sharp fa-solid fa-circle-xmark"></i>
+                          <i className="fa-sharp fa-solid fa-circle-xmark text-red-600"></i>
                         </td>
                       )}
-                      {items.Spons ? (
-                        <td data-th="Name">{items.Spons}</td>
+                      {items.child[0].Spons ? (
+                        <td data-th="Name">{items.child[0].Spons}</td>
                       ) : (
                         <td data-th="Name">
                           <p>_</p>
                         </td>
                       )}
-                      {items.view ? (
-                        <td data-th="Name">{items.view}</td>
+                      {items.child[0].view ? (
+                        <td data-th="Name">{items.child[0].view}</td>
                       ) : (
                         <td data-th="Name">
                           <p>_</p>

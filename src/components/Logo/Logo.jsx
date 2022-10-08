@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../Button/Button";
 import wizzlogo from "../img/wizz-logo.png";
@@ -94,10 +95,15 @@ function Logo() {
   };
 
   const openmetamask = async () => {
-    const wallet = await window?.ethereum?.enable();
-    setaddress(wallet?.toString());
-    addWallet(wallet?.toString());
-    handleNetworkSwitch("bsc");
+    if (!window.ethereum) {
+      toast.error("No crypto wallet found");
+      window.open("https://metamask.io/");
+    } else {
+      const wallet = await window?.ethereum?.enable();
+      setaddress(wallet?.toString());
+      addWallet(wallet?.toString());
+      handleNetworkSwitch("bsc");
+    }
   };
 
   useEffect(() => {
@@ -147,6 +153,7 @@ function Logo() {
                 <p className="text-white text-xl">
                   Hello, {getDetelis?.username}
                 </p>
+
                 <div onClick={() => openmetamask()}>
                   <Button
                     btn={`${
