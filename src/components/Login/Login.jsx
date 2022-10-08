@@ -8,15 +8,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import toast, { Toaster } from "react-hot-toast";
-import { signin, signup } from "../Feature/User";
-import { useDispatch } from "react-redux";
 import Button from "../Button/Button";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const { encryptData, decryptData } = useEncryption();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
@@ -28,14 +25,16 @@ function Login() {
     if (email === "") {
       setError({
         ...error,
-        email: "Email address is required!",
+        email: "Username is required!",
       });
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setError({
-        ...error,
-        email: "Email address is invalid!",
-      });
-    } else if (password === "") {
+    }
+    //  else if (!/\S+@\S+\.\S+/.test(email)) {
+    //   setError({
+    //     ...error,
+    //     email: "Email address is invalid!",
+    //   });
+    // }
+    else if (password === "") {
       setError({
         ...error,
         password: "Password is required!",
@@ -50,7 +49,7 @@ function Login() {
     try {
       const encrypt = encryptData(
         JSON.stringify({
-          email,
+          emailorUsername: email,
           password,
         })
       );
@@ -81,7 +80,7 @@ function Login() {
           JSON.stringify({
             username: results.data.user.username,
             email: results.data.user.email,
-            referralCode: results.data.user.referralCode,
+            // referralCode: results.data.user.referralCode,
           })
         );
         navigate("/");
@@ -120,10 +119,10 @@ function Login() {
                   } rounded-md`}
                 >
                   <input
-                    className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9]`}
-                    type="email"
-                    name="email"
-                    placeholder="User Email"
+                    className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor`}
+                    type="text"
+                    name="text"
+                    placeholder="Username"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -131,9 +130,7 @@ function Login() {
                         ...error,
                         email:
                           e.target.value === ""
-                            ? "Email address is required!"
-                            : !/\S+@\S+\.\S+/.test(e.target.value)
-                            ? "Email address is invalid!"
+                            ? "Username is required!"
                             : "",
                       });
                     }}
@@ -143,9 +140,7 @@ function Login() {
                         ...error,
                         email:
                           e.target.value === ""
-                            ? "Email address is required!"
-                            : !/\S+@\S+\.\S+/.test(e.target.value)
-                            ? "Email address is invalid!"
+                            ? "Username is required!"
                             : "",
                       });
                     }}
@@ -169,7 +164,7 @@ function Login() {
                   } rounded-md`}
                 >
                   <input
-                    className={` w-full bg-transparent  py-2 px-7 outline-none focus:shadow-outline text-[#A9A9A9] `}
+                    className={` w-full bg-transparent  py-2 px-7 outline-none focus:shadow-outline rewardstextcolor `}
                     type={`${showPass ? "text" : "password"}`}
                     name="password"
                     id="password"
@@ -207,7 +202,7 @@ function Login() {
                   alt="Eye-icon-img"
                   onClick={onShowPassword}
                   src={showPass ? openeye : closeeye}
-                  className="absolute  top-4 right-3"
+                  className={`absolute   right-3 top-4`}
                 />
                 <img
                   src={passworduser}
@@ -222,11 +217,16 @@ function Login() {
             </div>
           </form>
           <div className="flex flex-col justify-center items-center gap-10">
-            <Link className="text-white text-sm rewardstextcolor" to="/forgetpassword">
+            <Link
+              className="text-white text-sm rewardstextcolor"
+              to="/forgetpassword"
+            >
               Forgot password?
             </Link>
             <div className="flex gap-2">
-              <p className="text-[#A9A9A9] rewardstextcolor  text-sm">Don't have an account?</p>
+              <p className="text-[#A9A9A9] rewardstextcolor  text-sm">
+                Don't have an account?
+              </p>
               <Link className=" text-white text-sm golden" to="/signUp">
                 Sign Up
               </Link>

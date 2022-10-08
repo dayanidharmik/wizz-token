@@ -35,7 +35,11 @@ function Dashboard({ totlenode }) {
   // console.log(va);
   //===== openpopp=====
   const openpopp = () => {
-    setopen(!open);
+    if (totalremaining?.smart === 0) {
+      toast.success("Tier 1 has been sold. Wait for the new tier launch.");
+    } else {
+      setopen(!open);
+    }
   };
   // =======claim data========
   const claim = [
@@ -438,13 +442,16 @@ function Dashboard({ totlenode }) {
           })
           .on("confirmation", function (confirmationNumber, receipt) {
             settransaction(receipt?.events?.Transfer?.returnValues?.value);
-            console.log(confirmationNumber);
+            // console.log(receipt);
+            // console.log(confirmationNumber);
             if (receipt?.status && confirmationNumber === 0) {
               console.log(receipt);
               txnData();
               setopen(!open);
-              toast.success("Your Order has been Place");
-              window.location.reload();
+              toast.success(
+                "Congratulations! You have bough the Wizz Nodes. Please refresh page to see Nodes."
+              );
+              // window.location.reload();
             } else {
               // toast.error(essage);
             }
@@ -551,7 +558,7 @@ function Dashboard({ totlenode }) {
           email: getdata?.email,
           // value: transaction,
           name: "smart node",
-          currency:"BUSD",
+          currency: "BUSD",
           quantity: value,
           // txhash: transaction?.transactionHash,
           // from: transaction?.events?.Transfer?.returnValues?.from,
@@ -575,12 +582,12 @@ function Dashboard({ totlenode }) {
       //   value
       // );
       const results = decryptData(result.data.data);
-      console.log(results);
+      // console.log(results);
 
       if (results.status) {
         openmetamask();
         // payBUSD();
-        toast.success(results.message);
+        // toast.success(results.message);
 
         localStorage.setItem(
           "quantity",
@@ -658,7 +665,7 @@ function Dashboard({ totlenode }) {
       });
 
       const results = decryptData(result.data.data);
-      console.log(results);
+      // console.log(results);
 
       if (results.status) {
         // toast.success(results.message);
@@ -672,6 +679,7 @@ function Dashboard({ totlenode }) {
     const wallet = await window?.ethereum?.enable();
     addWallet(wallet?.toString());
   };
+
   useEffect(() => {
     if (!effectCalled.current) {
       nodeSupplies();
@@ -710,7 +718,7 @@ function Dashboard({ totlenode }) {
                       key={index.id}
                     >
                       <img src={index.img} alt="" className="w-8 h-8" />
-                      <p className="rewardstextcolor">{index.card}</p>
+                      <p className="rewardstextcolor text-xl">{index.card}</p>
                     </div>
                   </div>
                 </>
@@ -768,7 +776,7 @@ function Dashboard({ totlenode }) {
                       key={index.id}
                     >
                       <img src={index.img} alt="" className="w-8 h-8" />
-                      <p className="rewardstextcolor">{index.card}</p>
+                      <p className="rewardstextcolor text-xl">{index.card}</p>
                     </div>
                   </div>
                 </>
@@ -782,7 +790,7 @@ function Dashboard({ totlenode }) {
             <div className="py-14">
               <div className="flex md:flex-row flex-col gap-2 justify-between items-center">
                 <div>
-                  <p className="text-[#7351FC] text-2xl font-bold">My Nodes</p>
+                  <p className="text-[#7351FC] text-2xl font-bold">Rewards</p>
                 </div>
                 <Link to="/investments">
                   <Button btn={"Claim All"} />
@@ -800,7 +808,7 @@ function Dashboard({ totlenode }) {
                         key={index.id}
                       >
                         <img src={index.img} alt="" className="w-8 h-8" />
-                        <p className="rewardstextcolor">{index.card}</p>
+                        <p className="rewardstextcolor text-xl">{index.card}</p>
                       </div>
                     </div>
                   </>
@@ -816,7 +824,7 @@ function Dashboard({ totlenode }) {
                   </p>
                 </div>
                 <table className="w-full  md:text-center">
-                  <thead className="text-[#7351FC] md:text-lg text-sm md:font-bold">
+                  <thead className="text-[#7351FC] md:text-lg text-[11px] md:font-bold">
                     <tr>
                       <th scope="col">Current Price</th>
                       <th scope="col">Total Nodes</th>
@@ -865,7 +873,7 @@ function Dashboard({ totlenode }) {
                         key={index.id}
                       >
                         <img src={index.img} alt="" className="w-8 h-8" />
-                        <p className="rewardstextcolor">{index.card}</p>
+                        <p className="rewardstextcolor text-xl">{index.card}</p>
                       </div>
                     </div>
                   </>
@@ -877,7 +885,7 @@ function Dashboard({ totlenode }) {
 
         {open && (
           <div
-            className="py-3  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur"
+            className="py-3  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur overflow-scroll"
             id="modal"
           >
             <div className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
@@ -944,7 +952,11 @@ function Dashboard({ totlenode }) {
                   </div>
                 </>
                 <div className="flex justify-center py-5">
-                  <img src={smartnode} alt="" />
+                  <img
+                    src={smartnode}
+                    alt=""
+                    className="md:w-44 w-32 lg:w-fit"
+                  />
                 </div>
 
                 <label className="text-[white] text-xl font-bold leading-tight tracking-normal">
@@ -955,7 +967,7 @@ function Dashboard({ totlenode }) {
                   <input
                     className="text-color  focus:outline-none  font-extrabold w-full h-10 flex items-center  text-xl  border-[#14206A] border-b"
                     placeholder="Enter Price"
-                    value={busdprice * value}
+                    value={(busdprice * value).toFixed(6)}
                     id="amount"
                     readOnly
                     // 0.1
@@ -974,7 +986,7 @@ function Dashboard({ totlenode }) {
                     {/* <img src={info} alt="" /> */}
                   </div>
                   <div className="rounded-md bg-[#DCE0FF] p-2">
-                    <p>TIER 1 of 3</p>
+                    <p>TIER 1 of 25</p>
                   </div>
                 </div>
                 <div className="mt-10 text-center rounded-md bg-[#97A5FC] p-3">

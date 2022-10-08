@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../Button/Button";
 import wizzlogo from "../img/wizz-logo.png";
 import { Link, useLocation } from "react-router-dom";
@@ -55,7 +55,7 @@ function Logo() {
   const { pathname } = location;
   const getDetelis = JSON.parse(localStorage.getItem("detelis"));
   const { encryptData, decryptData } = useEncryption();
-
+  const effectCalled = useRef(false);
   const [error, setError] = useState();
 
   const handleNetworkSwitch = async (networkName) => {
@@ -77,13 +77,13 @@ function Logo() {
         })
       );
 
-      console.log("address1", wallet);
+      // console.log("address1", wallet);
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
-      console.log(results);
+      // console.log(results);
 
       if (results.status) {
         // toast.success(results.message);
@@ -99,6 +99,13 @@ function Logo() {
     addWallet(wallet?.toString());
     handleNetworkSwitch("bsc");
   };
+
+  useEffect(() => {
+    if (!effectCalled.current && getDetelis) {
+      openmetamask();
+      effectCalled.current = true;
+    }
+  }, []);
 
   useEffect(() => {
     window?.ethereum?.on("chainChanged", networkChanged);

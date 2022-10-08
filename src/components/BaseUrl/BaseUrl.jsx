@@ -10,8 +10,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const getAuth = localStorage.getItem("token");
-    const Auth = JSON.parse(getAuth);
+    let getAuth = localStorage.getItem("token");
+    let Auth = JSON.parse(getAuth);
       if (Auth) {
       config.headers = {
         Authorization: `${Auth.token}`,

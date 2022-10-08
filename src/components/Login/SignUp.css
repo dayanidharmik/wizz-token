@@ -1,10 +1,11 @@
 .bg {
-  background-image: url(../../components/img/bg.png);
+  /* background-image: url(../../components/img/bg.png); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
+  background: radial-gradient(67.3% 67.3% at 50% 50%, #6B83FF 0%, #001BEA 100%);
 }
 
 /* .login {

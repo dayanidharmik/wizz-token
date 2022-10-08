@@ -4,77 +4,77 @@ function Trading() {
   const Tradingdata = [
     {
       id: 0,
-      td1: "UPS5005",
-      td2: "UPS",
-      td3: "ASDF19218",
-      td4: "06/25/2016",
-      td5: "12/25/2016",
+      Date: "-",
+      Smart: "-",
+      Power: "-",
+      Master: "-",
+      Total: "-",
+      Rewards: "-",
     },
     {
       id: 1,
-      td1: "UPS5005",
-      td2: "UPS",
-      td3: "ASDF19218",
-      td4: "06/25/2016",
-      td5: "12/25/2016",
+      Date: "-",
+      Smart: "-",
+      Power: "-",
+      Master: "-",
+      Total: "-",
+      Rewards: "-",
     },
     {
       id: 2,
-      td1: "UPS5005",
-      td2: "UPS",
-      td3: "ASDF19218",
-      td4: "06/25/2016",
-      td5: "12/25/2016",
+      Date: "-",
+      Smart: "-",
+      Power: "-",
+      Master: "-",
+      Total: "-",
+      Rewards: "-",
     },
     {
       id: 3,
-      td1: "UPS5005",
-      td2: "UPS",
-      td3: "ASDF19218",
-      td4: "06/25/2016",
-      td5: "12/25/2016",
+      Date: "-",
+      Smart: "-",
+      Power: "-",
+      Master: "-",
+      Total: "-",
+      Rewards: "-",
     },
     {
       id: 4,
-      td1: "UPS5005",
-      td2: "UPS",
-      td3: "ASDF19218",
-      td4: "06/25/2016",
-      td5: "12/25/2016",
+      Date: "-",
+      Smart: "-",
+      Power: "-",
+      Master: "-",
+      Total: "-",
+      Rewards: "-",
     },
   ];
   return (
     <>
-      <div class="container mx-auto my-7 px-10 ">
-        <table class=" rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF] ">
+      <div class=" container  mx-auto md:px-10 mt-5">
+        <table class="rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF] ">
           <tbody>
             <tr>
-              <th>Name</th>
-              <th>24 Hr Change</th>
-              <th>current price</th>
-              <th>Buying price</th>
-              <th></th>
-              <th></th>
+              <th>Date</th>
+              <th>Smart NODE</th>
+              <th>Power NODE</th>
+              <th>Master NODE</th>
+              <th>Total NODE</th>
+              <th>Rewards Received</th>
             </tr>
 
             {Tradingdata.map((items) => (
               <>
                 <tr>
-                  <td data-th="Name " key={items.id}>
-                    {items.td1}
+                  <td data-th="Date" key={items.id}>
+                    {items.Date}
                   </td>
-                  <td data-th="24 Hr Change">
-                    <div className="flex gap-2 items-center">
-                      <i className="fa-solid fa-caret-up text-[#48BB78]"></i>
-                      <p>{items.td2}</p>
-                    </div>
+                  <td data-th="Smart NODE">
+                    <p>{items.Smart}</p>
                   </td>
-                  <td data-th="current price">{items.td3}</td>
-                  <td data-th="Buying price">{items.td4}</td>
-                  <td>{items.td5}</td>
-                  <td>
-                    <i className="fa-solid fa-ellipsis-vertical cursor-pointer"></i>
-                  </td>
+                  <td data-th="Power NODE">{items.Power}</td>
+                  <td data-th="Master NODE">{items.Master}</td>
+                  <td data-th="Total NODE"> {items.Total}</td>
+                  <td data-th="Rewards Received">{items.Rewards}</td>
                 </tr>
               </>
             ))}

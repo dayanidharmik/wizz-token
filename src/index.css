@@ -50,6 +50,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input {
+  /* custom */
+  caret-color: white;
+}
 .rwd-table tr:first-child {
   border-top: none;
   background: radial-gradient(
@@ -126,6 +130,10 @@ input[type="number"] {
     background: #dfe5ff;
     color: #19287d;
   }
+  .rwd-table th,
+  .rwd-table td {
+    text-align: center;
+  }
   .rwd-table td:before {
     display: none;
   }
@@ -152,89 +160,6 @@ input[type="number"] {
   display: flex !important;
   justify-content: space-between !important;
   padding: 15px 30px;
-}
-
-.animate {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-/*=== Optional Delays, change values here  ===*/
-.one {
-  -webkit-animation-delay: 0.5s;
-  -moz-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
-
-.two {
-  -webkit-animation-delay: 1s;
-  -moz-animation-delay: 1s;
-  animation-delay: 1s;
-}
-
-/*==== FADE IN UP ===*/
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-.fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
-}
-
-/*=== FADE IN DOWN ===*/
-.fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-}
-@-webkit-keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
 }
 
 .nodetype-bg {
@@ -279,7 +204,7 @@ input[type="number"] {
   background-image: radial-gradient(
       66.47% 66.47% at 50% 50%,
       #030239 0%,
-      #0B1765 100%
+      #0b1765 100%
     ),
     linear-gradient(
       90deg,

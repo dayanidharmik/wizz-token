@@ -39,7 +39,7 @@ function MyNodedetalis({ totlenode }) {
               {totlenode === undefined ? 0 : totlenode}
             </p>
             <p className="text-color border-t-2 py-4 border-white">
-              Total Average Tax 0%
+              {/* Total Average Tax 0% */}
             </p>
           </div>
           <div>
@@ -50,13 +50,13 @@ function MyNodedetalis({ totlenode }) {
                     className=" Rewards rounded-lg gap-5 flex justify-center items-center flex-col"
                     key={index.id}
                   >
-                    <div className="md:p-8 p-2">
+                    <div className="flex flex-col p-5 justify-between ">
                       <img
                         src={index.img}
                         alt=""
                         className="md:w-14 md:h-14 w-10 h-10"
                       />
-                      <p className="rewardstextcolor mt-5">{index.card}</p>
+                      <p className="rewardstextcolor mt-5 text-xl">{index.card}</p>
                     </div>
                   </div>
                 </>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import emailuser from "../img/email.png";
 import "../Login/SignUp.css";
-import {  useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import toast, { Toaster } from "react-hot-toast";
 import OTP from "../OTP/OTP";
+import Button from "../Button/Button";
 function ForgetPassword() {
   const [email, setEmail] = useState("");
   const [openotpbox, setopenotpbox] = useState(false);
@@ -69,8 +70,8 @@ function ForgetPassword() {
         <>
           <Toaster position="top-right" reverseOrder={false} />
           <div className="flex items-center">
-            <div className="w-full bg-white rounded-3xl shadow-lg md:p-14 p-8 md:m-9 my-10 mx-5 md:max-w-xl md:mx-auto  container">
-              <span className="block w-full text-[35px] font-bold   mb-14 text-center login">
+            <div className="w-full nodetype-bg rounded-3xl shadow-lg md:p-14 p-8 md:m-9 my-10 mx-5 md:max-w-xl md:mx-auto  container">
+              <span className="block w-full golden text-[35px] font-bold   mb-14 text-center login">
                 Forget Password
               </span>
               <form
@@ -80,50 +81,54 @@ function ForgetPassword() {
               >
                 <div className="flex  flex-col justify-center items-center">
                   <div className="mb-6 md:w-full text-[#030239] relative ">
-                    <input
-                      className={`w-full border rounded-md py-2 px-7 outline-none focus:shadow-outline text-[#030239] ${
-                        error.email ? "border-2 border-[red]" : ""
-                      }`}
-                      type="email"
-                      name="email"
-                      placeholder="User Email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError({
-                          ...error,
-                          email:
-                            e.target.value === ""
-                              ? "*Email address is required!"
-                              : !/\S+@\S+\.\S+/.test(e.target.value)
-                              ? "*Email address is invalid!"
-                              : "",
-                        });
-                      }}
-                      onBlur={(e) => {
-                        setEmail(e.target.value);
-                        setError({
-                          ...error,
-                          email:
-                            e.target.value === ""
-                              ? "*Email address is required!"
-                              : !/\S+@\S+\.\S+/.test(e.target.value)
-                              ? "*Email address is invalid!"
-                              : "",
-                        });
-                      }}
-                    />
+                    <div
+                      className={`${
+                        error.email
+                          ? "border-2 Rewards rounded-md"
+                          : "bot-left1 "
+                      } rounded-md`}
+                    >
+                      <input
+                        className={`w-full bg-transparent  py-2 px-7 outline-none focus:shadow-outline rewardstextcolor`}
+                        type="email"
+                        name="email"
+                        placeholder="User Email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          setError({
+                            ...error,
+                            email:
+                              e.target.value === ""
+                                ? "*Email address is required!"
+                                : !/\S+@\S+\.\S+/.test(e.target.value)
+                                ? "*Email address is invalid!"
+                                : "",
+                          });
+                        }}
+                        onBlur={(e) => {
+                          setEmail(e.target.value);
+                          setError({
+                            ...error,
+                            email:
+                              e.target.value === ""
+                                ? "*Email address is required!"
+                                : !/\S+@\S+\.\S+/.test(e.target.value)
+                                ? "*Email address is invalid!"
+                                : "",
+                          });
+                        }}
+                      />
+                    </div>
                     <img
                       src={emailuser}
                       alt=""
                       className="absolute top-[17px] left-2"
                     />
-                    <p className="text-[red] mt-2">{error.email}</p>
+                    <p className="golden mt-2">{error.email}</p>
                   </div>
 
-                  <button className="btn-bg  text-white  text-sm font-semibold px-8 py-2 rounded-full text-center">
-                    Send OTP
-                  </button>
+                  <Button btn={" Send OTP"} />
                 </div>
               </form>
             </div>

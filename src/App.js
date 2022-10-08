@@ -26,17 +26,17 @@ function App() {
   const { encryptData, decryptData } = useEncryption();
   const getdata = JSON.parse(localStorage.getItem("detelis"));
   const [totlenode, settotlenode] = useState();
-  const getDetelis = JSON.parse(localStorage.getItem("token"));
+  let getDetelis = JSON.parse(localStorage.getItem("token"));
+  // console.log(getDetelis?.token);
 
-
-  var checkToken = () => {
-    if (!getDetelis) {
-      navigate("/");
+  useEffect(() => {
+    if (getDetelis?.token === undefined) {
+      navigate("/signUp");
     } else {
       totalNodes();
     }
-  };
-  // console.log(getdata?.email);
+  }, [getDetelis?.token]);
+
   // ==============totalNodes API=========
   const totalNodes = async () => {
     try {
@@ -51,7 +51,7 @@ function App() {
 
       const results = decryptData(result.data.data);
       // console.log(results.data.total);
-      // console.log(results.data.total);
+      // console.log(results);
 
       if (results.status) {
         // toast.success(results.message);
@@ -63,12 +63,12 @@ function App() {
   };
   // console.log(totlenode);
 
-  useEffect(() => {
-    if (!effectCalled.current) {
-      checkToken();
-      effectCalled.current = true;
-    }
-  }, [totalNodes]);
+  // useEffect(() => {
+  //   if (!effectCalled.current) {
+  //     checkToken();
+  //     effectCalled.current = true;
+  //   }
+  // }, [totalNodes]);
   // console.log(totlenode);
   return (
     <>
@@ -83,7 +83,6 @@ function App() {
             {/* {!getDetelis ? (
               navigate("/")
             ) : ( */}
-       
 
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<Login />} />

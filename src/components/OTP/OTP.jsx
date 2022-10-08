@@ -4,7 +4,6 @@ import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import OTPInput from "otp-input-react";
 import { useDispatch } from "react-redux";
-import { signup } from "../Feature/User";
 import { useState } from "react";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
@@ -34,7 +33,7 @@ function OTP({ email, route }) {
     errorsObj = { ...errorsObj };
 
     if (otp.length < 4) {
-      errorsObj.otperror = "*OTP is required!";
+      errorsObj.otperror = "OTP is required!";
       error = true;
     }
 
@@ -152,17 +151,17 @@ function OTP({ email, route }) {
           <div className="container mx-auto">
             <div className="max-w-sm  mx-auto md:max-w-lg">
               <div className="w-full">
-                <div className="bg-white p-8  rounded-3xl text-center">
-                  <span className="block w-full text-[35px] font-bold  text-center login">
+                <div className="nodetype-bg p-8  rounded-3xl text-center">
+                  <span className="block golden w-full text-[35px] font-bold  text-center login">
                     OTP Verification
                   </span>
-                  <div className="flex flex-col justify-center items-center my-4">
+                  <div className="flex flex-col justify-center items-center my-4 rewardstextcolor">
                     <span>Enter the OTP you received at</span>
                     <p className="">{email}</p>
                   </div>
 
                   <form onSubmit={(e) => onSignInSubmit(e)}>
-                    <div className="otp-group mt-7">
+                    <div className="otp-group mt-7 ">
                       <OTPInput
                         value={otp}
                         onChange={setotp}
@@ -172,7 +171,7 @@ function OTP({ email, route }) {
                         disabled={false}
                       />
                       {errors.otperror && (
-                        <div className="text-[red] mt-5">{errors.otperror}</div>
+                        <div className="golden mt-5">{errors.otperror}</div>
                       )}
                       <div className="flex justify-center mt-10">
                         <Button btn={"verify"} />

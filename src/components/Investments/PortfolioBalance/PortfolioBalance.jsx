@@ -35,9 +35,13 @@ function PortfolioBalance() {
   ];
   return (
     <>
-      <div className="container  mx-auto px-10 md:block flex items-center flex-col">
+      <div className="container  mx-auto md:px-10 md:block flex items-center flex-col">
         <div className="mt-7 flex-col md:flex-row ">
           <MainTitle title={"Rewards"} />
+        </div>
+
+        <div className="text-white text-xl text-center my-5">
+          * WIZZ Coin reward distribution will start on 21st October 2022. *
         </div>
         <div className="flex flex-col lg:flex-row  justify-between py-6 mt-3  rounded-xl md:px-10 px-8 nodetype-bg">
           <div className="lg:order-none  order-1">
@@ -48,7 +52,7 @@ function PortfolioBalance() {
               Portfolio balance
             </p>
             <p className="text-color lg:text-[80px] md:text-[50px] text-[30px] lg:font-extrabold font-bold">
-              0.$795,569.98
+              0
             </p>
           </div>
           <div>
