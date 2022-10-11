@@ -52,7 +52,7 @@ input[type="number"] {
 
 input {
   /* custom */
-  caret-color: white;
+  caret-color: #A9A9A9;
 }
 .rwd-table tr:first-child {
   border-top: none;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emailuser from "../img/email.png";
 import passworduser from "../img/password.png";
 import closeeye from "../img/hiddenEye.png";
@@ -15,6 +15,7 @@ function Login() {
   const [showPass, setShowPass] = useState(false);
   const { encryptData, decryptData } = useEncryption();
   const navigate = useNavigate();
+
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
     email: "",
@@ -27,14 +28,7 @@ function Login() {
         ...error,
         email: "Username is required!",
       });
-    }
-    //  else if (!/\S+@\S+\.\S+/.test(email)) {
-    //   setError({
-    //     ...error,
-    //     email: "Email address is invalid!",
-    //   });
-    // }
-    else if (password === "") {
+    } else if (password === "") {
       setError({
         ...error,
         password: "Password is required!",
@@ -56,19 +50,11 @@ function Login() {
       const result = await instance.post("/signin", {
         data: encrypt,
       });
-      // console.log(result);
+
       const results = decryptData(result.data.data);
-      // console.log(results);
+
       if (results.status) {
         toast.success(results.message);
-
-        // dispatch(
-        //   signin({
-        //     username: results.data.user.username,
-        //     email: results.data.user.Linkemail,
-        //     referralCode: results.data.user.referralCode,
-        //   })
-        // );
         localStorage.setItem(
           "token",
           JSON.stringify({
@@ -102,6 +88,8 @@ function Login() {
     }
   };
 
+
+
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
@@ -132,6 +120,7 @@ function Login() {
                           e.target.value === "" ? "Username is required!" : "",
                       });
                     }}
+                    onKeyPress={preventSpace}
                     onBlur={(e) => {
                       setEmail(e.target.value);
                       setError({

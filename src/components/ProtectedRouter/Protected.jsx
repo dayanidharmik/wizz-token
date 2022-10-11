@@ -1,10 +1,8 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selecUser } from "../Feature/User";
 
 const useAuth = () => {
-  const userData = useSelector(selecUser);
+  let userData = JSON.parse(localStorage.getItem("token"));
   if (userData) {
     return true;
   } else {
@@ -13,7 +11,7 @@ const useAuth = () => {
 };
 const Protected = () => {
   const auth = useAuth();
-  return auth ? <Outlet /> : <Navigate to="/" />;
+  return auth ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default Protected;

@@ -20,14 +20,13 @@ import useEncryption from "./components/EncryptData/EncryptData";
 import instance from "./components/BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
 import Profile from "./components/Profile/Profile";
+import Protected from "./components/ProtectedRouter/Protected";
 function App() {
   const navigate = useNavigate();
-  const effectCalled = useRef(false);
   const { encryptData, decryptData } = useEncryption();
   const getdata = JSON.parse(localStorage.getItem("detelis"));
   const [totlenode, settotlenode] = useState();
   let getDetelis = JSON.parse(localStorage.getItem("token"));
-  // console.log(getDetelis?.token);
 
   useEffect(() => {
     if (getDetelis?.token === undefined) {
@@ -50,8 +49,6 @@ function App() {
       });
 
       const results = decryptData(result.data.data);
-      // console.log(results.data.total);
-      // console.log(results);
 
       if (results.status) {
         // toast.success(results.message);
@@ -61,15 +58,7 @@ function App() {
       }
     } catch (err) {}
   };
-  // console.log(totlenode);
 
-  // useEffect(() => {
-  //   if (!effectCalled.current) {
-  //     checkToken();
-  //     effectCalled.current = true;
-  //   }
-  // }, [totalNodes]);
-  // console.log(totlenode);
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
@@ -79,15 +68,13 @@ function App() {
         <div className="ml-[54px] w-full h-screen  h min-h-screen  bg ">
           <Logo />
           <Routes>
-            <Route element={"<Protecte />"}></Route>
-            {/* {!getDetelis ? (
-              navigate("/")
-            ) : ( */}
+            <Route element={<Protected />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/forgetpassword" element={<ForgetPassword />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
+            </Route>
 
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
             <Route path="/" element={<Dashboard totlenode={totlenode} />} />
             <Route path="/myNode" element={<MyNode totlenode={totlenode} />} />
             <Route path="/investments" element={<Investments />} />
@@ -95,7 +82,10 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/otp" element={<OTP />} />
             <Route path="/logo" element={<Logo />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile totlenode={settotlenode} />}
+            />
           </Routes>
         </div>
       </div>

@@ -32,11 +32,11 @@ function Dashboard({ totlenode }) {
   const navigate = useNavigate();
   const getDetelis = JSON.parse(localStorage.getItem("quantity"));
   const getdata = JSON.parse(localStorage.getItem("detelis"));
-  // console.log(va);
+
   //===== openpopp=====
   const openpopp = () => {
     if (totalremaining?.smart === 0) {
-      toast.success("Tier 1 has been sold. Wait for the new tier launch.");
+      toast.success("Tier 1 has been sold. Tier 2 will be launched soon.");
     } else {
       setopen(!open);
     }
@@ -417,58 +417,45 @@ function Dashboard({ totlenode }) {
   // ==============placeOrder API=========
 
   async function payBUSD() {
-    let amt = $("#amount").val();
-    web3 = new Web3(Web3.givenProvider);
-    await Web3.givenProvider.enable();
-    chainId = await web3.eth.getChainId();
-    await window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then(async (account) => {
-        if (chainId !== 56) {
-          await changeToMain();
-        }
-        instanced = new web3.eth.Contract(BUSD_ABI, BUSD_CONTRACT);
-        instanced.methods
-          .transfer(paymentAddress, web3.utils.toWei(amt, "ether"))
-          .send({
-            from: account[0],
-            gas: 150000,
-          })
-          .on("transactionHash", function (hash) {
-            // console.log("transactionHash", hash);
-          })
-          .on("receipt", function (receipt) {
-            // console.log(receipt.transactionHash);
-          })
-          .on("confirmation", function (confirmationNumber, receipt) {
-            settransaction(receipt?.events?.Transfer?.returnValues?.value);
-            // console.log(receipt);
-            // console.log(confirmationNumber);
-            if (receipt?.status && confirmationNumber === 0) {
-              console.log(receipt);
-              txnData();
-              setopen(!open);
-              toast.success(
-                "Congratulations! You have bough the Wizz Nodes. Please refresh page to see Nodes."
-              );
-              // window.location.reload();
-            } else {
-              // toast.error(essage);
-            }
+    if (getdata === null) {
+      navigate("/signup");
+    } else {
+      let amt = $("#amount").val();
+      web3 = new Web3(Web3.givenProvider);
+      await Web3.givenProvider.enable();
+      chainId = await web3.eth.getChainId();
+      await window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then(async (account) => {
+          if (chainId !== 56) {
+            await changeToMain();
+          }
+          instanced = new web3.eth.Contract(BUSD_ABI, BUSD_CONTRACT);
+          instanced.methods
+            .transfer(paymentAddress, web3.utils.toWei(amt, "ether"))
+            .send({
+              from: account[0],
+              gas: 150000,
+            })
+            .on("transactionHash", function (hash) {})
+            .on("receipt", function (receipt) {})
+            .on("confirmation", function (confirmationNumber, receipt) {
+              settransaction(receipt?.events?.Transfer?.returnValues?.value);
 
-            // console.log(receipt?.status, "status");
-            // console.log(receipt?.transactionHash, "transactionHash");
-            // console.log(receipt?.events?.Transfer?.returnValues?.from, "from");
-            // console.log(receipt?.events?.Transfer?.returnValues?.to, "to");
-            // console.log(
-            //   receipt?.events?.Transfer?.returnValues?.value,
-            //   "value"
-            // );
-          })
-          .on("error", function (error, receipt) {
-            console.log(error);
-          });
-      });
+              if (receipt?.status && confirmationNumber === 0) {
+                txnData();
+                setopen(!open);
+                toast.success(
+                  "Congratulations! You have bough the Wizz Nodes. Please refresh page to see Nodes."
+                );
+                // window.location.reload();
+              } else {
+                // toast.error(essage);
+              }
+            })
+            .on("error", function (error, receipt) {});
+        });
+    }
   }
 
   // ==============function of increment and decrement Quantity=========
@@ -499,95 +486,24 @@ function Dashboard({ totlenode }) {
     });
   }
 
-  // ==============placeOrder API=========
-
-  // const placeOrder = async () => {
-  //   const getDetelis = JSON.parse(localStorage.getItem("token"));
-  //   if (!getDetelis) {
-  //     navigate("/login");
-  //   } else {
-  //     try {
-  //       const encrypt = encryptData(
-  //         JSON.stringify({
-  //           email: getdata?.email,
-  //           value: transaction?.events?.Transfer?.returnValues?.value,
-  //           name: "smart node",
-  //           currency: mark.walletname,
-  //           quantity: value,
-  //           // txhash: transaction?.transactionHash,
-  //           // from: transaction?.events?.Transfer?.returnValues?.from,
-  //           // to: transaction?.events?.Transfer?.returnValues?.to,
-
-  //           // status: transaction?.status,
-  //           // txhash: "tryvalahash090090",
-  //           // from: "0xda7f070501c4a89f16dbc630ba653837968f3b5f",
-  //           // to: "0x0da7187464c33317d469458124c3f8315ec2da5b",
-  //           // value: "1000000000000000",
-  //           // status: true,
-  //         })
-  //       );
-  //       const result = await instance.post("/txnData", {
-  //         data: encrypt,
-  //       });
-
-  //       const results = decryptData(result.data.data);
-  //       console.log(results);
-
-  //       if (results.status) {
-  //         openmetamask();
-
-  //         toast.success(results.message);
-
-  //         localStorage.setItem(
-  //           "quantity",
-  //           JSON.stringify({
-  //             quantity: results.data.quantity.totalQuantity,
-  //           })
-  //         );
-  //       } else {
-  //         toast.error(results.message);
-  //       }
-  //     } catch (err) {}
-  //   }
-  // };
-  // console.log(mark);
   const txnData = async () => {
     try {
       const encrypt = encryptData(
         JSON.stringify({
           email: getdata?.email,
-          // value: transaction,
           name: "smart node",
           currency: "BUSD",
           quantity: value,
-          // txhash: transaction?.transactionHash,
-          // from: transaction?.events?.Transfer?.returnValues?.from,
-          // to: transaction?.events?.Transfer?.returnValues?.to,
-
-          // status: transaction?.status,
-          // txhash: "tryvalahash090090",
-          // from: "0xda7f070501c4a89f16dbc630ba653837968f3b5f",
-          // to: "0x0da7187464c33317d469458124c3f8315ec2da5b",
-          // value: "1000000000000000",
-          // status: true,
         })
       );
       const result = await instance.post("/txnData", {
         data: encrypt,
       });
-      // console.log(
-      //   transaction?.events?.Transfer?.returnValues?.value,
-      //   getdata?.email,
-      //   mark.walletname,
-      //   value
-      // );
+
       const results = decryptData(result.data.data);
-      // console.log(results);
 
       if (results.status) {
         openmetamask();
-        // payBUSD();
-        // toast.success(results.message);
 
         localStorage.setItem(
           "quantity",
@@ -606,8 +522,7 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/nodeSupplies");
 
       const results = decryptData(result.data.data);
-      // console.log(results.data);
-
+     
       if (results.status) {
         // toast.success(results.message);
         settotalsupply(results.data);
@@ -624,7 +539,7 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/getPrice");
 
       const results = decryptData(result.data.data);
-      // console.log(results.data.price);
+      
 
       if (results.status) {
         // toast.success(results.message);
@@ -640,7 +555,7 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/remainingNodes");
 
       const results = decryptData(result.data.data);
-      // console.log(results.data);
+      
 
       if (results.status) {
         settotalremaining(results.data);
@@ -659,13 +574,13 @@ function Dashboard({ totlenode }) {
         })
       );
 
-      // console.log("address1", wallet);
+     
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
-      // console.log(results);
+      
 
       if (results.status) {
         // toast.success(results.message);

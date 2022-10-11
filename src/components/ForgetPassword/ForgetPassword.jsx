@@ -47,7 +47,7 @@ function ForgetPassword() {
       });
 
       const results = decryptData(result.data.data);
-      console.log(results);
+    
       if (results.success) {
         toast.success(results.message);
         setopenotpbox(true);

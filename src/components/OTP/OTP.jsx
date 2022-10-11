@@ -1,20 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Button from "../Button/Button";
 import toast, { Toaster } from "react-hot-toast";
 import OTPInput from "otp-input-react";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function OTP({ email, route }) {
-  // const userData = useSelector(selecUser);
-
   const [otp, setotp] = useState("");
+
   const { encryptData, decryptData } = useEncryption();
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const defaultCount = 60;
   const intervalGap = 1000;
@@ -142,7 +140,7 @@ function OTP({ email, route }) {
   };
 
   // toast.success(results.message);
-
+  useEffect(() => timer, []);
   return (
     <div>
       <>
@@ -179,7 +177,7 @@ function OTP({ email, route }) {
                     </div>
                   </form>
 
-                  <a className="flex items-center justify-center mt-7 text-[#030239]  cursor-pointer">
+                  <a className="flex items-center justify-center mt-7 text-white  cursor-pointer">
                     {!timerCount === 0 ? (
                       <p className="font-medium">
                         Resend OTP in

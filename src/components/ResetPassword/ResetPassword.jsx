@@ -20,8 +20,7 @@ function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const userData = useSelector(selecUser);
-  // console.log(userData.username);
+
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
     password: "",
@@ -83,10 +82,7 @@ function ResetPassword() {
       });
 
       const results = decryptData(result.data.data);
-      console.log(
-        "🚀 ~ file: SignUp.jsx ~ line 110 ~ SignUp ~ results",
-        results
-      );
+
 
       if (results.status) {
         toast.success(results.message);

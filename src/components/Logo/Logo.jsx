@@ -66,7 +66,7 @@ function Logo() {
   };
 
   const networkChanged = (chainId) => {
-    console.log({ chainId });
+  
   };
 
   // ==============addWallet API=========
@@ -78,13 +78,13 @@ function Logo() {
         })
       );
 
-      // console.log("address1", wallet);
+     
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
-      // console.log(results);
+     
 
       if (results.status) {
         // toast.success(results.message);

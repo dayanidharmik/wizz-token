@@ -6,8 +6,8 @@ import browser from "../img/browser.png";
 import invest from "../img/invest.png";
 import referral from "../img/referral.png";
 import FAQ from "../img/FAQ.png";
-import profile from '../img/profileactive.png'
-import profileactive from '../img/Profile.png'
+import profile from "../img/profileactive.png";
+import profileactive from "../img/Profile.png";
 import dashboardactive from "../img/dashboardactive.png";
 import browseractive from "../img/browseractive.png";
 import profitsactive from "../img/profitsactive.png";
@@ -65,10 +65,11 @@ function Navbar() {
     <>
       <>
         {/* {window.screen.width < 700 ? (
-          <i className="fa-solid fa-bars text-black text-xl z-[9999]"></i>
+    
         ) : ( */}
         <div className="min-h-screen b bg-[#030239] fixed z-[50]">
-          <div className="sidebar min-h-screen w-[3.35rem] overflow-hidden p-1 hover:w-52  hover:shadow-lg">
+        {/* lg:block hiddenHi, Done a great job. You will have a long career to shine. First tier they have launched successfully and closed in around 8 min. */}
+          <div className="sidebar min-h-screen  w-[3.35rem] overflow-hidden p-1 hover:w-52  hover:shadow-lg">
             <div className="flex h-screen flex-col justify-start mt-40">
               <div>
                 <ul className="flex flex-col gap-7 space-y-2 tracking-wide mt-5">
@@ -113,7 +114,7 @@ function Navbar() {
             </div>
           </div>
         </div>
-
+        {/* <i className="fa-solid fa-bars text-white right-2 top text-xl z-[9999] absolute"></i> */}
         {/* )} */}
       </>
     </>

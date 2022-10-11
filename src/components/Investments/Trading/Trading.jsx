@@ -1,83 +1,62 @@
 import React from "react";
-import '../investment.css'
+import "../investment.css";
 function Trading() {
-  const Tradingdata = [
-    {
-      id: 0,
-      Date: "-",
-      Smart: "-",
-      Power: "-",
-      Master: "-",
-      Total: "-",
-      Rewards: "-",
-    },
-    {
-      id: 1,
-      Date: "-",
-      Smart: "-",
-      Power: "-",
-      Master: "-",
-      Total: "-",
-      Rewards: "-",
-    },
-    {
-      id: 2,
-      Date: "-",
-      Smart: "-",
-      Power: "-",
-      Master: "-",
-      Total: "-",
-      Rewards: "-",
-    },
-    {
-      id: 3,
-      Date: "-",
-      Smart: "-",
-      Power: "-",
-      Master: "-",
-      Total: "-",
-      Rewards: "-",
-    },
-    {
-      id: 4,
-      Date: "-",
-      Smart: "-",
-      Power: "-",
-      Master: "-",
-      Total: "-",
-      Rewards: "-",
-    },
-  ];
   return (
     <>
-      <div class=" container  mx-auto md:px-10 mt-5">
-        <table class="rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF] ">
+      <div className="container mx-auto px-10 mt-10 ">
+        <table class="responsive-table rounded-2xl">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Smart NODE</th>
+              <th scope="col">Power NODE</th>
+              <th scope="col">Master NODE</th>
+              <th scope="col">Total NODES</th>
+              <th scope="col">Rewards Received</th>
+            </tr>
+          </thead>
+
           <tbody>
             <tr>
-              <th>Date</th>
-              <th>Smart NODE</th>
-              <th>Power NODE</th>
-              <th>Master NODE</th>
-              <th>Total NODE</th>
-              <th>Rewards Received</th>
+              <td data-title="Date">_</td>
+              <td data-title="Smart NODE">_</td>
+              <td data-title="Power NODE">_</td>
+              <td data-title="Master NODE">_</td>
+              <td data-title="Total NODES">_</td>
+              <td data-title="Rewards Received">_</td>
             </tr>
-
-            {Tradingdata.map((items) => (
-              <>
-                <tr>
-                  <td data-th="Date" key={items.id}>
-                    {items.Date}
-                  </td>
-                  <td data-th="Smart NODE">
-                    <p>{items.Smart}</p>
-                  </td>
-                  <td data-th="Power NODE">{items.Power}</td>
-                  <td data-th="Master NODE">{items.Master}</td>
-                  <td data-th="Total NODE"> {items.Total}</td>
-                  <td data-th="Rewards Received">{items.Rewards}</td>
-                </tr>
-              </>
-            ))}
+            <tr>
+              <td data-title="Date">_</td>
+              <td data-title="Smart NODE">_</td>
+              <td data-title="Power NODE">_</td>
+              <td data-title="Master NODE">_</td>
+              <td data-title="Total NODES">_</td>
+              <td data-title="Rewards Received">_</td>
+            </tr>
+            <tr>
+              <td data-title="Date">_</td>
+              <td data-title="Smart NODE">_</td>
+              <td data-title="Power NODE">_</td>
+              <td data-title="Master NODE">_</td>
+              <td data-title="Total NODES">_</td>
+              <td data-title="Rewards Received">_</td>
+            </tr>
+            <tr>
+              <td data-title="Date">_</td>
+              <td data-title="Smart NODE">_</td>
+              <td data-title="Power NODE">_</td>
+              <td data-title="Master NODE">_</td>
+              <td data-title="Total NODES">_</td>
+              <td data-title="Rewards Received">_</td>
+            </tr>
+            <tr>
+              <td data-title="Date">_</td>
+              <td data-title="Smart NODE">_</td>
+              <td data-title="Power NODE">_</td>
+              <td data-title="Master NODE">_</td>
+              <td data-title="Total NODES">_</td>
+              <td data-title="Rewards Received">_</td>
+            </tr>
           </tbody>
         </table>
       </div>

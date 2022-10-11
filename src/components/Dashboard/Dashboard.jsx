@@ -3,11 +3,10 @@ import "../Login/SignUp.css";
 import Dashboard from "./Dashboard/Dashboard";
 import NodeTypes from "./nodeTypes/NodeTypes";
 
-function dashboard({totlenode}) {
-  // console.log(totlenode,"totlenode");
+function dashboard({ totlenode }) {
   return (
     <>
-      <Dashboard totlenode={totlenode}/>
+      <Dashboard totlenode={totlenode} />
       <NodeTypes />
     </>
   );

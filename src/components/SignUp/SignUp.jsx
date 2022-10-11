@@ -34,6 +34,17 @@ function SignUp() {
     referralCode: "",
   });
 
+  const onChange = (e) => {
+    const input = e.currentTarget.value;
+    if (/^[^!-\/:-@\[-`{-~]+$/.test(input) || input === "") {
+      setUsername(input);
+      setError({
+        ...error,
+        username: "*Usernameis required!",
+      });
+    }
+  };
+
   function onLoginSubmit(e) {
     e.preventDefault();
     if (username === "") {
@@ -112,10 +123,6 @@ function SignUp() {
       });
 
       const results = decryptData(result.data.data);
-      console.log(
-        "🚀 ~ file: SignUp.jsx ~ line 110 ~ SignUp ~ results",
-        results
-      );
 
       if (results.status) {
         toast.success(results.message);
@@ -178,16 +185,8 @@ function SignUp() {
                         name="username"
                         placeholder="User Name"
                         value={username}
-                        onChange={(e) => {
-                          setUsername(e.target.value);
-                          setError({
-                            ...error,
-                            username:
-                              e.target.value === ""
-                                ? "*Username is required!"
-                                : "",
-                          });
-                        }}
+                        onChange={onChange}
+                        onKeyPress={preventSpace}
                         onBlur={(e) => {
                           setUsername(e.target.value);
                           setError({

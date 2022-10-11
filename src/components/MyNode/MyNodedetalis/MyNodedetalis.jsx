@@ -54,7 +54,7 @@ function MyNodedetalis({ totlenode }) {
                       <img
                         src={index.img}
                         alt=""
-                        className="md:w-14 md:h-14 w-10 h-10"
+                        className="md:w-14 md:h-14 w-5 h-5"
                       />
                       <p className="rewardstextcolor mt-5 text-xl">{index.card}</p>
                     </div>

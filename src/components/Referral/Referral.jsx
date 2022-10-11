@@ -9,6 +9,7 @@ import { SocialIcon } from "react-social-icons";
 
 function Referral() {
   const getDetelis = JSON.parse(localStorage.getItem("detelis"));
+
   const { decryptData } = useEncryption();
   const effectCalled = useRef(false);
   const [referaalleval1, setreferaalleval1] = useState([]);
@@ -23,9 +24,8 @@ function Referral() {
   const getAllchild = async () => {
     try {
       const result = await instance.get("/getAllchild");
-
       const results = decryptData(result.data.data);
-      // console.log(results.data);
+
       if (results.status) {
         setreferaalleval1(results.data);
         // toast.success(results.message);
@@ -34,9 +34,9 @@ function Referral() {
       }
     } catch (err) {}
   };
-  console.log(referaalleval1);
+
   useEffect(() => {
-    if (!effectCalled.current && getDetelis) {
+    if (!effectCalled.current && getDetelis?.username) {
       getAllchild();
       effectCalled.current = true;
     }
@@ -47,6 +47,7 @@ function Referral() {
       <div className="mt-7 flex-col md:flex-row ">
         <MainTitle title={"Referral"} />
       </div>
+
       <div className="flex flex-col gap-8 py-10">
         <>
           {getDetelis && (
@@ -109,68 +110,67 @@ function Referral() {
               )}
             </div>
           )}
-          <div>
-            <table class=" rwd-table lg:w-full w-max mx-auto text-center nodetype-bg text-[#DFE5FF]">
-              <tbody>
-                <tr>
-                  <th>Username</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Date joined</th>
-                  <th>Number of Nodes</th>
-                  <th>Status(Active/Inactive)</th>
-                  <th>Spons or List</th>
-                  <th>View Member</th>
-                </tr>
+          <MainTitle title={"Level 1"} />
 
-                {referaalleval1.map((items) => (
+          <div className="rounded-2xl  ">
+            <table class="responsive-table border1">
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  {/* <th scope="col">Name</th> */}
+                  {/* <th scope="col">Email</th> */}
+                  <th scope="col">Date joined</th>
+                  <th scope="col">Number of Nodes</th>
+                  <th scope="col">Status(Active/Inactive)</th>
+                  <th scope="col">Spons or List</th>
+                  <th scope="col">View Member</th>
+                </tr>
+              </thead>
+              {referaalleval1.length === 0 ? (
+                <tbody>
                   <>
-                    {/* {console.log(items.child[0])} */}
                     <tr>
-                      <td data-th="Username">{items.child[0].username}</td>
-                      {items.child[0].name ? (
-                        <td data-th="Name">{items.child[0].name}</td>
-                      ) : (
-                        <td data-th="Name">
-                          <p>_</p>
-                        </td>
-                      )}
-                      <td data-th="Email">{items.child[0].email}</td>
-                      <td data-th="Date joined">{items.child[0].createdAt}</td>
-                      {items.child[0].Number ? (
-                        <td data-th="Name">{items.child[0].Number}</td>
-                      ) : (
-                        <td data-th="Name">
-                          <p>_</p>
-                        </td>
-                      )}
-                      {items.child[0].status ? (
-                        <td data-th="Name">
-                          <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>
-                        </td>
-                      ) : (
-                        <td data-th="Name">
-                          <i className="fa-sharp fa-solid fa-circle-xmark text-red-600"></i>
-                        </td>
-                      )}
-                      {items.child[0].Spons ? (
-                        <td data-th="Name">{items.child[0].Spons}</td>
-                      ) : (
-                        <td data-th="Name">
-                          <p>_</p>
-                        </td>
-                      )}
-                      {items.child[0].view ? (
-                        <td data-th="Name">{items.child[0].view}</td>
-                      ) : (
-                        <td data-th="Name">
-                          <p>_</p>
-                        </td>
-                      )}
+                      <td data-title="Username">_</td>
+                      {/* <td data-title="Name">_</td>
+                      <td data-title="Email">_</td> */}
+                      <td data-title="Date joined">_</td>
+                      <td data-title="Number of Nodes">_</td>
+                      <td data-title="Status(Active/Inactive)">_</td>
+                      <td data-title="Spons or List">_</td>
+                      <td data-title="View Member">_</td>
                     </tr>
                   </>
-                ))}
-              </tbody>
+                </tbody>
+              ) : (
+                <tbody>
+                  {referaalleval1.map((items) => (
+                    <>
+                      <tr>
+                        <td data-title="Username">
+                          {items.child[0]?.username}
+                        </td>
+                        {/* <td data-title="Name">_</td> */}
+                        {/* <td data-title="Email">{items.child[0]?.email}</td> */}
+                        <td data-title="Date joined">
+                          {items.child[0]?.createdAt}
+                        </td>
+                        <td data-title="Number of Nodes">_</td>
+                        {items.child[0]?.status === "Unblocked" ? (
+                          <td data-title="Status(Active/Inactive)">
+                            <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>
+                          </td>
+                        ) : (
+                          <td data-title="Status(Active/Inactive)">
+                            <i className="fa-sharp fa-solid fa-circle-xmark text-red-600"></i>
+                          </td>
+                        )}
+                        <td data-title="Spons or List">_</td>
+                        <td data-title="View Member">_</td>
+                      </tr>
+                    </>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </>

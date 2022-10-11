@@ -3,27 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import MainTitle from "../MainTitle/MainTitle";
 
-function Profile() {
+function Profile({ totlenode }) {
+  // console.log(totlenode);
   const navigate = useNavigate();
   const getdata = JSON.parse(localStorage.getItem("detelis"));
 
-  // console.log(getdata);
   /*=============LOGOUT FUNCTION===========*/
   const handleogout = (e) => {
     e.preventDefault();
-
+    totlenode();
     localStorage.removeItem("detelis");
     localStorage.removeItem("token");
     navigate("/login");
   };
 
+  //* Prevent User For Entering Spaces
+  const preventSpace = (e) => {
+    if (e.which === 32) {
+      e.preventDefault();
+    }
+  };
 
   return (
     <div>
-      <div className="container mx-auto md:px-10">
+      <div className="container mx-auto px-10">
         <MainTitle title={"Profile"} />
         <div>
-          <form className="nodetype-bg  rounded-2xl p-16 flex flex-col gap-5 justify-center md:w-1/2 mx-auto  mt-20  ">
+          <form className="nodetype-bg  rounded-2xl items-stretch sm:p-16  p-10 flex flex-col gap-5 justify-center md:w-1/2 mx-auto  mt-20  ">
             <div>
               <label className="text-white text-lg">User name</label>
               <div className="bot-left1 rounded-md  mt-1">
@@ -33,6 +39,7 @@ function Profile() {
                   name="username"
                   placeholder="User Name"
                   value={getdata?.username}
+                  onKeyPress={preventSpace}
                 />
               </div>
             </div>
