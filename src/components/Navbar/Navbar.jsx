@@ -64,12 +64,8 @@ function Navbar() {
   return (
     <>
       <>
-        {/* {window.screen.width < 700 ? (
-    
-        ) : ( */}
         <div className="min-h-screen b bg-[#030239] fixed z-[50]">
-        {/* lg:block hiddenHi, Done a great job. You will have a long career to shine. First tier they have launched successfully and closed in around 8 min. */}
-          <div className="sidebar min-h-screen  w-[3.35rem] overflow-hidden p-1 hover:w-52  hover:shadow-lg">
+          <div className="sidebar min-h-screen lg:block hidden w-[3.35rem] overflow-hidden p-1 hover:w-52  hover:shadow-lg">
             <div className="flex h-screen flex-col justify-start mt-40">
               <div>
                 <ul className="flex flex-col gap-7 space-y-2 tracking-wide mt-5">
@@ -114,8 +110,47 @@ function Navbar() {
             </div>
           </div>
         </div>
-        {/* <i className="fa-solid fa-bars text-white right-2 top text-xl z-[9999] absolute"></i> */}
-        {/* )} */}
+
+        <nav class="lg:hidden  fixed top-0 inset-x-0 bg-[#030239]  py-2 flex justify-center items-center  text-sm  z-50 px-1">
+          <ul className="  flex justify-center items-center p-1 md:gap-10 gap-[7px]">
+            {headerdata.map((data) => (
+              <>
+                {pathname === data.pathname ? (
+                  <li className="min-w-max effect-h ">
+                    <Link to={data.pathname}>
+                      <div className="flex flex-col justify-start items-center gap-2 md:gap-5 rounded-3xl ">
+                        <div className="flex justify-center items-center rounded-full btn-bg p-2 ">
+                          <img
+                            src={data.imgactive}
+                            alt=""
+                            className="w-4 h-4"
+                          />
+                        </div>
+                        <span className="md:text-lg text-xs text-[#22D198]">
+                          {data.pagename}
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="min-w-max">
+                    <Link
+                      to={data.pathname}
+                      className="flex flex-col md:gap-5 gap-2 opacity-50 hover:opacity-100 text-white text-opacity-50 hover:text-white"
+                    >
+                      <span className="inline-flex justify-center items-center px-3">
+                        <img src={data.img} alt="" className="w-4 h-4" />
+                      </span>
+                      <span className="md:text-lg text-xs tracking-wide truncate">
+                        {data.pagename}
+                      </span>
+                    </Link>
+                  </li>
+                )}
+              </>
+            ))}
+          </ul>
+        </nav>
       </>
     </>
   );

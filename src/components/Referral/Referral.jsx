@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import MainTitle from "../MainTitle/MainTitle";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import Button from "../Button/Button";
-
 import { SocialIcon } from "react-social-icons";
 
 function Referral() {
@@ -13,6 +12,9 @@ function Referral() {
   const { decryptData } = useEncryption();
   const effectCalled = useRef(false);
   const [referaalleval1, setreferaalleval1] = useState([]);
+  const [referred, setreferred] = useState([{}]);
+  const [referaalleval2, setreferaalleval2] = useState([]);
+
   const [open, setopen] = useState(false);
   //===== openpopp=====
   const openpopp = () => {
@@ -35,9 +37,28 @@ function Referral() {
     } catch (err) {}
   };
 
+  /*================getAllSubChild API===============*/
+
+  const getAllSubChild = async () => {
+    try {
+      const result = await instance.get("/getAllSubChild");
+      const results = decryptData(result.data.data);
+      // console.log(results.data);
+      if (results.status) {
+        setreferred(results.data);
+
+        // toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
+  // console.log(referred);
+
   useEffect(() => {
     if (!effectCalled.current && getDetelis?.username) {
       getAllchild();
+      getAllSubChild();
       effectCalled.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,8 +138,6 @@ function Referral() {
               <thead>
                 <tr>
                   <th scope="col">Username</th>
-                  {/* <th scope="col">Name</th> */}
-                  {/* <th scope="col">Email</th> */}
                   <th scope="col">Date joined</th>
                   <th scope="col">Number of Nodes</th>
                   <th scope="col">Status(Active/Inactive)</th>
@@ -131,8 +150,6 @@ function Referral() {
                   <>
                     <tr>
                       <td data-title="Username">_</td>
-                      {/* <td data-title="Name">_</td>
-                      <td data-title="Email">_</td> */}
                       <td data-title="Date joined">_</td>
                       <td data-title="Number of Nodes">_</td>
                       <td data-title="Status(Active/Inactive)">_</td>
@@ -143,16 +160,17 @@ function Referral() {
                 </tbody>
               ) : (
                 <tbody>
-                  {referaalleval1.map((items) => (
+                  {referaalleval1?.map((items) => (
                     <>
                       <tr>
                         <td data-title="Username">
                           {items.child[0]?.username}
                         </td>
-                        {/* <td data-title="Name">_</td> */}
-                        {/* <td data-title="Email">{items.child[0]?.email}</td> */}
+
                         <td data-title="Date joined">
-                          {items.child[0]?.createdAt}
+                          {new Date(
+                            items.child[0]?.createdAt
+                          ).toLocaleDateString()}
                         </td>
                         <td data-title="Number of Nodes">_</td>
                         {items.child[0]?.status === "Unblocked" ? (
@@ -174,6 +192,68 @@ function Referral() {
             </table>
           </div>
         </>
+        <MainTitle title={"Level 2"} />
+        <div className="rounded-2xl  ">
+          <table class="responsive-table border1">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Referred By</th>
+                <th scope="col">Date joined</th>
+                <th scope="col">Number of Nodes</th>
+                <th scope="col">Status(Active/Inactive)</th>
+                <th scope="col">Spons or List</th>
+                <th scope="col">View Member</th>
+              </tr>
+            </thead>
+            {referaalleval1?.length === 0 ? (
+              <tbody>
+                <>
+                  <tr>
+                    <td data-title="Username">_</td>
+                    <td data-title="Referred By">_</td>
+                    <td data-title="Date joined">_</td>
+                    <td data-title="Number of Nodes">_</td>
+                    <td data-title="Status(Active/Inactive)">_</td>
+                    <td data-title="Spons or List">_</td>
+                    <td data-title="View Member">_</td>
+                  </tr>
+                </>
+              </tbody>
+            ) : (
+              <tbody>
+                {referred?.map((items) => (
+                  <>
+                    {items?.subData?.map((i) => (
+                      <>
+                        <tr>
+                          {/* {console.log(i)} */}
+                          <td data-title="Username">{i?.username}</td>
+                          <td data-title="Referred By">{items?.referedBy}</td>
+                          <td data-title="Date joined">
+                            {new Date(i?.createdAt).toLocaleDateString()}
+                          </td>
+                          <td data-title="Number of Nodes">_</td>
+                          {i?.status === "Unblocked" ? (
+                            <td data-title="Status(Active/Inactive)">
+                              <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>
+                            </td>
+                          ) : (
+                            <td data-title="Status(Active/Inactive)">
+                              <i className="fa-sharp fa-solid fa-circle-xmark text-red-600"></i>
+                            </td>
+                          )}
+                          <td data-title="Spons or List">_</td>
+                          <td data-title="View Member">_</td>
+                        </tr>
+                      </>
+                    ))}
+                  </>
+                ))}
+              </tbody>
+            )}
+          </table>
+        </div>
       </div>
     </div>
   );

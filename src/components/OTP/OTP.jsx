@@ -10,14 +10,46 @@ import { Link, useNavigate } from "react-router-dom";
 
 function OTP({ email, route }) {
   const [otp, setotp] = useState("");
-
   const { encryptData, decryptData } = useEncryption();
-
   const navigate = useNavigate();
-  const defaultCount = 60;
+  const defaultCount = 120;
   const intervalGap = 1000;
   const [timerCount, setTimerCount] = useState(defaultCount);
 
+  /*===== RESEND OTP TIMER======== */
+  const startTimerWrapper = useCallback((func) => {
+    let timeInterval: NodeJS.Timer;
+    return () => {
+      if (timeInterval) {
+        clearInterval(timeInterval);
+      }
+      setTimerCount(defaultCount);
+      timeInterval = setInterval(() => {
+        func(timeInterval);
+      }, intervalGap);
+    };
+  }, []);
+
+  //eslint-disable-next-line
+  const timer = useCallback(
+    startTimerWrapper((intervalfn: NodeJS.Timeout) => {
+      setTimerCount((val) => {
+        if (val === 0) {
+          clearInterval(intervalfn);
+          return val;
+        }
+        return val - 1;
+      });
+    }),
+    []
+  );
+
+  useEffect(() => {
+    timer();
+    return () => {
+      clearInterval(timer);
+    };
+  }, [timer]);
   /*=======ERROR MESSAGE =========*/
   let errorsObj = {
     otperror: "",
@@ -101,46 +133,20 @@ function OTP({ email, route }) {
 
       if (results.status) {
         toast.success(results.message);
+        setTimerCount(defaultCount);
+        timer();
       } else {
         toast.error(results.message);
       }
     } catch (err) {}
   };
-  /*===== RESEND OTP TIMER======== */
-  const startTimerWrapper = useCallback((func) => {
-    let timeInterval: NodeJS.Timer;
-    return () => {
-      if (timeInterval) {
-        clearInterval(timeInterval);
-      }
-      setTimerCount(defaultCount);
-      timeInterval = setInterval(() => {
-        func(timeInterval);
-      }, intervalGap);
-    };
-  }, []);
 
-  //eslint-disable-next-line
-  const timer = useCallback(
-    startTimerWrapper((intervalfn: NodeJS.Timeout) => {
-      setTimerCount((val) => {
-        if (val === 0) {
-          clearInterval(intervalfn);
-          return val;
-        }
-        return val - 1;
-      });
-    }),
-    []
-  );
   /*========******* replce function======== */
   const getMaskedNumber = (email) => {
     const endDigits = email.slice(2, -4);
     return endDigits.padStart(email.length, "*");
   };
 
-  // toast.success(results.message);
-  useEffect(() => timer, []);
   return (
     <div>
       <>
@@ -177,22 +183,22 @@ function OTP({ email, route }) {
                     </div>
                   </form>
 
-                  <a className="flex items-center justify-center mt-7 text-white  cursor-pointer">
-                    {!timerCount === 0 ? (
-                      <p className="font-medium">
-                        Resend OTP in
-                        <span> {timerCount}</span>
-                      </p>
-                    ) : (
-                      <Link
-                        to="#"
-                        disabled={!timerCount === 0}
-                        className="font-medium"
-                        onClick={resendotp}
-                      >
-                        Resend OTP
-                      </Link>
-                    )}
+                  <a className="flex items-center justify-center mt-7   ">
+                  {timerCount === 0 ? (
+                    <Link
+                      to="#"
+                      disabled={!timerCount === 0}
+                      className="font-medium rewardstextcolor "
+                      onClick={resendotp}
+                    >
+                      Resend OTP
+                    </Link>
+                  ) : (
+                    <p className="font-medium  rewardstextcolor">
+                      Resend OTP in
+                      <span className="golden"> {timerCount} secound</span>
+                    </p>
+                  )}
                   </a>
                 </div>
               </div>

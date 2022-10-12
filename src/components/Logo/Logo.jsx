@@ -65,9 +65,7 @@ function Logo() {
     await changeNetwork({ networkName, setError });
   };
 
-  const networkChanged = (chainId) => {
-  
-  };
+  const networkChanged = (chainId) => {};
 
   // ==============addWallet API=========
   const addWallet = async (wallet) => {
@@ -78,13 +76,11 @@ function Logo() {
         })
       );
 
-     
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
-     
 
       if (results.status) {
         // toast.success(results.message);
@@ -122,7 +118,7 @@ function Logo() {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
-      <div className=" container  mx-auto md:py-10  px-10 ">
+      <div className=" container  mx-auto md:py-10  px-10 mt-16 md:mt-16 lg:mt-0">
         <div className="flex justify-between gap-5 items-center">
           <Link to="/">
             <img
@@ -131,6 +127,7 @@ function Logo() {
               className="w-16 h-10 md:w-max md:h-max "
             />
           </Link>
+
           <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 md:p-0 p-5 text-center">
             {getDetelis?.username === undefined ? (
               <>
@@ -150,7 +147,7 @@ function Logo() {
               </>
             ) : (
               <>
-                <p className="text-white text-xl">
+                <p className="text-white text-xl mt-2">
                   Hello, {getDetelis?.username}
                 </p>
 

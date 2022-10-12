@@ -17,6 +17,7 @@ import toast, { Toaster } from "react-hot-toast";
 import $ from "jquery";
 import Web3 from "web3";
 import { Link, useNavigate } from "react-router-dom";
+import CommingSoon from "../CommingSoon/CommingSoon";
 
 function Dashboard({ totlenode }) {
   const [open, setopen] = useState(false);
@@ -522,7 +523,7 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/nodeSupplies");
 
       const results = decryptData(result.data.data);
-     
+
       if (results.status) {
         // toast.success(results.message);
         settotalsupply(results.data);
@@ -539,7 +540,6 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/getPrice");
 
       const results = decryptData(result.data.data);
-      
 
       if (results.status) {
         // toast.success(results.message);
@@ -555,7 +555,6 @@ function Dashboard({ totlenode }) {
       const result = await instance.get("/remainingNodes");
 
       const results = decryptData(result.data.data);
-      
 
       if (results.status) {
         settotalremaining(results.data);
@@ -574,13 +573,11 @@ function Dashboard({ totlenode }) {
         })
       );
 
-     
       const result = await instance.post("/addWallet", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
-      
 
       if (results.status) {
         // toast.success(results.message);
@@ -797,7 +794,7 @@ function Dashboard({ totlenode }) {
             </div>
           </Slider>
         </div>
-
+        <CommingSoon />
         {open && (
           <div
             className="py-3  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur overflow-scroll"

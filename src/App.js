@@ -15,7 +15,6 @@ import { Toaster } from "react-hot-toast";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword.jsx";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import { useEffect, useState } from "react";
-import { useRef } from "react";
 import useEncryption from "./components/EncryptData/EncryptData";
 import instance from "./components/BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
@@ -65,7 +64,7 @@ function App() {
       <div className="flex  h-full">
         <Navbar />
 
-        <div className="ml-[54px] w-full h-screen  h min-h-screen  bg ">
+        <div className="lg:ml-[54px] w-full h-screen  h min-h-screen  bg ">
           <Logo />
           <Routes>
             <Route element={<Protected />}>

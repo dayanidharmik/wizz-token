@@ -179,9 +179,6 @@
 
 
 
-
-
-
 /* 
 .responsive-table {
   width: 100%;
@@ -190,7 +187,6 @@
 .responsive-table thead {
   position: absolute;
   clip: rect(1px 1px 1px 1px);
-  
   clip: rect(1px, 1px, 1px, 1px);
   padding: 0;
   border: 0;
@@ -198,9 +194,13 @@
   width: 1px;
   overflow: hidden;
 }
-.responsive-table   {
-  background-color: #1d96b2;
-border-radius:50px !important;
+.responsive-table {
+  background: radial-gradient(
+    65.49% 65.49% at 50% 50%,
+    #030239 0%,
+    #03014e 100%
+  );
+  border-radius: 50px !important;
   font-weight: normal;
   text-align: center;
   color: white;
@@ -219,7 +219,7 @@ border-radius:50px !important;
 }
 .responsive-table th,
 .responsive-table td {
-  padding: .5em;
+  padding: 1em;
   vertical-align: middle;
 }
 .responsive-table caption {
@@ -229,38 +229,41 @@ border-radius:50px !important;
   text-align: center;
 }
 .responsive-table tfoot {
-  font-size: .8em;
+  font-size: 0.8em;
   font-style: italic;
 }
 .responsive-table tbody tr {
   margin-bottom: 1em;
-  border: 2px solid #1d96b2;
+  
 }
 .responsive-table tbody tr:last-of-type {
   margin-bottom: 0;
 }
 .responsive-table tbody th[scope="row"] {
-  background-color: #1d96b2;
+  background: radial-gradient(
+    65.49% 65.49% at 50% 50%,
+    #030239 0%,
+    #03014e 100%
+  );
   color: white;
 }
-.responsive-table tbody td[data-type=currency] {
+.responsive-table tbody td[data-type="currency"] {
   text-align: center;
 }
 .responsive-table tbody td[data-title]:before {
   content: attr(data-title);
   float: left;
-  font-size: .8em;
-  color: rgba(94, 93, 82, 0.75);
+  font-size: 0.8em;
+  color: #dfe5ff;
 }
 .responsive-table tbody td {
-  text-align: center;
-  border-bottom: 1px solid #1d96b2;
-}
+  text-align: right;
 
+}
 
 @media (min-width: 52em) {
   .responsive-table {
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .responsive-table thead {
     position: relative;
@@ -275,7 +278,7 @@ border-radius:50px !important;
   .responsive-table th,
   .responsive-table td {
     display: table-cell;
-    padding: .5em;
+    padding: 0.5em;
   }
 
   .responsive-table caption {
@@ -286,18 +289,23 @@ border-radius:50px !important;
   }
   .responsive-table tbody tr {
     display: table-row;
-    border-width: 1px;
+
   }
   .responsive-table tbody tr:nth-of-type(even) {
-    background-color: rgba(94, 93, 82, 0.1);
+    background: radial-gradient(
+      65.49% 65.49% at 50% 50%,
+      #030239 0%,
+      #03014e 100%
+    );
+    color: #dfe5ff;
   }
   .responsive-table tbody th[scope="row"] {
-    background-color: transparent;
-    color: #5e5d52;
+    color: #dfe5ff;
     text-align: center;
   }
   .responsive-table tbody td {
     text-align: center;
+
   }
   .responsive-table tbody td[data-title]:before {
     content: none;
@@ -309,17 +317,16 @@ border-radius:50px !important;
   }
   .responsive-table th,
   .responsive-table td {
-    padding: .75em .5em;
+    padding: 0.75em 0.5em;
   }
   .responsive-table tfoot {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 
 @media (min-width: 75em) {
   .responsive-table th,
   .responsive-table td {
-    padding: .75em;
+    padding: 0.75em;
   }
-}
- */
+} */
