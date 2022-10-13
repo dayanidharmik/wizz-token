@@ -44,7 +44,7 @@ function MyNodedetalis({ totlenode }) {
           </div>
           <div>
             <div className="flex justify-center items-center  gap-5 mt-2 ">
-              {claim.map((index, key) => (
+              {claim?.map((index, key) => (
                 <>
                   <div
                     className=" Rewards rounded-lg gap-5 flex justify-center items-center flex-col"
@@ -56,7 +56,9 @@ function MyNodedetalis({ totlenode }) {
                         alt=""
                         className="md:w-14 md:h-14 w-5 h-5"
                       />
-                      <p className="rewardstextcolor mt-5 text-xl">{index.card}</p>
+                      <p className="rewardstextcolor mt-5 text-xl">
+                        {index.card}
+                      </p>
                     </div>
                   </div>
                 </>

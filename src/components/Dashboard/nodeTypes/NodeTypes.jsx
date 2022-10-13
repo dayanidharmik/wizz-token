@@ -51,7 +51,7 @@ function NodeTypes() {
         </div>
         <div className="xl:block flex justify-center">
           <div className="nodetype-bg  hidden xl:flex rounded-2xl justify-between px-28 py-7 mt-4  text-center">
-            {node.map((index) => (
+            {node?.map((index) => (
               <>
                 <div key={index.id} className=" ">
                   <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
@@ -68,7 +68,7 @@ function NodeTypes() {
           </div>
           <div className="xl:hidden nodetype-bg block rounded-2xl justify-center items-center  py-7 mt-4  text-center px-5">
             <Slider {...settings}>
-              {node.map((index) => (
+              {node?.map((index) => (
                 <>
                   <div key={index.id}>
                     <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">

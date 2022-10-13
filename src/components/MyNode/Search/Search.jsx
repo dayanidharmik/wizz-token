@@ -60,7 +60,7 @@ function Search() {
             {drop && (
               <div className="border bg-white text-[#19287D] border-white  absolute right-0 left-0 z-10 mt-2 cursor-pointer  rounded-md shadow-lg ">
                 <div className="" role="none">
-                  {wallet.map((i) => (
+                  {wallet?.map((i) => (
                     <div
                       className="flex justify-between items-center px-4 py-3 "
                       key={i.id}

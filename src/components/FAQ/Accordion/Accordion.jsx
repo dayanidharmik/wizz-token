@@ -46,7 +46,7 @@ export default function Example() {
   return (
     <>
       <div className="container mx-auto max-w-6xl px-4 mt-10">
-        {Accordiondata.map((items) => (
+        {Accordiondata?.map((items) => (
           <>
             <Accordion
               open={open === items.id}

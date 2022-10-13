@@ -57,7 +57,7 @@ function PortfolioBalance() {
           </div>
           <div>
             <div className="flex justify-center items-center  md:gap-5 gap-2 mt-2 ">
-              {claim.map((index) => (
+              {claim?.map((index) => (
                 <>
                   <div key={index.id} onClick={() => setactive(index?.id)}>
                     <p

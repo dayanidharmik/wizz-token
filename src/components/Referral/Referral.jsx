@@ -49,7 +49,7 @@ function Referral() {
 
         // toast.success(results.message);
       } else {
-        toast.error(results.message);
+        // toast.error(results.message);
       }
     } catch (err) {}
   };
@@ -134,7 +134,7 @@ function Referral() {
           <MainTitle title={"Level 1"} />
 
           <div className="rounded-2xl  ">
-            <table class="responsive-table border1">
+            <table className="responsive-table border1">
               <thead>
                 <tr>
                   <th scope="col">Username</th>
@@ -164,13 +164,13 @@ function Referral() {
                     <>
                       <tr>
                         <td data-title="Username">
-                          {items.child[0]?.username}
+                          {items?.child[0]?.username}
                         </td>
 
                         <td data-title="Date joined">
                           {new Date(
-                            items.child[0]?.createdAt
-                          ).toLocaleDateString()}
+                            items?.child[0]?.createdAt
+                          )?.toLocaleDateString()}
                         </td>
                         <td data-title="Number of Nodes">_</td>
                         {items.child[0]?.status === "Unblocked" ? (
@@ -194,7 +194,7 @@ function Referral() {
         </>
         <MainTitle title={"Level 2"} />
         <div className="rounded-2xl  ">
-          <table class="responsive-table border1">
+          <table className="responsive-table border1">
             <thead>
               <tr>
                 <th scope="col">Username</th>
@@ -231,7 +231,7 @@ function Referral() {
                           <td data-title="Username">{i?.username}</td>
                           <td data-title="Referred By">{items?.referedBy}</td>
                           <td data-title="Date joined">
-                            {new Date(i?.createdAt).toLocaleDateString()}
+                            {new Date(i?.createdAt)?.toLocaleDateString()}
                           </td>
                           <td data-title="Number of Nodes">_</td>
                           {i?.status === "Unblocked" ? (

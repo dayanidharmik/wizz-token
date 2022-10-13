@@ -31,17 +31,22 @@ function Dashboard({ totlenode }) {
   const effectCalled = useRef(false);
   const [totalremaining, settotalremaining] = useState([]);
   const navigate = useNavigate();
+  const [popup, setpopup] = useState(false);
   const getDetelis = JSON.parse(localStorage.getItem("quantity"));
   const getdata = JSON.parse(localStorage.getItem("detelis"));
 
   //===== openpopp=====
   const openpopp = () => {
     if (totalremaining?.smart === 0) {
+      setpopup(true);
       toast.success("Tier 1 has been sold. Tier 2 will be launched soon.");
     } else {
       setopen(!open);
     }
   };
+
+  console.log();
+
   // =======claim data========
   const claim = [
     {
@@ -609,7 +614,7 @@ function Dashboard({ totlenode }) {
         <div className="my-5">
           <MainTitle title={"Dashboard"} />
         </div>
-
+        {popup && <CommingSoon setpopup={setpopup} />}
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">
             <div className="flex justify-between items-center">
@@ -622,7 +627,7 @@ function Dashboard({ totlenode }) {
             </div>
             <div className="text-[55px] text-color font-bold mt-2">0.000</div>
             <div className="flex justify-start items-center gap-5 mt-2">
-              {claim.map((index, key) => (
+              {claim?.map((index, key) => (
                 <>
                   <div className="Rewards rounded-lg ">
                     <div
@@ -650,7 +655,7 @@ function Dashboard({ totlenode }) {
                 </tr>
               </thead>
               <tbody>
-                {Buy.map((items, key) => (
+                {Buy?.map((items, key) => (
                   <tr key={items.id}>
                     <td className="py-3 px-3 text-color text-base font-bold ">
                       {items.node} BUSD
@@ -680,7 +685,7 @@ function Dashboard({ totlenode }) {
             </div>
             <div className="text-[55px]  font-bold mt-2 golden">....</div>
             <div className="flex justify-start items-center gap-5 mt-2">
-              {mynode.map((index) => (
+              {mynode?.map((index) => (
                 <>
                   <div className="Rewards rounded-lg ">
                     <div
@@ -712,7 +717,7 @@ function Dashboard({ totlenode }) {
                 <p>0.000</p>
               </div>
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
-                {claim.map((index, key) => (
+                {claim?.map((index, key) => (
                   <>
                     <div className="Rewards rounded-lg ">
                       <div
@@ -744,7 +749,7 @@ function Dashboard({ totlenode }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {Buy.map((items, key) => (
+                    {Buy?.map((items, key) => (
                       <tr key={items.id}>
                         <td className="py-3 px-3 text-color text-base font-bold ">
                           {items.node} BUSD
@@ -777,7 +782,7 @@ function Dashboard({ totlenode }) {
                 <p>.......</p>
               </div>
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
-                {mynode.map((index, key) => (
+                {mynode?.map((index, key) => (
                   <>
                     <div className="Rewards rounded-lg ">
                       <div
@@ -794,10 +799,10 @@ function Dashboard({ totlenode }) {
             </div>
           </Slider>
         </div>
-        <CommingSoon />
+
         {open && (
           <div
-            className="py-3  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur overflow-scroll"
+            className="py-3  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur "
             id="modal"
           >
             <div className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
@@ -829,7 +834,7 @@ function Dashboard({ totlenode }) {
                     {/* {drop && (
                       <div className="absolute right-0 left-0 z-10 mt-2 cursor-pointer  rounded-md bg-[#CFD6FE] text-[#515151] shadow-lg ">
                         <div role="none">
-                          {wallet.map((i) => (
+                          {wallet?.map((i) => (
                             <div
                               className="flex justify-between items-center px-4 py-3   "
                               key={i.id}

@@ -69,7 +69,7 @@ function Navbar() {
             <div className="flex h-screen flex-col justify-start mt-40">
               <div>
                 <ul className="flex flex-col gap-7 space-y-2 tracking-wide mt-5">
-                  {headerdata.map((data) => (
+                  {headerdata?.map((data) => (
                     <>
                       {pathname === data.pathname ? (
                         <li className="min-w-max effect-h">
@@ -113,7 +113,7 @@ function Navbar() {
 
         <nav class="lg:hidden  fixed top-0 inset-x-0 bg-[#030239]  py-2 flex justify-center items-center  text-sm  z-50 px-1">
           <ul className="  flex justify-center items-center p-1 md:gap-10 gap-[7px]">
-            {headerdata.map((data) => (
+            {headerdata?.map((data) => (
               <>
                 {pathname === data.pathname ? (
                   <li className="min-w-max effect-h ">

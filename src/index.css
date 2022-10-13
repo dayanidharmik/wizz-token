@@ -52,7 +52,7 @@ input[type="number"] {
 
 input {
   /* custom */
-  caret-color: #A9A9A9;
+  caret-color: #a9a9a9;
 }
 .rwd-table tr:first-child {
   border-top: none;
@@ -174,8 +174,6 @@ input {
 
 .bot-left1 {
   border: 2px solid transparent;
-
-  /* text-align: center; */
   background-image: radial-gradient(
       66.47% 66.47% at 50% 50%,
       #030239 0%,
