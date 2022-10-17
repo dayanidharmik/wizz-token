@@ -54,11 +54,11 @@ function Logo() {
   const [address, setaddress] = useState("");
   const location = useLocation();
   const { pathname } = location;
-  const getDetelis = JSON.parse(localStorage.getItem("detelis"));
   const { encryptData, decryptData } = useEncryption();
   const effectCalled = useRef(false);
   const [error, setError] = useState();
-
+  const getDetelis = decryptData(localStorage.getItem("details"));
+  // console.log(getDetelis);
   const handleNetworkSwitch = async (networkName) => {
     setError();
 
@@ -102,12 +102,12 @@ function Logo() {
     }
   };
 
-  useEffect(() => {
-    if (!effectCalled.current && getDetelis) {
-      openmetamask();
-      effectCalled.current = true;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!effectCalled.current && getDetelis) {
+  //     openmetamask();
+  //     effectCalled.current = true;
+  //   }
+  // }, []);
 
   useEffect(() => {
     window?.ethereum?.on("chainChanged", networkChanged);
@@ -129,7 +129,7 @@ function Logo() {
           </Link>
 
           <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-5 gap-3 md:p-0 p-5 text-center">
-            {getDetelis?.username === undefined ? (
+            {getDetelis?.data?.userData?.username === undefined ? (
               <>
                 {pathname === "/login" ||
                 pathname === "/signUp" ||
@@ -148,7 +148,7 @@ function Logo() {
             ) : (
               <>
                 <p className="text-white text-xl mt-2">
-                  Hello, {getDetelis?.username}
+                  Hello, {getDetelis?.data?.userData?.username}
                 </p>
 
                 <div onClick={() => openmetamask()}>

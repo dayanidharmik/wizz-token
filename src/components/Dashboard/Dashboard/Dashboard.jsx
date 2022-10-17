@@ -20,6 +20,10 @@ import { Link, useNavigate } from "react-router-dom";
 import CommingSoon from "../CommingSoon/CommingSoon";
 
 function Dashboard({ totlenode }) {
+  useEffect(() => {
+    setpopup(true);
+  }, []);
+
   const [open, setopen] = useState(false);
   const [drop, setdrop] = useState(false);
   const [transaction, settransaction] = useState();
@@ -32,10 +36,15 @@ function Dashboard({ totlenode }) {
   const [totalremaining, settotalremaining] = useState([]);
   const navigate = useNavigate();
   const [popup, setpopup] = useState(false);
-  const getDetelis = JSON.parse(localStorage.getItem("quantity"));
-  const getdata = JSON.parse(localStorage.getItem("detelis"));
-
+  const getDetelis = decryptData(localStorage.getItem("quantity"));
+  const getdata = decryptData(localStorage.getItem("details"));
+  console.log(
+    "🚀 ~ file: Dashboard.jsx ~ line 41 ~ Dashboard ~ getdata",
+    getdata
+  );
+  // console.log(getdata);
   //===== openpopp=====
+
   const openpopp = () => {
     if (totalremaining?.smart === 0) {
       setpopup(true);
@@ -44,8 +53,6 @@ function Dashboard({ totlenode }) {
       setopen(!open);
     }
   };
-
-  console.log();
 
   // =======claim data========
   const claim = [
@@ -496,7 +503,7 @@ function Dashboard({ totlenode }) {
     try {
       const encrypt = encryptData(
         JSON.stringify({
-          email: getdata?.email,
+          email: getdata?.data?.userData?.email,
           name: "smart node",
           currency: "BUSD",
           quantity: value,
@@ -505,18 +512,11 @@ function Dashboard({ totlenode }) {
       const result = await instance.post("/txnData", {
         data: encrypt,
       });
-
+      localStorage.setItem("quantity", result.data.data);
       const results = decryptData(result.data.data);
 
       if (results.status) {
         openmetamask();
-
-        localStorage.setItem(
-          "quantity",
-          JSON.stringify({
-            quantity: results.data.quantity.totalQuantity,
-          })
-        );
       } else {
         toast.error(results.message);
       }
@@ -585,7 +585,7 @@ function Dashboard({ totlenode }) {
       const results = decryptData(result.data.data);
 
       if (results.status) {
-        // toast.success(results.message);
+        toast.success(results.message);
       } else {
         toast.error(results.message);
       }
@@ -614,7 +614,9 @@ function Dashboard({ totlenode }) {
         <div className="my-5">
           <MainTitle title={"Dashboard"} />
         </div>
+
         {popup && <CommingSoon setpopup={setpopup} />}
+
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">
             <div className="flex justify-between items-center">

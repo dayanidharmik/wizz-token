@@ -40,7 +40,7 @@ function SignUp() {
       setUsername(input);
       setError({
         ...error,
-        username: "*Usernameis required!",
+        username: "*Username is required!",
       });
     }
   };
@@ -50,7 +50,7 @@ function SignUp() {
     if (username === "") {
       setError({
         ...error,
-        username: "*Usernameis required!",
+        username: "*Username is required!",
       });
     } else if (email === "") {
       setError({

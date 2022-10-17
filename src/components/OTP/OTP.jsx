@@ -85,31 +85,10 @@ function OTP({ email, route }) {
         data: encrypt,
       });
 
+      localStorage.setItem("details", result.data.data);
       const results = decryptData(result.data.data);
-
       if (results.status) {
         toast.success(results.message);
-        // dispatch(
-        //   signup({
-        //     username: results.data.userData.username,
-        //     email: results.data.userData.email,
-        //     referralCode: results.data.userData.referralCode,
-        //   })
-        // );
-        localStorage.setItem(
-          "token",
-          JSON.stringify({
-            token: results.data.token,
-          })
-        );
-        localStorage.setItem(
-          "detelis",
-          JSON.stringify({
-            username: results.data.userData.username,
-            email: results.data.userData.email,
-            referralCode: results.data.userData.referralCode,
-          })
-        );
         navigate(route === "/forgetpassword" ? "/resetpassword" : "/");
       } else {
         toast.error(results.message);
@@ -184,21 +163,21 @@ function OTP({ email, route }) {
                   </form>
 
                   <a className="flex items-center justify-center mt-7   ">
-                  {timerCount === 0 ? (
-                    <Link
-                      to="#"
-                      disabled={!timerCount === 0}
-                      className="font-medium rewardstextcolor "
-                      onClick={resendotp}
-                    >
-                      Resend OTP
-                    </Link>
-                  ) : (
-                    <p className="font-medium  rewardstextcolor">
-                      Resend OTP in
-                      <span className="golden"> {timerCount} secound</span>
-                    </p>
-                  )}
+                    {timerCount === 0 ? (
+                      <Link
+                        to="#"
+                        disabled={!timerCount === 0}
+                        className="font-medium rewardstextcolor "
+                        onClick={resendotp}
+                      >
+                        Resend OTP
+                      </Link>
+                    ) : (
+                      <p className="font-medium  rewardstextcolor">
+                        Resend OTP in
+                        <span className="golden"> {timerCount} secound</span>
+                      </p>
+                    )}
                   </a>
                 </div>
               </div>

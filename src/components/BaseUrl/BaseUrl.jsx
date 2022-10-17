@@ -1,20 +1,22 @@
 import axios from "axios";
+import useEncryption from "../EncryptData/EncryptData";
 
 // Encrypt & Decrypt
 
 const instance = axios.create({
-  baseURL:process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
 });
 // eslint-disable-next-line consistent-return
 
 instance.interceptors.request.use(
   (config) => {
-    let getAuth = localStorage.getItem("token");
-    let Auth = JSON.parse(getAuth);
-      if (Auth) {
+    const { decryptData } = useEncryption();
+    const getdata = decryptData(localStorage.getItem("details"));
+
+    if (getdata?.data?.token) {
       config.headers = {
-        Authorization: `${Auth.token}`,
+        Authorization: getdata?.data?.token,
         Accept: "application/json",
         "Content-Type": "application/json",
         // "content-type": "multipart/form-data",

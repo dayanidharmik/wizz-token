@@ -11,7 +11,7 @@ function CommingSoon({ setpopup }) {
   let interval = useRef();
 
   const StartTimer = () => {
-    const countdown = new Date("10 17, 2022 00:00:00").getTime(); //month ,date ,year
+    const countdown = new Date("10 19, 2022 15:00:00 ").getTime(); //month ,date ,year
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -40,6 +40,7 @@ function CommingSoon({ setpopup }) {
       clearInterval(interval.current);
     };
   });
+
   return (
     <>
       <div className="  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur px-3 ">

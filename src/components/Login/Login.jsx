@@ -4,18 +4,22 @@ import passworduser from "../img/password.png";
 import closeeye from "../img/hiddenEye.png";
 import openeye from "../img/openeye.png";
 import "./SignUp.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "../Button/Button";
+import CommingSoon from "../Dashboard/CommingSoon/CommingSoon";
+
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const { encryptData, decryptData } = useEncryption();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  //
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
     email: "",
@@ -23,6 +27,7 @@ function Login() {
   });
   function onLoginSubmit(e) {
     e.preventDefault();
+
     if (email === "") {
       setError({
         ...error,
@@ -51,24 +56,13 @@ function Login() {
         data: encrypt,
       });
 
+      localStorage.setItem("details", result.data.data);
       const results = decryptData(result.data.data);
+      console.log(results);
 
       if (results.status) {
         toast.success(results.message);
-        localStorage.setItem(
-          "token",
-          JSON.stringify({
-            token: results.data.token,
-          })
-        );
-        localStorage.setItem(
-          "detelis",
-          JSON.stringify({
-            username: results.data.user.username,
-            email: results.data.user.email,
-            // referralCode: results.data.user.referralCode,
-          })
-        );
+
         navigate("/");
       } else {
         toast.error(results.message);
@@ -91,6 +85,7 @@ function Login() {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
+
       <div className="flex items-center">
         <div className="w-full nodetype-bg  rounded-3xl shadow-lg p-14 md:p-14 md:m-9 my-10 mx-5 md:max-w-xl md:mx-auto  container">
           <span className="golden block w-full text-[35px] font-bold   mb-14 text-center login">

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
 import SignUp from "./components/SignUp/SignUp";
@@ -20,27 +20,30 @@ import instance from "./components/BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
 import Profile from "./components/Profile/Profile";
 import Protected from "./components/ProtectedRouter/Protected";
+import CommingSoon from "./components/Dashboard/CommingSoon/CommingSoon";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   const navigate = useNavigate();
   const { encryptData, decryptData } = useEncryption();
-  const getdata = JSON.parse(localStorage.getItem("detelis"));
+  const getdata = decryptData(localStorage.getItem("details"));
   const [totlenode, settotlenode] = useState();
-  let getDetelis = JSON.parse(localStorage.getItem("token"));
+  const location = useLocation();
+  const { pathname } = location;
 
   useEffect(() => {
-    if (getDetelis?.token === undefined) {
+    if (getdata?.data?.token === undefined) {
       navigate("/signUp");
     } else {
       totalNodes();
     }
-  }, [getDetelis?.token]);
+  }, [getdata?.data?.token]);
 
   // ==============totalNodes API=========
   const totalNodes = async () => {
     try {
       const encrypt = encryptData(
         JSON.stringify({
-          email: getdata?.email,
+          email: getdata?.data?.userData?.email,
         })
       );
       const result = await instance.post("/totalNodes", {
@@ -73,7 +76,6 @@ function App() {
               <Route path="/forgetpassword" element={<ForgetPassword />} />
               <Route path="/resetpassword" element={<ResetPassword />} />
             </Route>
-
             <Route path="/" element={<Dashboard totlenode={totlenode} />} />
             <Route path="/myNode" element={<MyNode totlenode={totlenode} />} />
             <Route path="/investments" element={<Investments />} />
@@ -81,10 +83,12 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/otp" element={<OTP />} />
             <Route path="/logo" element={<Logo />} />
+
             <Route
               path="/profile"
               element={<Profile totlenode={settotlenode} />}
             />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       </div>

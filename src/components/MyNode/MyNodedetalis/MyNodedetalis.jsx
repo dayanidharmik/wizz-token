@@ -4,8 +4,10 @@ import "../../Login/SignUp.css";
 import home from "../..//img/home.png";
 import thounder from "../..//img/mythunder.png";
 import king from "../..//img/myking.png";
+import useEncryption from "../../EncryptData/EncryptData";
 function MyNodedetalis({ totlenode }) {
-  const getDetelis = JSON.parse(localStorage.getItem("quantity"));
+  const { decryptData } = useEncryption();
+  const getDetelis = decryptData(localStorage.getItem("quantity"));
   // =======claim data========
   const claim = [
     {

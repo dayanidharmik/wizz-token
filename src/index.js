@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { combineReducers, createStore } from "redux";
 import userReducer from "./components/Feature/User";
 import storage from "redux-persist/lib/storage";
@@ -11,6 +11,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { CookiesProvider } from "react-cookie";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 // devTools: process.env.NODE_ENV !== "production",
 const reducers = combineReducers({
@@ -32,16 +33,18 @@ const persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+  <BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <CookiesProvider>
-        <App />
+          <App />
         </CookiesProvider>
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>,
-  {/* </React.StrictMode> */}
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>,
+  {
+    /* </React.StrictMode> */
+  }
 );
 
 // If you want to start measuring performance in your app, pass a function
