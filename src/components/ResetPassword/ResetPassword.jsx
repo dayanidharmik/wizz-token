@@ -11,7 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "../Login/SignUp.css";
 import Button from "../Button/Button";
 
-function ResetPassword() {
+function ResetPassword({ email }) {
   const [password, setPassword] = useState("");
   const [cpwd, setCpwd] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -19,7 +19,6 @@ function ResetPassword() {
   const { encryptData, decryptData } = useEncryption();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
@@ -75,31 +74,24 @@ function ResetPassword() {
         JSON.stringify({
           password,
           cpassword: cpwd,
+          email,
         })
       );
-      const result = await instance.post("/setNewPassword", {
+      const result = await instance.put("/setNewPassword", {
         data: encrypt,
       });
 
       const results = decryptData(result.data.data);
 
-
       if (results.status) {
         toast.success(results.message);
 
-        dispatch(
-          signup({
-            username: results.data.username,
-            email: results.data.email,
-            referralCode: results.data.referralCode,
-          })
-        );
         navigate("/login");
       } else {
         toast.error(results.message);
       }
     } catch (err) {
-      ////console.log("err" + err);
+      ////// console.log("err" + err);
     }
   };
 

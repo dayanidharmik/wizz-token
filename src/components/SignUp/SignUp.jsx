@@ -5,7 +5,7 @@ import user from "../img/user.png";
 import emailuser from "../img/email.png";
 import passworduser from "../img/password.png";
 import invite from "../img/invite.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ function SignUp() {
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const { encryptData, decryptData } = useEncryption();
   const [openotpbox, setopenotpbox] = useState(false);
-
+  const route = useLocation().pathname;
   /*================ERROR MESSAGE============= */
   const [error, setError] = useState({
     username: "",
@@ -34,16 +34,63 @@ function SignUp() {
     referralCode: "",
   });
 
-  const onChange = (e) => {
+  function onChangeUsername(e) {
     const input = e.currentTarget.value;
     if (/^[^!-\/:-@\[-`{-~]+$/.test(input) || input === "") {
       setUsername(input);
       setError({
         ...error,
-        username: "*Username is required!",
+        username: e.target.value === "" ? "*Username is required!" : "",
       });
     }
-  };
+  }
+
+  function onChangeEmail(e) {
+    setEmail(e.target.value);
+    setError({
+      ...error,
+      email:
+        e.target.value === ""
+          ? "*Email address is required!"
+          : !/\S+@\S+\.\S+/.test(e.target.value)
+          ? "*Email address is invalid!"
+          : "",
+    });
+  }
+
+  function onChangePassword(e) {
+    setPassword(e.target.value);
+    setError({
+      ...error,
+      password:
+        e.target.value === ""
+          ? "*Password is required!"
+          : e.target.value.length < 8
+          ? "*Password must be 8 or more characters!"
+          : null,
+    });
+  }
+
+  function onChangeCpassword(e) {
+    setCpwd(e.target.value);
+    setError({
+      ...error,
+      cpwd:
+        e.target.value === ""
+          ? "*Confirm Password is required!"
+          : e.target.value !== password
+          ? "*Confirm password is not matched!"
+          : null,
+    });
+  }
+  function onChangereffrel(e) {
+    setRefCode(e.target.value);
+    setError({
+      ...error,
+      referralCode:
+        e.target.value === "" ? `No referral code? Use wizz!` : null,
+    });
+  }
 
   function onLoginSubmit(e) {
     e.preventDefault();
@@ -151,11 +198,61 @@ function SignUp() {
     const myParam = urlParams.get("ref");
     setRefCode(myParam);
   }, []);
-
+  const userdata = [
+    {
+      id: 0,
+      errorusername: error.username,
+      type: "text",
+      placeholder: "User Name",
+      value: username,
+      onChange: onChangeUsername,
+      img: user,
+    },
+    {
+      id: 1,
+      errorusername: error.email,
+      type: "text",
+      placeholder: "User Emai",
+      value: email,
+      onChange: onChangeEmail,
+      img: emailuser,
+    },
+    {
+      id: 2,
+      errorusername: error.password,
+      type: showPass ? "text" : "password",
+      placeholder: "User Password",
+      value: password,
+      onChange: onChangePassword,
+      img: passworduser,
+      passwordimg: showPass ? openeye : closeeye,
+      onShowPassword: onShowPassword,
+    },
+    {
+      id: 3,
+      errorusername: error.cpwd,
+      type: showConfirmPass ? "text" : "password",
+      placeholder: "Confirm Password",
+      value: cpwd,
+      onChange: onChangeCpassword,
+      img: passworduser,
+      passwordimg: showConfirmPass ? openeye : closeeye,
+      onShowPassword: onshowConfirmPass,
+    },
+    {
+      id: 4,
+      errorusername: error.referralCode,
+      type: "text",
+      placeholder: "Invite Code",
+      value: referralCode,
+      onChange: onChangereffrel,
+      img: invite,
+    },
+  ];
   return (
     <>
       {openotpbox ? (
-        <OTP email={email} />
+        <OTP email={email} route={route} />
       ) : (
         <>
           <Toaster position="top-right" reverseOrder={false} />
@@ -171,243 +268,45 @@ function SignUp() {
                 onSubmit={onLoginSubmit}
               >
                 <div className="flex  flex-col justify-center items-center">
-                  <div className="mb-6 md:w-full   relative">
-                    <div
-                      className={`${
-                        error.username
-                          ? "border-2 Rewards rounded-md"
-                          : "bot-left1 "
-                      } rounded-md`}
-                    >
-                      <input
-                        className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor `}
-                        type="text"
-                        name="username"
-                        placeholder="User Name"
-                        value={username}
-                        onChange={onChange}
-                        onKeyPress={preventSpace}
-                        onBlur={(e) => {
-                          setUsername(e.target.value);
-                          setError({
-                            ...error,
-                            username:
-                              e.target.value === ""
-                                ? "*Username is required!"
-                                : "",
-                          });
-                        }}
-                      />
-                    </div>
-                    <img
-                      src={user}
-                      alt=""
-                      className="absolute top-[13px] left-2"
-                    />
-                    <p className=" golden mt-2">{error.username}</p>
-                  </div>
-                  <div className="mb-6 md:w-full relative ">
-                    <div
-                      className={`${
-                        error.email
-                          ? "border-2 Rewards rounded-md"
-                          : "bot-left1 "
-                      } rounded-md`}
-                    >
-                      <input
-                        className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor`}
-                        type="email"
-                        name="email"
-                        placeholder="User Email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                          setError({
-                            ...error,
-                            email:
-                              e.target.value === ""
-                                ? "*Email address is required!"
-                                : !/\S+@\S+\.\S+/.test(e.target.value)
-                                ? "*Email address is invalid!"
-                                : "",
-                          });
-                        }}
-                        onBlur={(e) => {
-                          setEmail(e.target.value);
-                          setError({
-                            ...error,
-                            email:
-                              e.target.value === ""
-                                ? "*Email address is required!"
-                                : !/\S+@\S+\.\S+/.test(e.target.value)
-                                ? "*Email address is invalid!"
-                                : "",
-                          });
-                        }}
-                      />
-                    </div>
-                    <img
-                      src={emailuser}
-                      alt=""
-                      className="absolute top-[15px] left-2"
-                    />
-                    <p className=" golden mt-2">{error.email}</p>
-                  </div>
-                  <div className="mb-6 md:w-full relative ">
-                    <div
-                      className={`${
-                        error.password
-                          ? "border-2 Rewards rounded-md"
-                          : "bot-left1 "
-                      } rounded-md`}
-                    >
-                      <input
-                        className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor `}
-                        type={`${showPass ? "text" : "password"}`}
-                        name="password"
-                        id="password"
-                        placeholder="User Password"
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                          setError({
-                            ...error,
-                            password:
-                              e.target.value === ""
-                                ? "*Password is required!"
-                                : e.target.value.length < 8
-                                ? "*Password must be 8 or more characters!"
-                                : null,
-                          });
-                        }}
-                        onBlur={(e) => {
-                          setPassword(e.target.value);
-                          setError({
-                            ...error,
-                            password:
-                              e.target.value === ""
-                                ? "*Password is required!"
-                                : e.target.value.length < 8
-                                ? "*Password must be 8 or more characters!"
-                                : null,
-                          });
-                        }}
-                        onKeyPress={preventSpace}
-                      />
-                    </div>
-                    <img
-                      role="button"
-                      alt="Eye-icon-img"
-                      onClick={onShowPassword}
-                      src={showPass ? openeye : closeeye}
-                      className="absolute  top-4 right-3"
-                    />
-                    <img
-                      src={passworduser}
-                      alt=""
-                      className="absolute top-[12px] left-2"
-                    />
-                    <p className=" golden mt-2">{error.password}</p>
-                  </div>
-                  <div className="mb-6 md:w-full  relative ">
-                    <div
-                      className={`${
-                        error.cpwd
-                          ? "border-2 Rewards rounded-md"
-                          : "bot-left1 "
-                      } rounded-md`}
-                    >
-                      <input
-                        className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor`}
-                        type={`${showConfirmPass ? "text" : "password"}`}
-                        name="cpwd"
-                        value={cpwd}
-                        onChange={(e) => {
-                          setCpwd(e.target.value);
-                          setError({
-                            ...error,
-                            cpwd:
-                              e.target.value === ""
-                                ? "*Confirm Password is required!"
-                                : e.target.value !== password
-                                ? "*Confirm password is not matched!"
-                                : null,
-                          });
-                        }}
-                        onBlur={(e) => {
-                          setCpwd(e.target.value);
-                          setError({
-                            ...error,
-                            cpwd:
-                              e.target.value === ""
-                                ? "*Confirm Password is required!"
-                                : e.target.value !== password
-                                ? "*Confirm password is not matched!"
-                                : null,
-                          });
-                        }}
-                        onKeyPress={preventSpace}
-                        placeholder="Confirm Password"
-                      />
-                    </div>
-                    <img
-                      role="button"
-                      alt="Eye-icon-img"
-                      onClick={onshowConfirmPass}
-                      src={showConfirmPass ? openeye : closeeye}
-                      className="absolute  top-4 right-3"
-                    />
-                    <img
-                      src={passworduser}
-                      alt=""
-                      className="absolute top-[12px] left-2"
-                    />
-                    <p className="golden mt-2">{error.cpwd}</p>
-                  </div>
-                  <div className="mb-6 md:w-full  relative">
-                    <div
-                      className={`${
-                        error.referralCode
-                          ? "border-2 Rewards rounded-md"
-                          : "bot-left1 "
-                      } rounded-md`}
-                    >
-                      <input
-                        className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor`}
-                        type="text"
-                        name="referralCode"
-                        value={referralCode}
-                        onChange={(e) => {
-                          setRefCode(e.target.value);
-                          setError({
-                            ...error,
-                            referralCode:
-                              e.target.value === ""
-                                ? `No referral code? Use wizz!`
-                                : null,
-                          });
-                        }}
-                        onBlur={(e) => {
-                          setRefCode(e.target.value);
-                          setError({
-                            ...error,
-                            referralCode:
-                              e.target.value === ""
-                                ? `No referral code? Use wizz!`
-                                : null,
-                          });
-                        }}
-                        placeholder="Invite Code"
-                      />
-                    </div>
-                    <img
-                      src={invite}
-                      alt=""
-                      className="absolute top-[12px] left-2"
-                    />
-                    <p className=" golden mt-2">{error.referralCode}</p>
-                  </div>
-
+                  {userdata.map((items) => (
+                    <>
+                      <div className="mb-6 md:w-full   relative">
+                        <div
+                          className={`${
+                            items.errorusername
+                              ? "border-2 Rewards rounded-md"
+                              : "bot-left1 "
+                          } rounded-md`}
+                        >
+                          <input
+                            className={`w-full bg-transparent   py-2 px-7 outline-none focus:shadow-outline rewardstextcolor `}
+                            type={items.type}
+                            name="username"
+                            placeholder={items.placeholder}
+                            value={items.value}
+                            onChange={items.onChange}
+                            onKeyPress={preventSpace}
+                            onBlur={items.onChange}
+                          />
+                        </div>
+                        <img
+                          src={items.img}
+                          alt=""
+                          className="absolute top-[13px] left-2"
+                        />
+                        {(items.id === 3 || items.id === 2) && (
+                          <img
+                            role="button"
+                            alt="Eye-icon-img"
+                            onClick={items.onShowPassword}
+                            src={items.passwordimg}
+                            className="absolute  top-4 right-3"
+                          />
+                        )}
+                        <p className=" golden mt-2">{items.errorusername}</p>
+                      </div>
+                    </>
+                  ))}
                   <Button btn={" Sign Up"} />
                 </div>
               </form>

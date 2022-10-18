@@ -25,7 +25,7 @@ function Referral() {
     try {
       const result = await instance.get("/getAllchild");
       const results = decryptData(result.data.data);
-      // console.log(results.data);
+      // // console.log(results.data);
       if (results.status) {
         setreferaalleval1(results.data);
         // toast.success(results.message);
@@ -41,7 +41,7 @@ function Referral() {
     try {
       const result = await instance.get("/getAllSubChild");
       const results = decryptData(result.data.data);
-      // console.log(results.data);
+      // // console.log(results.data);
       if (results.status) {
         setreferred(results.data);
 
@@ -51,7 +51,7 @@ function Referral() {
       }
     } catch (err) {}
   };
-  // console.log(referred);
+  // // console.log(referred);
 
   useEffect(() => {
     if (!effectCalled.current && getDetelis?.data?.userData?.username) {
@@ -223,7 +223,7 @@ function Referral() {
                 {referred?.map((items) => (
                   <>
                     <tr>
-                      {/* {console.log(items)} */}
+                      {/* {// console.log(items)} */}
                       <td data-title="Username">{items?.subData?.username}</td>
                       <td data-title="Referred By">{items?.referedBy}</td>
                       <td data-title="Date joined">

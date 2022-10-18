@@ -11,7 +11,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Button from "../Button/Button";
 import CommingSoon from "../Dashboard/CommingSoon/CommingSoon";
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,7 +57,7 @@ function Login() {
 
       localStorage.setItem("details", result.data.data);
       const results = decryptData(result.data.data);
-      console.log(results);
+      // console.log(results);
 
       if (results.status) {
         toast.success(results.message);

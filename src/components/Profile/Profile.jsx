@@ -7,7 +7,7 @@ import MainTitle from "../MainTitle/MainTitle";
 import toast from "react-hot-toast";
 
 function Profile({ totlenode }) {
-  // console.log(totlenode);
+  // // console.log(totlenode);
   const navigate = useNavigate();
   const { encryptData, decryptData } = useEncryption();
   const getdata = decryptData(localStorage.getItem("details"));
@@ -56,7 +56,7 @@ function Profile({ totlenode }) {
         toast.error(results.message);
       }
     } catch (err) {
-      ////console.log("err" + err);
+      ////// console.log("err" + err);
     }
   };
 

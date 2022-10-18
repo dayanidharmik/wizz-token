@@ -58,7 +58,7 @@ function Logo() {
   const effectCalled = useRef(false);
   const [error, setError] = useState();
   const getDetelis = decryptData(localStorage.getItem("details"));
-  // console.log(getDetelis);
+  // // console.log(getDetelis);
   const handleNetworkSwitch = async (networkName) => {
     setError();
 

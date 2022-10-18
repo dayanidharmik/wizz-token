@@ -38,11 +38,11 @@ function Dashboard({ totlenode }) {
   const [popup, setpopup] = useState(false);
   const getDetelis = decryptData(localStorage.getItem("quantity"));
   const getdata = decryptData(localStorage.getItem("details"));
-  console.log(
-    "🚀 ~ file: Dashboard.jsx ~ line 41 ~ Dashboard ~ getdata",
-    getdata
-  );
-  // console.log(getdata);
+  // // console.log(
+  //   "🚀 ~ file: Dashboard.jsx ~ line 41 ~ Dashboard ~ getdata",
+  //   getdata
+  // );
+  // // console.log(getdata);
   //===== openpopp=====
 
   const openpopp = () => {
@@ -842,7 +842,7 @@ function Dashboard({ totlenode }) {
                               key={i.id}
                               onClick={() => setmark(i)}
                             >
-                              {console.log(i)}
+                              {// console.log(i)}
                               <div className=" flex justify-start items-center gap-4">
                                 <div>
                                   <img

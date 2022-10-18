@@ -66,7 +66,7 @@ function Search() {
                       key={i.id}
                       onClick={() => setmark(i)}
                     >
-                      {/* {console.log(i)} */}
+                      {/* {// console.log(i)} */}
                       <div className=" flex justify-start items-center gap-4">
                         <div>
                           <p className=" font-semibold">{i.walletname}</p>

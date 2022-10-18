@@ -7,6 +7,7 @@ import { useState } from "react";
 import useEncryption from "../EncryptData/EncryptData";
 import instance from "../BaseUrl/BaseUrl";
 import { Link, useNavigate } from "react-router-dom";
+import ResetPassword from "../ResetPassword/ResetPassword";
 
 function OTP({ email, route }) {
   const [otp, setotp] = useState("");
@@ -15,6 +16,7 @@ function OTP({ email, route }) {
   const defaultCount = 120;
   const intervalGap = 1000;
   const [timerCount, setTimerCount] = useState(defaultCount);
+  const [openotpbox, setopenotpbox] = useState(false);
 
   /*===== RESEND OTP TIMER======== */
   const startTimerWrapper = useCallback((func) => {
@@ -43,6 +45,13 @@ function OTP({ email, route }) {
     }),
     []
   );
+
+  useEffect(() => {
+    return () => {
+      // cancel the optbox
+      setopenotpbox(false);
+    };
+  }, []);
 
   useEffect(() => {
     timer();
@@ -81,15 +90,20 @@ function OTP({ email, route }) {
           otp,
         })
       );
-      const result = await instance.post("/verifyOtp", {
-        data: encrypt,
-      });
+      const result = await instance.post(
+        route === "/forgetpassword" ? "/verifyForgotOtp" : "/verifyOtp",
+        {
+          data: encrypt,
+        }
+      );
 
       localStorage.setItem("details", result.data.data);
       const results = decryptData(result.data.data);
+      // // console.log(results);
       if (results.status) {
         toast.success(results.message);
-        navigate(route === "/forgetpassword" ? "/resetpassword" : "/");
+        setopenotpbox(route === "/forgetpassword" ? true : false);
+        navigate(route === "/signUp" ? "/" : null);
       } else {
         toast.error(results.message);
       }
@@ -127,65 +141,76 @@ function OTP({ email, route }) {
   };
 
   return (
-    <div>
-      <>
-        <Toaster position="top-right" reverseOrder={false} />
-        <div className=" py-20 px-2 ">
-          <div className="container mx-auto">
-            <div className="max-w-sm  mx-auto md:max-w-lg">
-              <div className="w-full">
-                <div className="nodetype-bg p-8  rounded-3xl text-center">
-                  <span className="block golden w-full text-[35px] font-bold  text-center login">
-                    OTP Verification
-                  </span>
-                  <div className="flex flex-col justify-center items-center my-4 rewardstextcolor">
-                    <span>Enter the OTP you received at</span>
-                    <p className="">{email}</p>
-                  </div>
-
-                  <form onSubmit={(e) => onSignInSubmit(e)}>
-                    <div className="otp-group mt-7 ">
-                      <OTPInput
-                        value={otp}
-                        onChange={setotp}
-                        autoFocus
-                        OTPLength={4}
-                        otpType="number"
-                        disabled={false}
-                      />
-                      {errors.otperror && (
-                        <div className="golden mt-5">{errors.otperror}</div>
-                      )}
-                      <div className="flex justify-center mt-10">
-                        <Button btn={"verify"} />
+    <>
+      {openotpbox ? (
+        <>
+          <ResetPassword email={email} />
+        </>
+      ) : (
+        <>
+          <div>
+            <Toaster position="top-right" reverseOrder={false} />
+            <div className=" py-20 px-2 ">
+              <div className="container mx-auto">
+                <div className="max-w-sm  mx-auto md:max-w-lg">
+                  <div className="w-full">
+                    <div className="nodetype-bg p-8  rounded-3xl text-center">
+                      <span className="block golden w-full text-[35px] font-bold  text-center login">
+                        OTP Verification
+                      </span>
+                      <div className="flex flex-col justify-center items-center my-4 rewardstextcolor">
+                        <span>Enter the OTP you received at</span>
+                        <p className="">{email}</p>
                       </div>
-                    </div>
-                  </form>
 
-                  <a className="flex items-center justify-center mt-7   ">
-                    {timerCount === 0 ? (
-                      <Link
-                        to="#"
-                        disabled={!timerCount === 0}
-                        className="font-medium rewardstextcolor "
-                        onClick={resendotp}
-                      >
-                        Resend OTP
-                      </Link>
-                    ) : (
-                      <p className="font-medium  rewardstextcolor">
-                        Resend OTP in
-                        <span className="golden"> {timerCount} secound</span>
-                      </p>
-                    )}
-                  </a>
+                      <form onSubmit={(e) => onSignInSubmit(e)}>
+                        <div className="otp-group mt-7 ">
+                          <OTPInput
+                            value={otp}
+                            onChange={setotp}
+                            autoFocus
+                            OTPLength={4}
+                            otpType="number"
+                            disabled={false}
+                          />
+                          {errors.otperror && (
+                            <div className="golden mt-5">{errors.otperror}</div>
+                          )}
+                          <div className="flex justify-center mt-10">
+                            <Button btn={"verify"} />
+                          </div>
+                        </div>
+                      </form>
+
+                      <a className="flex items-center justify-center mt-7   ">
+                        {timerCount === 0 ? (
+                          <Link
+                            to="#"
+                            disabled={!timerCount === 0}
+                            className="font-medium rewardstextcolor "
+                            onClick={resendotp}
+                          >
+                            Resend OTP
+                          </Link>
+                        ) : (
+                          <p className="font-medium  rewardstextcolor">
+                            Resend OTP in
+                            <span className="golden">
+                              {" "}
+                              {timerCount} secound
+                            </span>
+                          </p>
+                        )}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </>
-    </div>
+          </div>{" "}
+        </>
+      )}
+    </>
   );
 }
 

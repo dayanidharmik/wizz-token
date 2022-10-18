@@ -1,7 +1,6 @@
 import cryptoJS from "crypto-js";
 
 const useEncryption = () => {
-
   const cryptoKey = process.env.REACT_APP_ENCRYPT_KEY;
 
   // eslint-disable-next-line consistent-return
@@ -15,7 +14,7 @@ const useEncryption = () => {
 
       return cryptoJS.AES.encrypt(dataToBeEncrypted, cryptoKey).toString();
     } catch (err) {
-      // //console.log(err);
+      // //// console.log(err);
     }
   };
 
@@ -27,7 +26,7 @@ const useEncryption = () => {
 
       return JSON.parse(plain.toString(cryptoJS.enc.Utf8));
     } catch (err) {
-      // //console.log(err);
+      // //// console.log(err);
     }
   };
 
