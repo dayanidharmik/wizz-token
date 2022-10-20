@@ -65,7 +65,7 @@ function PortfolioBalance() {
                         active === index.id ? "text-color" : "text-[#808080]"
                       }`}
                     >
-                      {index.card}
+                      {/* {index.card} */}
                     </p>
                   </div>
                 </>

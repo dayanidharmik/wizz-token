@@ -20,9 +20,10 @@ import { Link, useNavigate } from "react-router-dom";
 import CommingSoon from "../CommingSoon/CommingSoon";
 
 function Dashboard({ totlenode }) {
-  useEffect(() => {
-    setpopup(true);
-  }, []);
+  
+  // useEffect(() => {
+  //   setpopup(true);
+  // }, []);
 
   const [open, setopen] = useState(false);
   const [drop, setdrop] = useState(false);
@@ -38,17 +39,13 @@ function Dashboard({ totlenode }) {
   const [popup, setpopup] = useState(false);
   const getDetelis = decryptData(localStorage.getItem("quantity"));
   const getdata = decryptData(localStorage.getItem("details"));
-  // // console.log(
-  //   "🚀 ~ file: Dashboard.jsx ~ line 41 ~ Dashboard ~ getdata",
-  //   getdata
-  // );
-  // // console.log(getdata);
+
   //===== openpopp=====
 
   const openpopp = () => {
     if (totalremaining?.smart === 0) {
       setpopup(true);
-      toast.success("Tier 1 has been sold. Tier 2 will be launched soon.");
+      toast.success("Tier 2 has been sold. Tier 3 will be launched soon.");
     } else {
       setopen(!open);
     }
@@ -430,7 +427,7 @@ function Dashboard({ totlenode }) {
   // ==============placeOrder API=========
 
   async function payBUSD() {
-    if (getdata === null) {
+    if (getdata?.data?.token === undefined) {
       navigate("/signup");
     } else {
       let amt = $("#amount").val();
@@ -615,7 +612,7 @@ function Dashboard({ totlenode }) {
           <MainTitle title={"Dashboard"} />
         </div>
 
-        {popup && <CommingSoon setpopup={setpopup} />}
+        {/* {popup && <CommingSoon setpopup={setpopup} />} */}
 
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">

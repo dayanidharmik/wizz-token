@@ -6,6 +6,9 @@ import Masternode from "../../img/Masternode.png";
 import homegolde from "../../img/homegolde.png";
 import Powernodegolden from "../../img/Powernodegolden.png";
 import mastergolden from "../../img/mastergolden.png";
+import SmartGIF from "../../img/SmartGIF.gif";
+import PowerGIF from "../../img/PowerGIF.gif";
+import MasterGIF from "../../img/MasterGIF.gif";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -53,8 +56,9 @@ function NodeTypes() {
           <div className="nodetype-bg  hidden xl:flex rounded-2xl justify-between px-28 py-7 mt-4  text-center">
             {node?.map((index) => (
               <>
+                {/* */}
                 <div key={index.id} className=" ">
-                  <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
+                  <div className="swap  transition   ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
                     <img src={index.img} alt="" className="" />
                     <img src={index.imggold} alt="" className="" />
                   </div>
