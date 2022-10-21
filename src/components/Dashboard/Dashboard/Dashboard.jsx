@@ -20,10 +20,9 @@ import { Link, useNavigate } from "react-router-dom";
 import CommingSoon from "../CommingSoon/CommingSoon";
 
 function Dashboard({ totlenode }) {
-  
-  // useEffect(() => {
-  //   setpopup(true);
-  // }, []);
+  useEffect(() => {
+    setpopup(true);
+  }, []);
 
   const [open, setopen] = useState(false);
   const [drop, setdrop] = useState(false);
@@ -612,7 +611,7 @@ function Dashboard({ totlenode }) {
           <MainTitle title={"Dashboard"} />
         </div>
 
-        {/* {popup && <CommingSoon setpopup={setpopup} />} */}
+        {popup && <CommingSoon setpopup={setpopup} />}
 
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">

@@ -6,9 +6,9 @@ import Masternode from "../../img/Masternode.png";
 import homegolde from "../../img/homegolde.png";
 import Powernodegolden from "../../img/Powernodegolden.png";
 import mastergolden from "../../img/mastergolden.png";
-import SmartGIF from "../../img/SmartGIF.gif";
-import PowerGIF from "../../img/PowerGIF.gif";
-import MasterGIF from "../../img/MasterGIF.gif";
+import SmartGIF from "../../img/smart video NB_1.gif";
+import PowerGIF from "../../img/Power video NB_1.gif";
+import MasterGIF from "../../img/Master video NB_1.gif";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,21 +18,21 @@ function NodeTypes() {
   const node = [
     {
       id: 1,
-      img: Smartnode,
-      imggold: homegolde,
+      img: SmartGIF,
+      // imggold: homegolde,
       nodename: "Smart Node",
     },
     {
       id: 2,
-      img: Powernode,
+      img: PowerGIF,
       nodename: "Power Node",
-      imggold: Powernodegolden,
+      // imggold: Powernodegolden,
     },
     {
       id: 3,
-      img: Masternode,
+      img: MasterGIF,
       nodename: "Master Node",
-      imggold: mastergolden,
+      // imggold: mastergolden,
     },
   ];
   const settings = {
@@ -58,9 +58,10 @@ function NodeTypes() {
               <>
                 {/* */}
                 <div key={index.id} className=" ">
-                  <div className="swap  transition   ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
-                    <img src={index.img} alt="" className="" />
-                    <img src={index.imggold} alt="" className="" />
+                  <div className="">
+                    {/* hover:-translate-y-1 hover:scale-105  duration-1000  */}
+                    <img src={index.img} alt="" className="w-4/5 mx-auto" />
+                    {/* <img src={index.imggold} alt="" className="" /> */}
                   </div>
 
                   <p className="mt-2 text-[#7351FC] text-xl ">
@@ -75,9 +76,9 @@ function NodeTypes() {
               {node?.map((index) => (
                 <>
                   <div key={index.id}>
-                    <div className="swap  transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-105  duration-1000 ">
-                      <img src={index.img} alt="" className="mx-auto" />
-                      <img src={index.imggold} alt="" className="" />
+                    <div className="   ">
+                      <img src={index.img} alt="" className="w-4/5 mx-auto " />
+                      {/* <img src={index.imggold} alt="" className="" /> */}
                     </div>
                   </div>
                 </>

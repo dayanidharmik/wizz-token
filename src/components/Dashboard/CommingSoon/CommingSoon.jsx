@@ -11,7 +11,7 @@ function CommingSoon({ setpopup }) {
   let interval = useRef();
 
   const StartTimer = () => {
-    const countdown = new Date("10 19, 2022 15:00:00 ").getTime(); //month ,date ,year
+    const countdown = new Date("10 31, 2022 15:00:00 ").getTime(); //month ,date ,year
     interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdown - now;

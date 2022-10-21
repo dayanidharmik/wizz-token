@@ -41,7 +41,7 @@ function PortfolioBalance() {
         </div>
 
         <div className="text-white text-xl text-center my-5">
-          * WIZZ Coin reward distribution will start on 21st October 2022. *
+          * Rewards distribution has started from 21st October, you will see your rewards visible from 21st of November 2022. *
         </div>
         <div className="flex flex-col lg:flex-row  justify-between py-6 mt-3  rounded-xl md:px-10 px-8 nodetype-bg">
           <div className="lg:order-none  order-1">
