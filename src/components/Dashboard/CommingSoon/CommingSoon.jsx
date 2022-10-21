@@ -12,6 +12,7 @@ function CommingSoon({ setpopup }) {
 
   const StartTimer = () => {
     const countdown = new Date("10 31, 2022 15:00:00 ").getTime(); //month ,date ,year
+
     interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdown - now;
@@ -19,6 +20,7 @@ function CommingSoon({ setpopup }) {
       const hours = Math.floor(
         (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
+
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -32,7 +34,7 @@ function CommingSoon({ setpopup }) {
       }
     }, 1000);
   };
-  
+
   useEffect(() => {
     StartTimer();
     return () => {
@@ -69,7 +71,7 @@ function CommingSoon({ setpopup }) {
             <div className="shadow" />
             <div
               className="money-text-loading"
-              data-loading-text="LoadingTier2..."
+              data-loading-text="LoadingTier3..."
             />
           </div>
 
@@ -77,7 +79,7 @@ function CommingSoon({ setpopup }) {
             <ul>
               <div className="md:mb-5 mb-3">
                 <h1 className="text-xl text-white">
-                  Tier 1 has been sold. Tier 2 will be launched soon.
+                  Tier 2 has been sold. Tier 3 will be launched soon.
                 </h1>
               </div>
               <li>

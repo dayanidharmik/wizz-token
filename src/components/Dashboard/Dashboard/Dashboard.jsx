@@ -681,7 +681,7 @@ function Dashboard({ totlenode }) {
                 <Button btn={"View Nodes"} />
               </Link>
             </div>
-            <div className="text-[55px]  font-bold mt-2 golden">....</div>
+            <div className="text-[55px]  font-bold mt-2 text-color">{totlenode === undefined ? 0 : totlenode}</div>
             <div className="flex justify-start items-center gap-5 mt-2">
               {mynode?.map((index) => (
                 <>
@@ -777,7 +777,7 @@ function Dashboard({ totlenode }) {
                 </Link>
               </div>
               <div className="golden md:text-[55px] text-[40px] text-center md:text-start text-color font-bold  ">
-                <p>.......</p>
+                <p>{totlenode === undefined ? 0 : totlenode}</p>
               </div>
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
                 {mynode?.map((index, key) => (
