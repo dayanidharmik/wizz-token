@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../investment.css";
+import useEncryption from "../../EncryptData/EncryptData";
+import instance from "../../BaseUrl/BaseUrl";
+import toast from "react-hot-toast";
+
 function Trading() {
+  // const [isReward, setIsReward] = useState([]);
+  // console.log("🚀 ~ file: Trading.jsx ~ line 9 ~ Trading ~ isReward", isReward);
+  // const { encryptData, decryptData } = useEncryption();
+
+  // const Rewards = async () => {
+  //   try {
+  //     const result = await instance.get("/rewards");
+  //     // const localData = localStorage.getItem("details", result.data.data)
+  //     // console.log("🚀 ~ file: Trading.jsx ~ line 13 ~ Rewards ~ localData", localData)
+
+  //     const results = decryptData(result.data.data);
+
+  //     setIsReward(results.data);
+
+  //     if (results.status) {
+  //       toast.success(results.message);
+  //     } else {
+  //       toast.error(results.message);
+  //     }
+  //   } catch (err) {}
+  // };
+
+  // useEffect(() => {
+  //   Rewards();
+  // }, []);
   return (
     <>
       <div className="container mx-auto px-10 mt-10 ">

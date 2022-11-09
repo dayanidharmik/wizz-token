@@ -88,7 +88,7 @@ function SignUp() {
     setError({
       ...error,
       referralCode:
-        e.target.value === "" ? `No referral code? Use wizz!` : null,
+        e.target.value === "" ? `You must have a sponsor code!` : null,
     });
   }
 
@@ -132,7 +132,7 @@ function SignUp() {
     } else if (referralCode === "") {
       setError({
         ...error,
-        referralCode: `No referral code? Use wizz!`,
+        referralCode: `You must have a sponsor code!`,
       });
     } else {
       SignUp();

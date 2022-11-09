@@ -43,8 +43,8 @@ function Dashboard({ totlenode }) {
 
   const openpopp = () => {
     if (totalremaining?.smart === 0) {
-      setpopup(true);
-      toast.success("Tier 2 has been sold. Tier 3 will be launched soon.");
+      // setpopup(true);
+      toast.success("Tier 3 has been sold. Tier 4 will be launched soon.");
     } else {
       setopen(!open);
     }
@@ -611,7 +611,7 @@ function Dashboard({ totlenode }) {
           <MainTitle title={"Dashboard"} />
         </div>
 
-        {popup && <CommingSoon setpopup={setpopup} />}
+        {/* {popup && <CommingSoon setpopup={setpopup} />} */}
 
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">

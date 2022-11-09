@@ -79,7 +79,7 @@ function CommingSoon({ setpopup }) {
             <ul>
               <div className="md:mb-5 mb-3">
                 <h1 className="text-xl text-white">
-                  Tier 2 has been sold. Tier 3 will be launched soon.
+                  Tier 3 has been sold. Tier 4 will be launched soon.
                 </h1>
               </div>
               <li>
