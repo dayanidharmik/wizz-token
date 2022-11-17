@@ -11,7 +11,7 @@ function PortfolioBalance() {
   const [active, setactive] = useState(0);
 
   const [isReward, setIsReward] = useState([]);
-  console.log("🚀 ~ file: Trading.jsx ~ line 9 ~ Trading ~ isReward", isReward);
+
   const { encryptData, decryptData } = useEncryption();
 
   const Rewards = async () => {
@@ -22,7 +22,6 @@ function PortfolioBalance() {
 
       const result = await instance.get("/rewards");
       const results = decryptData(result.data.data);
-      console.log("🚀 ~ Rewards ~ results", results)
 
       setIsReward(results.data);
 
@@ -84,7 +83,7 @@ function PortfolioBalance() {
               Portfolio balance
             </p>
             <p className="text-color lg:text-[80px] md:text-[50px] text-[30px] lg:font-extrabold font-bold">
-              {isReward?.userData?.rewards}
+              {isReward?.userData?.rewards.toFixed(3)}
             </p>
           </div>
           <div>

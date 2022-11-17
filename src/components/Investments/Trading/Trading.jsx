@@ -5,31 +5,29 @@ import instance from "../../BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
 
 function Trading() {
-  // const [isReward, setIsReward] = useState([]);
-  // console.log("🚀 ~ file: Trading.jsx ~ line 9 ~ Trading ~ isReward", isReward);
-  // const { encryptData, decryptData } = useEncryption();
+  const [isReward, setIsReward] = useState([]);
 
-  // const Rewards = async () => {
-  //   try {
-  //     const result = await instance.get("/rewards");
-  //     // const localData = localStorage.getItem("details", result.data.data)
-  //     // console.log("🚀 ~ file: Trading.jsx ~ line 13 ~ Rewards ~ localData", localData)
+  const { encryptData, decryptData } = useEncryption();
 
-  //     const results = decryptData(result.data.data);
+  const RewardsHistory = async () => {
+    try {
+      const result = await instance.get("/rewardsHistory");
 
-  //     setIsReward(results.data);
+      const results = decryptData(result.data.data);
 
-  //     if (results.status) {
-  //       toast.success(results.message);
-  //     } else {
-  //       toast.error(results.message);
-  //     }
-  //   } catch (err) {}
-  // };
+      setIsReward(results.history);
 
-  // useEffect(() => {
-  //   Rewards();
-  // }, []);
+      if (results.status) {
+        toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    RewardsHistory();
+  }, []);
   return (
     <>
       <div className="container mx-auto px-10 mt-10 ">
@@ -37,55 +35,35 @@ function Trading() {
           <thead>
             <tr>
               <th scope="col">Date</th>
-              <th scope="col">Smart NODE</th>
+              {/* <th scope="col">Smart NODE</th>
               <th scope="col">Power NODE</th>
               <th scope="col">Master NODE</th>
-              <th scope="col">Total NODES</th>
+              <th scope="col">Total NODES</th> */}
               <th scope="col">Rewards Received</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <td data-title="Date">_</td>
-              <td data-title="Smart NODE">_</td>
+            {isReward.map((item) => (
+              <tr>
+                <>
+                  <td data-title="Date">
+                    {new Date(item.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </td>
+                  {/* <td data-title="Smart NODE">_</td>
               <td data-title="Power NODE">_</td>
               <td data-title="Master NODE">_</td>
-              <td data-title="Total NODES">_</td>
-              <td data-title="Rewards Received">_</td>
-            </tr>
-            <tr>
-              <td data-title="Date">_</td>
-              <td data-title="Smart NODE">_</td>
-              <td data-title="Power NODE">_</td>
-              <td data-title="Master NODE">_</td>
-              <td data-title="Total NODES">_</td>
-              <td data-title="Rewards Received">_</td>
-            </tr>
-            <tr>
-              <td data-title="Date">_</td>
-              <td data-title="Smart NODE">_</td>
-              <td data-title="Power NODE">_</td>
-              <td data-title="Master NODE">_</td>
-              <td data-title="Total NODES">_</td>
-              <td data-title="Rewards Received">_</td>
-            </tr>
-            <tr>
-              <td data-title="Date">_</td>
-              <td data-title="Smart NODE">_</td>
-              <td data-title="Power NODE">_</td>
-              <td data-title="Master NODE">_</td>
-              <td data-title="Total NODES">_</td>
-              <td data-title="Rewards Received">_</td>
-            </tr>
-            <tr>
-              <td data-title="Date">_</td>
-              <td data-title="Smart NODE">_</td>
-              <td data-title="Power NODE">_</td>
-              <td data-title="Master NODE">_</td>
-              <td data-title="Total NODES">_</td>
-              <td data-title="Rewards Received">_</td>
-            </tr>
+              <td data-title="Total NODES">_</td> */}
+                  <td data-title="Rewards Received">
+                    {item.rewards.toFixed(3)}
+                  </td>
+                </>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
