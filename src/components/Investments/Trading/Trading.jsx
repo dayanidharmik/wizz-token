@@ -16,7 +16,6 @@ function Trading() {
   // Get current posts
   const indexOfLastPost = currentPage * isRewardPerPage;
   const indexOfFirstPost = indexOfLastPost - isRewardPerPage;
-
   const currentRewards = isReward.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
