@@ -19,7 +19,7 @@ function Profile({ totlenode }) {
     e.preventDefault();
     totlenode();
     localStorage.removeItem("details");
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/login");
   };
 

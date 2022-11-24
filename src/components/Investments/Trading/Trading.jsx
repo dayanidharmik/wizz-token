@@ -6,6 +6,28 @@ import toast from "react-hot-toast";
 
 function Trading() {
   const [isReward, setIsReward] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isRewardPerPage, setisRewardPostsPerPage] = useState(10);
+
+  useEffect(() => {
+    RewardsHistory();
+  }, []);
+
+  // Get current posts
+  const indexOfLastPost = currentPage * isRewardPerPage;
+  const indexOfFirstPost = indexOfLastPost - isRewardPerPage;
+
+  const currentRewards = isReward.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPaginate = () => setCurrentPage(currentPage + 1);
+  const prevPaginate = () => setCurrentPage(currentPage - 1);
+
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(isReward?.length / isRewardPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   const { encryptData, decryptData } = useEncryption();
 
@@ -25,9 +47,6 @@ function Trading() {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    RewardsHistory();
-  }, []);
   return (
     <>
       <div className="container mx-auto px-10 mt-10 ">
@@ -44,11 +63,11 @@ function Trading() {
           </thead>
 
           <tbody>
-            {isReward.map((item) => (
+            {currentRewards?.reverse()?.map((item) => (
               <tr>
                 <>
                   <td data-title="Date">
-                    {new Date(item.createdAt).toLocaleDateString("en-US", {
+                    {new Date(item?.createdAt)?.toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
@@ -59,13 +78,62 @@ function Trading() {
               <td data-title="Master NODE">_</td>
               <td data-title="Total NODES">_</td> */}
                   <td data-title="Rewards Received">
-                    {item.rewards.toFixed(3)}
+                    {item?.rewards?.toFixed(1)}
                   </td>
                 </>
               </tr>
             ))}
           </tbody>
         </table>
+        {/* Pagination */}
+        <nav
+          aria-label="Page navigation "
+          className="text-white flex justify-end items-center"
+        >
+          <ul className="inline-flex space-x-2">
+            <li>
+              <button
+                onClick={() => prevPaginate()}
+                className="flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+            {pageNumbers?.length > 0 &&
+              pageNumbers?.map((i) => (
+                <li key={i}>
+                  <button
+                    className={`w-10 h-10 transition-colors duration-150 rounded-full focus:shadow-outline  ${
+                      currentPage === i ? "bg-[#03014e]" : "hover:bg-[#03014e]"
+                    }`}
+                    onClick={() => paginate(i)}
+                  >
+                    {i}
+                  </button>
+                </li>
+              ))}
+            <li>
+              <button
+                onClick={() => nextPaginate()}
+                className="flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </>
   );

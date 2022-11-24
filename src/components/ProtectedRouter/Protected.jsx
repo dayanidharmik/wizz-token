@@ -5,6 +5,7 @@ import useEncryption from "../EncryptData/EncryptData";
 const useAuth = () => {
   const { decryptData } = useEncryption();
   const getdata = decryptData(localStorage.getItem("details"));
+  console.log("🚀 ~ useAuth ~ getdata", getdata)
   if (getdata?.data?.token) {
     return true;
   } else {

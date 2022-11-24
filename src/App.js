@@ -26,6 +26,8 @@ function App() {
   const navigate = useNavigate();
   const { encryptData, decryptData } = useEncryption();
   const getdata = decryptData(localStorage.getItem("details"));
+  console.log("🚀 ~ App ~ getdata", getdata)
+
   const [totlenode, settotlenode] = useState();
   const location = useLocation();
   const { pathname } = location;
