@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./coming-soon.css";
 import wizzlogo from "../../img/wizz-logo.png";
+import VideoPicture from "../../assets/Video/Wizz-Video.mp4";
 
 function CommingSoon({ setpopup }) {
   const [Timedays, Setday] = useState("00");
   const [TimeHours, SetHours] = useState("00");
   const [Timeminutes, Setminutes] = useState("00");
   const [Timeseconds, Setseconds] = useState("00");
+  const [christmas, setChristmas] = useState(true);
 
   let interval = useRef();
 
@@ -43,6 +45,11 @@ function CommingSoon({ setpopup }) {
     };
   });
 
+  const closeChrismas = () => {
+    setChristmas(false);
+    setpopup(true);
+  };
+
   return (
     <>
       <div className="  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur px-3 ">
@@ -53,6 +60,7 @@ function CommingSoon({ setpopup }) {
           >
             <i className="fa-sharp fa-solid fa-xmark text-xl"></i>
           </div>
+
           <div className="animation-container  ">
             <div className="y-axis-container">
               <div className="container">
@@ -110,6 +118,21 @@ function CommingSoon({ setpopup }) {
           </div>
         </div>
       </div>
+      {christmas && (
+        <div className="  z-50 flex justify-center items-center mx-auto fixed top-0 right-0 bottom-0 left-0 backdrop-blur px-3 ">
+          <div className="max-w-xl  py-10 rounded-xl relative  border-2 border-[#B90B11] bg-[#B90B11] ">
+            <div
+              className=" cursor-pointer outline-none border-none absolute top-0 right-0 mt-4 mr-5 text-[#CFD6FE] transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+              onClick={(e) => closeChrismas()}
+            >
+              <i className="fa-sharp fa-solid fa-xmark text-xl"></i>
+            </div>
+            <video autoPlay loop playsinline muted src={VideoPicture}>
+              <source src={VideoPicture} type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -20,13 +20,12 @@ import instance from "./components/BaseUrl/BaseUrl";
 import toast from "react-hot-toast";
 import Profile from "./components/Profile/Profile";
 import Protected from "./components/ProtectedRouter/Protected";
-import CommingSoon from "./components/Dashboard/CommingSoon/CommingSoon";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   const navigate = useNavigate();
   const { encryptData, decryptData } = useEncryption();
   const getdata = decryptData(localStorage.getItem("details"));
-  console.log("🚀 ~ App ~ getdata", getdata)
+  console.log("🚀 ~ App ~ getdata", getdata);
 
   const [totlenode, settotlenode] = useState();
   const location = useLocation();
