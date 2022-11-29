@@ -75,7 +75,7 @@ function Referral() {
                 Referral Code : {getDetelis?.data?.userData?.username}
                 <div
                   onClick={() => {
-                    navigator.clipboard.writeText(
+                    navigator?.clipboard?.writeText(
                       getDetelis?.data?.userData?.username
                     );
                     toast.success("Copied successfully");

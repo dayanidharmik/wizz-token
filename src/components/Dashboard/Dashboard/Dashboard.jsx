@@ -50,25 +50,6 @@ function Dashboard({ totlenode }) {
     }
   };
 
-  // =======claim data========
-  const claim = [
-    {
-      id: 0,
-      card: 0,
-      img: home,
-    },
-    {
-      id: 1,
-      card: "0",
-      img: thounder,
-    },
-    {
-      id: 2,
-      card: "0",
-      img: king,
-    },
-  ];
-
   // =======mynode data========
   const mynode = [
     {
@@ -475,6 +456,8 @@ function Dashboard({ totlenode }) {
     setValue(value);
   };
 
+  const [isReward, setIsReward] = useState([]);
+
   //======== increment Quantity========
   function increment() {
     //setCount(prevCount => prevCount+=1);
@@ -484,6 +467,25 @@ function Dashboard({ totlenode }) {
       }
     });
   }
+
+  // =======claim data========
+  const claim = [
+    {
+      id: 0,
+      card: `${isReward?.userData?.rewards?.toFixed(0) || 0}`,
+      img: home,
+    },
+    {
+      id: 1,
+      card: "0",
+      img: thounder,
+    },
+    {
+      id: 2,
+      card: "0",
+      img: king,
+    },
+  ];
   // ==============decrement Quantity=========================
   function decrement() {
     setValue(function (prevCount) {
@@ -565,6 +567,19 @@ function Dashboard({ totlenode }) {
     } catch (err) {}
   };
 
+  const Rewards = async () => {
+    try {
+      const result = await instance.get("/rewards");
+      const results = decryptData(result.data.data);
+      console.log("🚀 ~ Rewards ~ results", results);
+      setIsReward(results.data);
+      if (results.status) {
+        toast.success(results.message);
+      } else {
+        toast.error(results.message);
+      }
+    } catch (err) {}
+  };
   // ==============addWallet API=========
   const addWallet = async (wallet) => {
     try {
@@ -598,6 +613,7 @@ function Dashboard({ totlenode }) {
       nodeSupplies();
       getPrice();
       remainingNodes();
+      Rewards();
       effectCalled.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -611,7 +627,7 @@ function Dashboard({ totlenode }) {
           <MainTitle title={"Dashboard"} />
         </div>
 
-        {/* {popup && <CommingSoon setpopup={setpopup} />} */}
+        {popup && <CommingSoon setpopup={setpopup} />}
 
         <div className="px-10 gap-5 xl:grid grid-cols-3 place-content-center mx-auto mt-4  hidden  ">
           <div className="nodetype-bg  rounded-2xl p-5">
@@ -623,11 +639,13 @@ function Dashboard({ totlenode }) {
                 <Button btn={"Claim All"} />
               </Link>
             </div>
-            <div className="text-[55px] text-color font-bold mt-2">0.000</div>
+            <div className="text-[55px] text-color font-bold mt-2">
+              {isReward?.userData?.rewards?.toFixed(3) || 0}
+            </div>
             <div className="flex justify-start items-center gap-5 mt-2">
               {claim?.map((index, key) => (
                 <>
-                  <div className="Rewards rounded-lg ">
+                  <div className="Rewards rounded-lg " key={key}>
                     <div
                       className="   p-4 gap-5 flex justify-center items-center flex-col"
                       key={index.id}
@@ -681,7 +699,9 @@ function Dashboard({ totlenode }) {
                 <Button btn={"View Nodes"} />
               </Link>
             </div>
-            <div className="text-[55px]  font-bold mt-2 text-color">{totlenode === undefined ? 0 : totlenode}</div>
+            <div className="text-[55px]  font-bold mt-2 text-color">
+              {totlenode === undefined ? 0 : totlenode}
+            </div>
             <div className="flex justify-start items-center gap-5 mt-2">
               {mynode?.map((index) => (
                 <>
@@ -712,7 +732,7 @@ function Dashboard({ totlenode }) {
                 </Link>
               </div>
               <div className="md:text-[55px] text-[40px] text-center md:text-start text-color font-bold  ">
-                <p>0.000</p>
+                <p>{isReward?.userData?.rewards?.toFixed(2)}</p>
               </div>
               <div className="flex justify-center md:justify-start flex-wrap items-center gap-5 mt-2">
                 {claim?.map((index, key) => (
