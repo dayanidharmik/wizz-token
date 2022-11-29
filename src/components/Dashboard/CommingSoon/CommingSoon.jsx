@@ -71,7 +71,7 @@ function CommingSoon({ setpopup }) {
             <div className="shadow" />
             <div
               className="money-text-loading"
-              data-loading-text="LoadingTier3..."
+              data-loading-text="LoadingTier4..."
             />
           </div>
 

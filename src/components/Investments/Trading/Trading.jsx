@@ -16,7 +16,7 @@ function Trading() {
   // Get current posts
   const indexOfLastPost = currentPage * isRewardPerPage;
   const indexOfFirstPost = indexOfLastPost - isRewardPerPage;
-  const currentRewards = isReward.slice(indexOfFirstPost, indexOfLastPost);
+  const currentRewards = isReward?.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -24,7 +24,7 @@ function Trading() {
   const prevPaginate = () => setCurrentPage(currentPage - 1);
 
   const pageNumbers = [];
-  for (let i = 1; i < Math.ceil(isReward?.length / isRewardPerPage); i++) {
+  for (let i = 1; i < Math?.ceil(isReward?.length / isRewardPerPage); i++) {
     pageNumbers.push(i);
   }
 
